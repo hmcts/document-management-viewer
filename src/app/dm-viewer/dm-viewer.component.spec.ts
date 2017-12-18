@@ -5,6 +5,9 @@ import { PdfViewerComponent} from './pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {DebugElement} from '@angular/core';
+import {SessionService} from '../auth/session.service';
+import {AppModule} from '../app.module';
+import {CookieService} from 'angular2-cookie/core';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -12,18 +15,24 @@ const jwt = '12345';
 describe('DmViewerComponent', () => {
   let component: DmViewerComponent;
   let httpMock: HttpTestingController;
+  let sessionService: SessionService;
   let fixture: ComponentFixture<DmViewerComponent>;
   let element: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
-      declarations: [ DmViewerComponent, PdfViewerComponent ]
+      declarations: [ DmViewerComponent, PdfViewerComponent ],
+      providers: [SessionService, CookieService]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    sessionService = TestBed.get(SessionService);
+    sessionService.createSession({
+      token: jwt
+    });
     httpMock = TestBed.get(HttpTestingController);
     fixture = TestBed.createComponent(DmViewerComponent);
     component = fixture.componentInstance;

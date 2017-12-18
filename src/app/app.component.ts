@@ -8,14 +8,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   url: string;
-  jwt: string;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
         this.url = params.url;
-        this.jwt = params.jwt;
       });
   }
 }

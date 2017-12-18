@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {SessionService} from '../auth/session.service';
 
 @Component({
   selector: 'app-dm-viewer',
@@ -9,15 +10,16 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class DmViewerComponent implements OnInit {
 
   @Input() url: string;
-  @Input() jwt: string;
   // todo make a class
+  jwt: string;
   mimeType: string;
   binaryUrl: string;
   docName: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sessionService: SessionService) { }
 
   ngOnInit() {
+    this.jwt = this.sessionService.getSession().token;
     if (!this.url || !this.jwt) {
       throw new Error('url and jwt token are required arguments');
     }
