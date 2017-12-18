@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-dm-viewer',
   templateUrl: './dm-viewer.component.html',
-  styleUrls: ['./dm-viewer.component.css']
+  styleUrls: ['./dm-viewer.component.scss']
 })
 export class DmViewerComponent implements OnInit {
 

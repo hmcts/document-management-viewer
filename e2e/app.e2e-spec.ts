@@ -6,5 +6,5 @@ describe('dm-viewer App', () => {
   beforeEach(() => {
     page = new AppPage();
   });
-  
+
 });
