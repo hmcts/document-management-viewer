@@ -1,5 +1,7 @@
 # DmViewer
 
+[![Build Status](https://travis-ci.org/hmcts/document-management-viewer.svg?branch=travis)](https://travis-ci.org/hmcts/document-management-viewer)
+
 This project is a viewer front end component for the Document Management service.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
