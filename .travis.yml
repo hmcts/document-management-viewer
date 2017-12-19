@@ -27,7 +27,7 @@ script:
   - yarn setup
   - yarn lint
   - yarn test:nsp-warn
-  - yarn test --single-run=true
+  - yarn test
 #  - yarn test:routes
 #  - yarn test:a11y
 #  - yarn test:coverage
