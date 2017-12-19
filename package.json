@@ -5,8 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "setup": "echo 'setup not implemented'",
     "build": "ng build",
     "test": "ng test",
+    "test:nsp-warn": "echo 'nsp:warn not implemented'",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

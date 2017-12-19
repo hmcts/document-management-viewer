@@ -17,7 +17,7 @@
 .settings/
 *.sublime-workspace
 *.iml
-
+yarn-error.log
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

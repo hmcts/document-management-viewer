@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "node"
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+script:
+  - yarn --version
+  - yarn install
+  - yarn setup
+  - yarn lint
+  - yarn test:nsp-warn
+  - yarn test --single-run=true
+#  - yarn test:routes
+#  - yarn test:a11y
+#  - yarn test:coverage
+after_success:
+#  - yarn test:codacy-upload
+#  - yarn test:codecov-upload
