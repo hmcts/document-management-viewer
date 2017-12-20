@@ -51,11 +51,30 @@ node {
       sh 'yarn lint'
     }
 
-    stage('Test') {
-      sh "yarn test"
+    stage('Node security check') {
+      try {
+        sh 'yarn test:nsp'
+      } catch (Throwable e) {
+        def errors = sh(script: 'yarn test:nsp-warn', returnStdout: true)
+        slackSend(
+          channel: channel,
+          color: 'danger',
+          message: "${env.JOB_NAME}:  <${env.BUILD_URL}console|Build ${env.BUILD_DISPLAY_NAME}> has vunerabilities: ${errors}")
+
+      }finally{
+//                need to generate a nsp report somehow
+      }
     }
 
-    // Will add more stuff soon...
+    stage('Test') {
+      sh "yarn test:coverage"
+    }
+
+    if ("master" == "${env.BRANCH_NAME}") {
+      stage('Sonar') {
+        sh "yarn sonar-scan -Dsonar.host.url=$SONARQUBE_URL"
+      }
+    }
 
     notifyBuildFixed channel: channel
 
