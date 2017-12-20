@@ -58,15 +58,15 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2[data-hook="dm.viewer.docName"').textContent).toEqual('image.jpeg');
+      expect(element.nativeElement.querySelector('h2').textContent).toEqual('image.jpeg');
     });
 
     it('should use an img tag', () => {
-      expect(element.nativeElement.querySelector('img[data-hook="dm.viewer.img"')).toBeTruthy();
+      expect(element.nativeElement.querySelector('img')).toBeTruthy();
     });
 
     it('and pdf element should not be visible', () => {
-      expect(element.nativeElement.querySelector('app-pdf-viewer[data-hook="dm.viewer.pdf"')).not.toBeTruthy();
+      expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
     });
   });
 
@@ -86,15 +86,15 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2[data-hook="dm.viewer.docName"').textContent).toEqual('cert.pdf');
+      expect(element.nativeElement.querySelector('h2').textContent).toEqual('cert.pdf');
     });
 
     it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img[data-hook="dm.viewer.img"')).not.toBeTruthy();
+      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
     });
 
     it('pdf element should be visible', () => {
-      expect(element.nativeElement.querySelector('app-pdf-viewer[data-hook="dm.viewer.pdf"')).toBeTruthy();
+      expect(element.nativeElement.querySelector('app-pdf-viewer')).toBeTruthy();
     });
   });
 
@@ -114,20 +114,20 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2[data-hook="dm.viewer.docName"').textContent).toEqual('plain.txt');
+      expect(element.nativeElement.querySelector('h2').textContent).toEqual('plain.txt');
     });
 
     it('should show a message with link to download', () => {
-      expect(element.nativeElement.querySelector('p[data-hook="dm.viewer.unsupported"').innerHTML)
+      expect(element.nativeElement.querySelector('p').innerHTML)
         .toContain(`${url}/binary`);
     });
 
     it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img[data-hook="dm.viewer.img"')).not.toBeTruthy();
+      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
     });
 
     it('pdf element should not be visible', () => {
-      expect(element.nativeElement.querySelector('app-pdf-viewer[data-hook="dm.viewer.pdf"')).not.toBeTruthy();
+      expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
     });
   });
 });
