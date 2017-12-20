@@ -1,6 +1,8 @@
 # DmViewer
 
 [![Build Status](https://travis-ci.org/hmcts/document-management-viewer.svg?branch=travis)](https://travis-ci.org/hmcts/document-management-viewer)
+[![codecov](https://codecov.io/gh/hmcts/document-management-viewer/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/document-management-viewer)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb30eeb6551b40fd95494c3f2397707b)](https://www.codacy.com/app/Louisblack/document-management-viewer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hmcts/document-management-viewer&amp;utm_campaign=Badge_Grade)
 
 This project is a viewer front end component for the Document Management service.
 
