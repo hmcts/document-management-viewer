@@ -21,11 +21,11 @@ import uk.gov.hmcts.Versioner
 
 String channel = '#dm-pipeline'
 
-def product = "dm"
+def product = "evidence"
 def app = "document-management-viewer"
 def artifactorySourceRepo = "evidence-local"
 
-def ansible = new Ansible(this, product)
+def ansible = new Ansible(this, "dm")
 def artifactory = new Artifactory(this)
 def packager = new Packager(this, product)
 def versioner = new Versioner(this)
