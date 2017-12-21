@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "http-server dist",
+    "start": "node server.js",
     "start-dev": "ng serve",
     "setup": "echo 'setup not implemented'",
     "build": "ng build",
@@ -33,9 +33,10 @@
     "codacy-coverage": "^2.0.3",
     "codecov": "^3.0.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
     "govuk-elements-sass": "^3.1.2",
     "govuk_template_jinja": "^0.23.0",
-    "http-server": "^0.10.0",
+    "http": "^0.0.0",
     "jwt-decode": "^2.2.0",
     "ng2-pdf-viewer": "^3.0.2",
     "rxjs": "^5.5.2",
@@ -64,8 +65,5 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
-  },
-  "resolutions": {
-    "**/union/qs": "~6.5.1"
   }
 }
