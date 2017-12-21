@@ -76,6 +76,24 @@ node {
       }
     }
 
+    stage('Package') {
+      sh 'yarn build'
+    }
+
+    if ("master" == "${env.BRANCH_NAME}") {
+
+      stage('Package (RPM)') {
+        rpmVersion = packager.nodeRPM(app)
+        version = "{document_management_viewer_version: ${rpmVersion}}"
+      }
+
+      stage('Publish RPM') {
+        packager.publishNodeRPM(app)
+        def rpmName = packager.rpmName(app, rpmVersion)
+        rpmTagger = new RPMTagger(this, app, rpmName, artifactorySourceRepo)
+      }
+    }
+
     notifyBuildFixed channel: channel
 
   } catch (e){
