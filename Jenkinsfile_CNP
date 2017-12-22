@@ -1,0 +1,20 @@
+#!groovy
+
+properties([
+  [
+    $class       : 'GithubProjectProperty',
+    displayName  : 'Evidence Management Viewer',
+    projectUrlStr: 'https://github.com/hmcts/em-viewer-web/'
+  ],
+  pipelineTriggers([
+    [$class: 'GitHubPushTrigger']
+  ])
+])
+
+@Library("Infrastructure") _
+
+def type = "nodejs"
+def product = "em"
+def component = "em-viewer-web"
+
+withPipeline(type, product, component) {}
