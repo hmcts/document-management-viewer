@@ -1,4 +1,5 @@
 FROM node:8.1.4
+LABEL maintainer="evidence management"
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
