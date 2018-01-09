@@ -1,7 +1,6 @@
 version: '2.1'
 
 services:
-  # TODO: change this name to match the name of your app
   viewer:
     build:
       context: .
@@ -9,7 +8,6 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: docker.artifactory.reform.hmcts.net/evidence/viewer:latest
     environment:
     - NODE_ENV=development
     - PORT=8080
