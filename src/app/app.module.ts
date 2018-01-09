@@ -8,6 +8,7 @@ import {IdamGuard} from './auth/idam.guard';
 import { AppComponent } from './app.component';
 import { DmViewerComponent } from './dm-viewer/dm-viewer.component';
 import { PdfViewerComponent } from './dm-viewer/pdf-viewer/pdf-viewer.component';
+import { ImgViewerComponent } from './dm-viewer/img-viewer/img-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {AppConfig} from './app.config';
 import {Http, HttpModule} from '@angular/http';
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DmViewerComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    ImgViewerComponent
   ],
   imports: [
     RouterModule.forRoot(

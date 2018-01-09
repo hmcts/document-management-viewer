@@ -8,6 +8,7 @@ import {DebugElement} from '@angular/core';
 import {SessionService} from '../auth/session.service';
 import {AppModule} from '../app.module';
 import {CookieService} from 'angular2-cookie/core';
+import {ImgViewerComponent} from './img-viewer/img-viewer.component';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -22,7 +23,7 @@ describe('DmViewerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
-      declarations: [ DmViewerComponent, PdfViewerComponent ],
+      declarations: [ DmViewerComponent, PdfViewerComponent, ImgViewerComponent ],
       providers: [SessionService, CookieService]
     })
     .compileComponents();
@@ -61,8 +62,8 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('h2').textContent).toEqual('image.jpeg');
     });
 
-    it('should use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).toBeTruthy();
+    it('img element should be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).toBeTruthy();
     });
 
     it('and pdf element should not be visible', () => {
@@ -89,8 +90,8 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('h2').textContent).toEqual('cert.pdf');
     });
 
-    it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
     });
 
     it('pdf element should be visible', () => {
@@ -122,8 +123,8 @@ describe('DmViewerComponent', () => {
         .toContain(`${url}/binary`);
     });
 
-    it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
     });
 
     it('pdf element should not be visible', () => {
