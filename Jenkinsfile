@@ -92,6 +92,15 @@ node {
         def rpmName = packager.rpmName(app, rpmVersion)
         rpmTagger = new RPMTagger(this, app, rpmName, artifactorySourceRepo)
       }
+
+      stage('Publish Docker') {
+        dockerImage imageName: "evidence/${app}", pushToLatestOnMaster: true
+      }
+
+      stage ('Deploy and Test on Dev') {
+        ansible.run("{}", "dev", "install_vw_web.yml", "viewer-infra")
+        ansible.run("{}", "dev", "deploy_vw_web.yml", "viewer-infra")
+      }
     }
 
     notifyBuildFixed channel: channel
