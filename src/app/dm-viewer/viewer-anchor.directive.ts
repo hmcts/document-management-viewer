@@ -1,7 +1,7 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[viewer-anchor]',
+  selector: '[appViewerAnchor]',
 })
 export class ViewerAnchorDirective {
   constructor(public viewContainerRef: ViewContainerRef) { }

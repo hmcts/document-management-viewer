@@ -7,38 +7,36 @@ import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewe
 @Injectable()
 export class ViewerFactoryService {
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
-
-  buildViewer(documentMetaData, viewContainerRef: ViewContainerRef): ComponentRef<Viewer> {
-
-    let componentFactory =
-      this.componentFactoryResolver.resolveComponentFactory(this.determineComponent(documentMetaData.mimeType));
-
-    viewContainerRef.clear();
-
-    let componentRef: ComponentRef<Viewer> = viewContainerRef.createComponent(componentFactory);
-    (<Viewer>componentRef.instance).url = documentMetaData._links.binary.href;
-    return componentRef;
-  }
-  private determineComponent(mimeType: string) {
-    if (this.isImage(mimeType)) {
+  private static determineComponent(mimeType: string) {
+    if (ViewerFactoryService.isImage(mimeType)) {
       return ImgViewerComponent;
     }
-    if (this.isPdf(mimeType)) {
-      return PdfViewerComponent
+    if (ViewerFactoryService.isPdf(mimeType)) {
+      return PdfViewerComponent;
     }
     return UnsupportedViewerComponent;
   }
 
-  private isImage(mimeType: String) {
+  private static isImage(mimeType: String) {
     return mimeType.startsWith('image/');
   }
 
-  private isPdf(mimeType: String) {
+  private static isPdf(mimeType: String) {
     return mimeType === 'application/pdf';
   }
 
-  private isUnsupported(mimeType: String) {
-    return !this.isImage(mimeType) && !this.isPdf(mimeType);
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  buildViewer(documentMetaData, viewContainerRef: ViewContainerRef) {
+    const componentToBuild =
+      ViewerFactoryService.determineComponent(documentMetaData.mimeType);
+    const componentFactory =
+      this.componentFactoryResolver.resolveComponentFactory(componentToBuild);
+
+    viewContainerRef.clear();
+
+    const componentRef: ComponentRef<Viewer> = viewContainerRef.createComponent(componentFactory);
+    (<Viewer>componentRef.instance).url = documentMetaData._links.binary.href;
   }
+
 }

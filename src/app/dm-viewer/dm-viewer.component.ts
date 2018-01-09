@@ -16,7 +16,6 @@ export class DmViewerComponent implements OnInit {
   // todo make a class
   jwt: string;
   mimeType: string;
-  binaryUrl: string;
   docName: string;
 
   constructor(private http: HttpClient,
@@ -35,20 +34,8 @@ export class DmViewerComponent implements OnInit {
       .subscribe(resp => {
         if (resp && resp._links) {
           this.docName = resp.originalDocumentName;
-          this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef)
+          this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
         }
       });
-  }
-
-  isImage(mimeType: String) {
-    return mimeType.startsWith('image/');
-  }
-
-  isPdf(mimeType: String) {
-    return mimeType === 'application/pdf';
-  }
-
-  isUnsupported(mimeType: String) {
-    return !this.isImage(mimeType) && !this.isPdf(mimeType);
   }
 }
