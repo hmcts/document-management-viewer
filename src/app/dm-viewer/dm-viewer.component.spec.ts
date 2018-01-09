@@ -9,6 +9,10 @@ import {SessionService} from '../auth/session.service';
 import {AppModule} from '../app.module';
 import {CookieService} from 'angular2-cookie/core';
 import {ImgViewerComponent} from './img-viewer/img-viewer.component';
+import {ViewerAnchorDirective} from './viewer-anchor.directive';
+import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
+import {ViewerFactoryService} from './viewer-factory.service';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -21,12 +25,19 @@ describe('DmViewerComponent', () => {
   let element: DebugElement;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    const testingModule = TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
-      declarations: [ DmViewerComponent, PdfViewerComponent, ImgViewerComponent ],
-      providers: [SessionService, CookieService]
-    })
-    .compileComponents();
+      declarations: [DmViewerComponent, PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent, ViewerAnchorDirective],
+      providers: [SessionService, CookieService, ViewerFactoryService]
+    });
+
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent]
+      }
+    });
+
+    testingModule.compileComponents();
   }));
 
   beforeEach(() => {
