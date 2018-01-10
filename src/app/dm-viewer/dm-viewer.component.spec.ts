@@ -8,6 +8,11 @@ import {DebugElement} from '@angular/core';
 import {SessionService} from '../auth/session.service';
 import {AppModule} from '../app.module';
 import {CookieService} from 'angular2-cookie/core';
+import {ImgViewerComponent} from './img-viewer/img-viewer.component';
+import {ViewerAnchorDirective} from './viewer-anchor.directive';
+import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
+import {ViewerFactoryService} from './viewer-factory.service';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -20,12 +25,19 @@ describe('DmViewerComponent', () => {
   let element: DebugElement;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    const testingModule = TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
-      declarations: [ DmViewerComponent, PdfViewerComponent ],
-      providers: [SessionService, CookieService]
-    })
-    .compileComponents();
+      declarations: [DmViewerComponent, PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent, ViewerAnchorDirective],
+      providers: [SessionService, CookieService, ViewerFactoryService]
+    });
+
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent]
+      }
+    });
+
+    testingModule.compileComponents();
   }));
 
   beforeEach(() => {
@@ -61,8 +73,8 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('h2').textContent).toEqual('image.jpeg');
     });
 
-    it('should use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).toBeTruthy();
+    it('img element should be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).toBeTruthy();
     });
 
     it('and pdf element should not be visible', () => {
@@ -89,8 +101,8 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('h2').textContent).toEqual('cert.pdf');
     });
 
-    it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
     });
 
     it('pdf element should be visible', () => {
@@ -122,8 +134,8 @@ describe('DmViewerComponent', () => {
         .toContain(`${url}/binary`);
     });
 
-    it('should not use an img tag', () => {
-      expect(element.nativeElement.querySelector('img')).not.toBeTruthy();
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
     });
 
     it('pdf element should not be visible', () => {

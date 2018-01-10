@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SessionService} from '../auth/session.service';
+import {ViewerAnchorDirective} from './viewer-anchor.directive';
+import {ViewerFactoryService} from './viewer-factory.service';
 
 @Component({
   selector: 'app-dm-viewer',
@@ -9,14 +11,16 @@ import {SessionService} from '../auth/session.service';
 })
 export class DmViewerComponent implements OnInit {
 
+  @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;
   // todo make a class
   jwt: string;
   mimeType: string;
-  binaryUrl: string;
   docName: string;
 
-  constructor(private http: HttpClient, private sessionService: SessionService) { }
+  constructor(private http: HttpClient,
+              private sessionService: SessionService,
+              private viewerFactoryService: ViewerFactoryService) { }
 
   ngOnInit() {
     this.jwt = this.sessionService.getSession().token;
@@ -29,22 +33,9 @@ export class DmViewerComponent implements OnInit {
     this.http.get<any>(`${this.url}?jwt=${this.jwt}`, httpOptions)
       .subscribe(resp => {
         if (resp && resp._links) {
-          this.mimeType = resp.mimeType;
           this.docName = resp.originalDocumentName;
-          this.binaryUrl = resp._links.binary.href;
+          this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
         }
       });
-  }
-
-  isImage(mimeType: String) {
-    return mimeType.startsWith('image/');
-  }
-
-  isPdf(mimeType: String) {
-    return mimeType === 'application/pdf';
-  }
-
-  isUnsupported(mimeType: String) {
-    return !this.isImage(mimeType) && !this.isPdf(mimeType);
   }
 }
