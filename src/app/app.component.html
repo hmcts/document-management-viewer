@@ -1,1 +1,6 @@
-<app-dm-viewer *ngIf="url" [url]="url"></app-dm-viewer>
+<app-dm-viewer *ngIf="url;else no_url" [url]="url" class="content"></app-dm-viewer>
+<ng-template #no_url >
+  <div class="content">
+    <p>No document URL has been provided to the Document Viewer</p>
+  </div>
+</ng-template>
