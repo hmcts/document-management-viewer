@@ -143,4 +143,30 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
     });
   });
+
+  describe('when the server returns an error', () => {
+    beforeEach(() => {
+      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const mockErrorResponse = {
+        status: 404, statusText: 'Not Found'
+      };
+      const data = 'Invalid request parameters';
+      req.flush(data, mockErrorResponse);
+      fixture.detectChanges();
+    });
+
+    it('should display an error with the status', () => {
+      expect(element.nativeElement.querySelector('.error-message').textContent).toContain('404');
+    });
+
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
+    });
+
+    it('pdf element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
+    });
+
+  });
+
 });

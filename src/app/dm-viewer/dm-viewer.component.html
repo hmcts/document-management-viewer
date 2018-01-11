@@ -1,3 +1,5 @@
 <h2 *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h2>
 
 <ng-template appViewerAnchor></ng-template>
+
+<p *ngIf="error" class="error-message">There was an error while loading your document. Response status was {{error.status}}.</p>
