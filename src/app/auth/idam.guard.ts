@@ -38,11 +38,9 @@ export class IdamGuard implements CanActivate {
             myQueryParams[param] = activatedRouteSnapshot.queryParams[param];
           }
         }
-        if (activatedRouteSnapshot.firstChild != null && activatedRouteSnapshot.firstChild.url.length > 0) {
-          this.router.navigate([activatedRouteSnapshot.firstChild.url.join('/')], {
-            queryParams:  myQueryParams
-          });
-        }
+        this.router.navigate(['/'], {
+          queryParams:  myQueryParams
+        });
       } catch (e) {
         console.log(e);
       }
