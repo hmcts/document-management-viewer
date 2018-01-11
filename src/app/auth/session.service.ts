@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { JwtService } from './jwt.service';
+import {WindowService} from '../utils/window.service';
 
 @Injectable()
 export class SessionService {
@@ -8,7 +9,8 @@ export class SessionService {
   public static readonly KEY = '__dm-viewer-token';
   public static readonly SESSION_LIFESPAN: number = 8 * 60 * 60 * 1000;
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService,
+              private windowService: WindowService) {}
 
   createSession(authToken: object) {
     const expiresAt: Date = new Date();
@@ -40,5 +42,10 @@ export class SessionService {
       }
     }
     return null;
+  }
+
+  clearSession() {
+    this.cookieService.remove(SessionService.KEY);
+    this.windowService.reload();
   }
 }

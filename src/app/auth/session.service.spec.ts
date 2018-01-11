@@ -1,6 +1,7 @@
 import { SessionService } from './session.service';
 import { CookieService } from 'angular2-cookie/core';
 import { JwtService } from './jwt.service';
+import {WindowService} from '../utils/window.service';
 
 describe('SessionService', () => {
 
@@ -19,13 +20,18 @@ describe('SessionService', () => {
   let sessionService: SessionService;
 
   let cookieService: any;
+  let windowService: any;
 
   beforeEach(() => {
     cookieService = jasmine.createSpyObj<CookieService>('cookieService', [
       'getObject',
-      'putObject'
+      'putObject',
+      'remove'
     ]);
-    sessionService = new SessionService(cookieService);
+    windowService = jasmine.createSpyObj<WindowService>('windowService', [
+      'reload'
+    ]);
+    sessionService = new SessionService(cookieService, windowService);
   });
 
   describe('createSession', () => {
@@ -78,4 +84,16 @@ describe('SessionService', () => {
     });
 
   });
+
+
+  describe('clearSession', () => {
+    it('should be clear the session', () => {
+      sessionService.clearSession();
+
+      expect(windowService.reload).toHaveBeenCalled();
+      expect(cookieService.remove).toHaveBeenCalled();
+    });
+
+  });
+
 });
