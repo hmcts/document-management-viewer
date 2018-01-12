@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {SessionService} from './auth/session.service';
 
 @Component({
@@ -10,8 +10,7 @@ import {SessionService} from './auth/session.service';
 export class AppComponent implements OnInit {
   url: string;
   constructor(private route: ActivatedRoute,
-              private sessionService: SessionService,
-              private router: Router) { }
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.route.queryParams
