@@ -13,6 +13,7 @@ import {ViewerAnchorDirective} from './viewer-anchor.directive';
 import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
 import {ViewerFactoryService} from './viewer-factory.service';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import {WindowService} from '../utils/window.service';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -28,7 +29,7 @@ describe('DmViewerComponent', () => {
     const testingModule = TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
       declarations: [DmViewerComponent, PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent, ViewerAnchorDirective],
-      providers: [SessionService, CookieService, ViewerFactoryService]
+      providers: [SessionService, CookieService, ViewerFactoryService, WindowService]
     });
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
@@ -142,4 +143,30 @@ describe('DmViewerComponent', () => {
       expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
     });
   });
+
+  describe('when the server returns an error', () => {
+    beforeEach(() => {
+      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const mockErrorResponse = {
+        status: 404, statusText: 'Not Found'
+      };
+      const data = 'Invalid request parameters';
+      req.flush(data, mockErrorResponse);
+      fixture.detectChanges();
+    });
+
+    it('should display an error with the status', () => {
+      expect(element.nativeElement.querySelector('.error-message').textContent).toContain('404');
+    });
+
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
+    });
+
+    it('pdf element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
+    });
+
+  });
+
 });

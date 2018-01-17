@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {SessionService} from './auth/session.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,17 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   url: string;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
         this.url = params.url;
       });
+  }
+
+  logout() {
+    this.sessionService.clearSession();
   }
 }

@@ -83,7 +83,7 @@ describe('IdamGuard', () => {
       };
       guard.canActivate(routeSpy);
 
-      expect(routeService.navigate).toHaveBeenCalledWith(['create/case'], filteredQueryParams);
+      expect(routeService.navigate).toHaveBeenCalledWith(['/'], filteredQueryParams);
     });
 
     it('should proceed to route when session active', () => {
