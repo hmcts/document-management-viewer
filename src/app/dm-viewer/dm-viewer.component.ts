@@ -14,6 +14,7 @@ export class DmViewerComponent implements OnInit {
 
   @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;
+  @Input() annotate: boolean;
   // todo make a class
   jwt: string;
   mimeType: string;

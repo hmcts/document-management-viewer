@@ -8,12 +8,15 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   url: string;
+  annotate: boolean;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
         this.url = params.url;
+        this.annotate = params.annotate === 'true';
       });
   }
 }

@@ -7,4 +7,14 @@
   <a (click)="viewerComponent.prevPage()">Previous</a>
   <a (click)="viewerComponent.nextPage()">Next</a>
 </div>
-<ng-template appViewerAnchor></ng-template>
+
+<div [ngClass]="{'viewer--full-width': !annotate,
+                 'viewer--with-notes': annotate && viewerComponent && viewerComponent.numPages > 0,
+                 'viewer': true}">
+  <ng-template appViewerAnchor></ng-template>
+</div>
+
+<app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
+           class="notes"
+           [page]="viewerComponent.page">
+</app-notes>

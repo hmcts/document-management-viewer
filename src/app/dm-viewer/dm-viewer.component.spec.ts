@@ -13,6 +13,8 @@ import {ViewerAnchorDirective} from './viewer-anchor.directive';
 import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
 import {ViewerFactoryService} from './viewer-factory.service';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import {NotesComponent} from './notes/notes.component';
+import {FormsModule} from '@angular/forms';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -26,8 +28,14 @@ describe('DmViewerComponent', () => {
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [PdfViewerModule, HttpClientTestingModule],
-      declarations: [DmViewerComponent, PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent, ViewerAnchorDirective],
+      imports: [PdfViewerModule, HttpClientTestingModule, FormsModule],
+      declarations: [
+        DmViewerComponent,
+        PdfViewerComponent,
+        ImgViewerComponent,
+        NotesComponent,
+        UnsupportedViewerComponent,
+        ViewerAnchorDirective],
       providers: [SessionService, CookieService, ViewerFactoryService]
     });
 
