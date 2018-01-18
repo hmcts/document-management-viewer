@@ -1,3 +1,10 @@
 <h2 *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h2>
 
+<div *ngIf="viewerComponent && viewerComponent.numPages > 1">
+  <p>
+    Showing page {{viewerComponent.page + 1}} of {{viewerComponent.numPages}}.
+  </p>
+  <a (click)="viewerComponent.prevPage()">Previous</a>
+  <a (click)="viewerComponent.nextPage()">Next</a>
+</div>
 <ng-template appViewerAnchor></ng-template>

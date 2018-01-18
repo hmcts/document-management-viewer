@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SessionService} from '../auth/session.service';
 import {ViewerAnchorDirective} from './viewer-anchor.directive';
 import {ViewerFactoryService} from './viewer-factory.service';
+import {Viewer} from './viewer';
 
 @Component({
   selector: 'app-dm-viewer',
@@ -17,6 +18,7 @@ export class DmViewerComponent implements OnInit {
   jwt: string;
   mimeType: string;
   docName: string;
+  viewerComponent: Viewer;
 
   constructor(private http: HttpClient,
               private sessionService: SessionService,
@@ -34,7 +36,7 @@ export class DmViewerComponent implements OnInit {
       .subscribe(resp => {
         if (resp && resp._links) {
           this.docName = resp.originalDocumentName;
-          this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
+          this.viewerComponent = this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
         }
       });
   }

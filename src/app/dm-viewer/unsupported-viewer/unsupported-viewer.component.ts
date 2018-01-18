@@ -7,6 +7,9 @@ import {Viewer} from '../viewer';
   styleUrls: ['./unsupported-viewer.component.scss']
 })
 export class UnsupportedViewerComponent implements OnInit, Viewer {
+  page = 0;
+  numPages = 0;
+
 
   @Input() url: string;
 
@@ -14,5 +17,9 @@ export class UnsupportedViewerComponent implements OnInit, Viewer {
 
   ngOnInit() {
   }
+
+  prevPage() {}
+
+  nextPage() {}
 
 }

@@ -37,6 +37,7 @@ export class ViewerFactoryService {
 
     const componentRef: ComponentRef<Viewer> = viewContainerRef.createComponent(componentFactory);
     (<Viewer>componentRef.instance).url = documentMetaData._links.binary.href;
+    return componentRef.instance;
   }
 
 }

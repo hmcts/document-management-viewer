@@ -38,7 +38,7 @@
     "govuk_template_jinja": "^0.23.0",
     "http": "^0.0.0",
     "jwt-decode": "^2.2.0",
-    "ng2-pdf-viewer": "^3.0.2",
+    "ng2-pdf-viewer": "^3.0.6",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
