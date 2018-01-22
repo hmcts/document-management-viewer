@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NotesComponent implements OnInit {
 
-  private _page: string;
+  private _page = 0;
 
   @Input() numPages = 0;
 
@@ -19,7 +19,7 @@ export class NotesComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Input() set page(value: string) {
+  @Input() set page(value: number) {
     this._page = value;
     if (this.notes) {
       if (!this.notes[this._page]) {
@@ -27,6 +27,10 @@ export class NotesComponent implements OnInit {
       }
       this.currentNote = this.notes[this._page];
     }
+  }
+
+  get page(): number {
+    return this._page;
   }
 
   updateNotes() {
