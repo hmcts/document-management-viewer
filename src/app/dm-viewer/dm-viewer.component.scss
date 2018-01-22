@@ -1,6 +1,7 @@
 .viewer {
   margin-left: 1%;
   margin-right: 1%;
+  float: left;
 }
 
 .viewer--full-width {
@@ -9,7 +10,6 @@
 
 .viewer--with-notes {
   width: 65%;
-  float: left;
 }
 
 .notes {

@@ -1,4 +1,4 @@
-<h4>Notes against page {{_page}}</h4>
+<h4>Notes<span *ngIf="numPages > 1"> against page {{_page}}</span></h4>
 <form>
   <textarea name="currentNote" [(ngModel)]="currentNote"></textarea>
 </form>

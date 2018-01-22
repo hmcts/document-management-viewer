@@ -21,6 +21,7 @@ import {SessionService} from './auth/session.service';
 import { UnsupportedViewerComponent } from './dm-viewer/unsupported-viewer/unsupported-viewer.component';
 import {ViewerFactoryService} from './dm-viewer/viewer-factory.service';
 import { NotesComponent } from './dm-viewer/notes/notes.component';
+import {ImagePipe} from './utils/image-pipe';
 
 const appRoutes: Routes = [
   { path: ':url', canActivate: [IdamGuard], component: DmViewerComponent },
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     UnsupportedViewerComponent,
     ViewerAnchorDirective,
     NotesComponent,
+    ImagePipe
   ],
   entryComponents: [
     PdfViewerComponent,
