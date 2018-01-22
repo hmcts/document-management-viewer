@@ -39,7 +39,8 @@ export class DmViewerComponent implements OnInit {
         resp => {
           if (resp && resp._links) {
             this.docName = resp.originalDocumentName;
-            this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
+            this.viewerComponent =
+              this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
           }
         },
         err => {

@@ -11,7 +11,7 @@ import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 export class PdfViewerComponent implements OnInit, Viewer {
 
   numPages: number;
-  page = 0;
+  page = 1;
   private pdf: PDFDocumentProxy;
 
   @Input() url: string;
@@ -33,13 +33,13 @@ export class PdfViewerComponent implements OnInit, Viewer {
   }
 
   prevPage() {
-    if (this.page > 0) {
+    if (this.page > 1) {
       this.page--;
     }
   }
 
   nextPage() {
-    if (this.page < this.numPages - 1) {
+    if (this.page < this.numPages) {
       this.page ++;
     }
   }
