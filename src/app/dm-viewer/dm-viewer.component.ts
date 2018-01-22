@@ -20,6 +20,7 @@ export class DmViewerComponent implements OnInit {
   mimeType: string;
   docName: string;
   viewerComponent: Viewer;
+  error: string;
 
   constructor(private http: HttpClient,
               private sessionService: SessionService,
@@ -34,11 +35,15 @@ export class DmViewerComponent implements OnInit {
       headers: new HttpHeaders({ 'Authorization': `Bearer ${this.jwt}` })
     };
     this.http.get<any>(`${this.url}?jwt=${this.jwt}`, httpOptions)
-      .subscribe(resp => {
-        if (resp && resp._links) {
-          this.docName = resp.originalDocumentName;
-          this.viewerComponent = this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
-        }
-      });
+      .subscribe(
+        resp => {
+          if (resp && resp._links) {
+            this.docName = resp.originalDocumentName;
+            this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
+          }
+        },
+        err => {
+          this.error = err;
+        });
   }
 }

@@ -18,3 +18,5 @@
            class="notes"
            [page]="viewerComponent.page">
 </app-notes>
+
+<p *ngIf="error" class="error-message">There was an error while loading your document. Response status was {{error.status}}.</p>
