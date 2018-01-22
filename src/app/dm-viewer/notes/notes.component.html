@@ -1,2 +1,4 @@
 <h4>Notes against page {{_page + 1}}</h4>
-<textarea [(ngModel)]="currentNote" (change)="updateNotes($event)"></textarea>
+<form>
+  <textarea name="currentNote" [(ngModel)]="currentNote"></textarea>
+</form>

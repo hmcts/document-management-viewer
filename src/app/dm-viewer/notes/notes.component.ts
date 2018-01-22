@@ -12,7 +12,7 @@ export class NotesComponent implements OnInit {
   @Input() numPages = 0;
 
   notes = [];
-  currentNote = '';
+  private _currentNote = '';
 
   constructor() { }
 
@@ -33,7 +33,12 @@ export class NotesComponent implements OnInit {
     return this._page;
   }
 
-  updateNotes() {
-    this.notes[this._page] = this.currentNote;
+  set currentNote(value: string) {
+    this._currentNote = value;
+    this.notes[this._page] = this._currentNote;
+  }
+
+  get currentNote(): string {
+    return this._currentNote;
   }
 }

@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { NotesComponent } from './notes.component';
-import {beforeEach} from 'selenium-webdriver/testing';
 import {DebugElement} from '@angular/core';
+import {By} from '@angular/platform-browser';
 
 describe('NotesComponent', () => {
   let component: NotesComponent;
@@ -18,12 +18,13 @@ describe('NotesComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(NotesComponent);
     component = fixture.componentInstance;
     element = fixture.debugElement;
+    component.page = 0;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -39,12 +40,41 @@ describe('NotesComponent', () => {
 
   describe('when there is a note against the current page', () => {
     beforeEach(() => {
-      element.nativeElement.querySelector('textarea').textContent = '';
+      component.currentNote = 'A note';
       fixture.detectChanges();
     });
 
+    describe('and we swap to the next page', () => {
+      beforeEach(() => {
+        component.page = 1;
+        fixture.detectChanges();
+      });
+
+      it('should update the current note to a blank note', () => {
+        expect(component.currentNote).toEqual('');
+      });
+
+      describe('when we swap back to the previous page', () => {
+        beforeEach(() => {
+          component.page = 0;
+          fixture.detectChanges();
+        });
+
+        it('should update the current note to the first page note', () => {
+          expect(component.currentNote).toEqual('A note');
+        });
+
+
+      });
+
+    });
 
   });
 
+  function newEvent(eventName: string, bubbles = false, cancelable = false) {
+    const evt = document.createEvent('CustomEvent');  // MUST be 'CustomEvent'
+    evt.initCustomEvent(eventName, bubbles, cancelable, null);
+    return evt;
+  }
 
 });
