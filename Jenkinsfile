@@ -98,21 +98,18 @@ node {
       }
 
       stage ('Deploy on Dev') {
-        ansible.run("{}", "dev", "install_vw_web.yml")
         ansible.run("{}", "dev", "deploy_vw_web.yml")
         rpmTagger.tagDeploymentSuccessfulOn('dev')
 //        rpmTagger.tagTestingPassedOn("dev")
       }
 
       stage ('Deploy on Test') {
-        ansible.run("{}", "test", "install_vw_web.yml")
         ansible.run("{}", "test", "deploy_vw_web.yml")
         rpmTagger.tagDeploymentSuccessfulOn('test')
 //        rpmTagger.tagTestingPassedOn("test")
       }
 
       stage ('Deploy on Demo') {
-        ansible.run("{}", "demo", "install_vw_web.yml")
         ansible.run("{}", "demo", "deploy_vw_web.yml")
         rpmTagger.tagDeploymentSuccessfulOn('demo')
 //        rpmTagger.tagTestingPassedOn("demo")
