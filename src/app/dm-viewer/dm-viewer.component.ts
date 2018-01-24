@@ -44,6 +44,10 @@ export class DmViewerComponent implements OnInit {
           }
         },
         err => {
+          if (err.status === 401) {
+            this.sessionService.clearSession();
+            return;
+          }
           this.error = err;
         });
   }

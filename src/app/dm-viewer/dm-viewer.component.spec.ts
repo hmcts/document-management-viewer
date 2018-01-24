@@ -179,4 +179,23 @@ describe('DmViewerComponent', () => {
 
   });
 
+  describe('when the server returns a 401 error', () => {
+    beforeEach(() => {
+      spyOn(sessionService, 'clearSession');
+
+      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const mockErrorResponse = {
+        status: 401, statusText: 'Unauthorized'
+      };
+      const data = 'Invalid request parameters';
+      req.flush(data, mockErrorResponse);
+      fixture.detectChanges();
+    });
+
+    it('should clear the local session and reload', () => {
+      expect(sessionService.clearSession).toHaveBeenCalled();
+    });
+
+  });
+
 });
