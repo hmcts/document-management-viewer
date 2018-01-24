@@ -16,7 +16,8 @@
 
 <app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
            class="notes"
-           [page]="viewerComponent.page">
+           [page]="viewerComponent.page"
+           [numPages]="viewerComponent.numPages">
 </app-notes>
 
 <p *ngIf="error" class="error-message">There was an error while loading your document. Response status was {{error.status}}.</p>

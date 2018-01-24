@@ -16,6 +16,7 @@ import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/tes
 import {NotesComponent} from './notes/notes.component';
 import {FormsModule} from '@angular/forms';
 import {WindowService} from '../utils/window.service';
+import {ImagePipe} from '../utils/image-pipe';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -36,7 +37,8 @@ describe('DmViewerComponent', () => {
         ImgViewerComponent,
         NotesComponent,
         UnsupportedViewerComponent,
-        ViewerAnchorDirective],
+        ViewerAnchorDirective,
+        ImagePipe],
       providers: [SessionService, CookieService, ViewerFactoryService, WindowService]
     });
 
