@@ -19,15 +19,14 @@ import uk.gov.hmcts.Packager
 import uk.gov.hmcts.RPMTagger
 import uk.gov.hmcts.Versioner
 
-String channel = '#dm-pipeline'
+def channel = '#dm-pipeline'
 
-def product = "evidence"
 def app = "em-viewer-web"
 def artifactorySourceRepo = "evidence-local"
 
 def ansible = new Ansible(this, "em")
 def artifactory = new Artifactory(this)
-def packager = new Packager(this, product)
+def packager = new Packager(this, "evidence")
 def versioner = new Versioner(this)
 
 def rpmTagger
@@ -76,15 +75,20 @@ node {
       }
     }
 
+//    don't know if you need this...
     stage('Package') {
       sh 'yarn build'
     }
 
     if ("master" == "${env.BRANCH_NAME}") {
 
+      stage('Publish Docker') {
+        dockerImage imageName: "evidence/${app}", pushToLatestOnMaster: true
+      }
+
       stage('Package (RPM)') {
         rpmVersion = packager.nodeRPM(app)
-        version = "{document_management_viewer_version: ${rpmVersion}}"
+        version = "{ em_viewer_version: ${rpmVersion}}"
       }
 
       stage('Publish RPM') {
@@ -92,10 +96,29 @@ node {
         def rpmName = packager.rpmName(app, rpmVersion)
         rpmTagger = new RPMTagger(this, app, rpmName, artifactorySourceRepo)
       }
+
+      stage ('Deploy on Dev') {
+        ansible.run("{}", "dev", "install_vw_web.yml")
+        ansible.run("{}", "dev", "deploy_vw_web.yml")
+        rpmTagger.tagDeploymentSuccessfulOn('dev')
+//        rpmTagger.tagTestingPassedOn("dev")
+      }
+
+      stage ('Deploy on Test') {
+        ansible.run("{}", "test", "install_vw_web.yml")
+        ansible.run("{}", "test", "deploy_vw_web.yml")
+        rpmTagger.tagDeploymentSuccessfulOn('test')
+//        rpmTagger.tagTestingPassedOn("test")
+      }
+
+      stage ('Deploy on Demo') {
+        ansible.run("{}", "demo", "install_vw_web.yml")
+        ansible.run("{}", "demo", "deploy_vw_web.yml")
+        rpmTagger.tagDeploymentSuccessfulOn('demo')
+//        rpmTagger.tagTestingPassedOn("demo")
+      }
     }
-
     notifyBuildFixed channel: channel
-
   } catch (e){
     notifyBuildFailure channel: channel
     throw e
