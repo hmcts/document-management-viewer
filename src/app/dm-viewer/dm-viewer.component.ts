@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SessionService} from '../auth/session.service';
 import {ViewerAnchorDirective} from './viewer-anchor.directive';
 import {ViewerFactoryService} from './viewer-factory.service';
+import {Viewer} from './viewer';
 
 @Component({
   selector: 'app-dm-viewer',
@@ -13,10 +14,12 @@ export class DmViewerComponent implements OnInit {
 
   @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;
+  @Input() annotate: boolean;
   // todo make a class
   jwt: string;
   mimeType: string;
   docName: string;
+  viewerComponent: Viewer;
   error: string;
 
   constructor(private http: HttpClient,
@@ -36,7 +39,8 @@ export class DmViewerComponent implements OnInit {
         resp => {
           if (resp && resp._links) {
             this.docName = resp.originalDocumentName;
-            this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
+            this.viewerComponent =
+              this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
           }
         },
         err => {

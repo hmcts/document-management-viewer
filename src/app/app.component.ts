@@ -9,6 +9,8 @@ import {SessionService} from './auth/session.service';
 })
 export class AppComponent implements OnInit {
   url: string;
+  annotate: boolean;
+
   constructor(private route: ActivatedRoute,
               private sessionService: SessionService) { }
 
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.url = params.url;
+        this.annotate = params.annotate === 'true';
       });
   }
 

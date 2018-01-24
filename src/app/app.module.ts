@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import {IdamGuard} from './auth/idam.guard';
 
@@ -19,6 +20,8 @@ import {CookieService} from 'angular2-cookie/core';
 import {SessionService} from './auth/session.service';
 import { UnsupportedViewerComponent } from './dm-viewer/unsupported-viewer/unsupported-viewer.component';
 import {ViewerFactoryService} from './dm-viewer/viewer-factory.service';
+import { NotesComponent } from './dm-viewer/notes/notes.component';
+import {ImagePipe} from './utils/image-pipe';
 
 const appRoutes: Routes = [
   { path: ':url', canActivate: [IdamGuard], component: DmViewerComponent },
@@ -33,6 +36,8 @@ const appRoutes: Routes = [
     ImgViewerComponent,
     UnsupportedViewerComponent,
     ViewerAnchorDirective,
+    NotesComponent,
+    ImagePipe
   ],
   entryComponents: [
     PdfViewerComponent,
@@ -44,6 +49,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     PdfViewerModule,
     HttpModule

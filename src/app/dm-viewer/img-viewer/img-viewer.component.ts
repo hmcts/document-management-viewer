@@ -7,6 +7,8 @@ import {Viewer} from '../viewer';
   styleUrls: ['./img-viewer.component.scss']
 })
 export class ImgViewerComponent implements OnInit, Viewer {
+  page = 0;
+  numPages = 1;
 
   @Input() url: string;
 
@@ -14,5 +16,9 @@ export class ImgViewerComponent implements OnInit, Viewer {
 
   ngOnInit() {
   }
+
+  prevPage() {}
+
+  nextPage() {}
 
 }

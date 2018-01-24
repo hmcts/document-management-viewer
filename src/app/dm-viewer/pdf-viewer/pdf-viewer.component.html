@@ -1,7 +1,11 @@
 <p>
   <pdf-viewer *ngIf="src"
               [src]="src"
+              [page]="page"
+              [show-all]="false"
               [fit-to-page]="true"
               [original-size]="false"
-              [zoom]="1"></pdf-viewer>
+              [autoresize]="true"
+              (after-load-complete)="pdfLoadComplete($event)"
+  ></pdf-viewer>
 </p>

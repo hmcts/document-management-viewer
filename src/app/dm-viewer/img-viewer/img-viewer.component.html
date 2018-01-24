@@ -1,1 +1,2 @@
-<img src="{{url}}" data-hook="dm.viewer.img" />
+<img *ngIf="url" data-hook="dm.viewer.img"
+     [src]="(url | image) | async"  />

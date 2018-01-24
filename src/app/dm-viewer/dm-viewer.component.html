@@ -1,5 +1,23 @@
 <h2 *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h2>
 
-<ng-template appViewerAnchor></ng-template>
+<div *ngIf="viewerComponent && viewerComponent.numPages > 1">
+  <p>
+    Showing page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
+  </p>
+  <a (click)="viewerComponent.prevPage()">Previous</a>
+  <a (click)="viewerComponent.nextPage()">Next</a>
+</div>
+
+<div [ngClass]="{'viewer--full-width': !annotate,
+                 'viewer--with-notes': annotate && viewerComponent && viewerComponent.numPages > 0,
+                 'viewer': true}">
+  <ng-template appViewerAnchor></ng-template>
+</div>
+
+<app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
+           class="notes"
+           [page]="viewerComponent.page"
+           [numPages]="viewerComponent.numPages">
+</app-notes>
 
 <p *ngIf="error" class="error-message">There was an error while loading your document. Response status was {{error.status}}.</p>
