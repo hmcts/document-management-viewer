@@ -34,7 +34,7 @@ export class DmViewerComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({ 'Authorization': `Bearer ${this.jwt}` })
     };
-    this.http.get<any>(`${this.url}?jwt=${this.jwt}`, httpOptions)
+    this.http.get<any>(`${this.url}`, httpOptions)
       .subscribe(
         resp => {
           if (resp && resp._links) {
