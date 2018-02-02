@@ -67,7 +67,7 @@ describe('DmViewerComponent', () => {
 
   describe('when the mime type is an image', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const req = httpMock.expectOne(url);
       req.flush({
         mimeType: 'image/jpeg',
         originalDocumentName: 'image.jpeg',
@@ -95,7 +95,7 @@ describe('DmViewerComponent', () => {
 
   describe('when the mime type is pdf', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const req = httpMock.expectOne(url);
       req.flush({
         mimeType: 'application/pdf',
         originalDocumentName: 'cert.pdf',
@@ -123,7 +123,7 @@ describe('DmViewerComponent', () => {
 
   describe('when the mime type is unsupported', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const req = httpMock.expectOne(url);
       req.flush({
         mimeType: 'text/plain',
         originalDocumentName: 'plain.txt',
@@ -156,7 +156,7 @@ describe('DmViewerComponent', () => {
 
   describe('when the server returns an error', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const req = httpMock.expectOne(url);
       const mockErrorResponse = {
         status: 404, statusText: 'Not Found'
       };
@@ -183,7 +183,7 @@ describe('DmViewerComponent', () => {
     beforeEach(() => {
       spyOn(sessionService, 'clearSession');
 
-      const req = httpMock.expectOne(`${url}?jwt=${jwt}`);
+      const req = httpMock.expectOne(url);
       const mockErrorResponse = {
         status: 401, statusText: 'Unauthorized'
       };
