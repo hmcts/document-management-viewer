@@ -109,21 +109,21 @@ describe('NotesComponent', () => {
             annotations: [{
               uuid: '',
               page: 2,
-              type: "PAGENOTE",
+              type: 'PAGENOTE',
               comments: [{
                 content: 'Page 2 note'
               }]
             }, {
               uuid: '',
               page: 1,
-              type: "PAGENOTE",
+              type: 'PAGENOTE',
               comments: [{
                 content: 'Page 1 note'
               }]
             }, {
               uuid: '',
               page: 1,
-              type: "COMMENT",
+              type: 'COMMENT',
               comments: [{
                 content: 'Page 1 comment'
               }]
