@@ -8,7 +8,7 @@ import {AnnotationService, Note} from '../annotations/annotation.service';
 })
 export class NotesComponent implements OnInit {
 
-  private _page = 0;
+  private _page = 1;
 
   @Input() numPages = 0;
   @Input() url;

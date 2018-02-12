@@ -41,13 +41,9 @@ describe('NotesComponent', () => {
     spyOn(appConfig, 'getAnnotationUrl').and.returnValue(val);
     component = fixture.componentInstance;
     element = fixture.debugElement;
-    component.page = 0;
     component.url = 'https://doc123';
     fixture.detectChanges();
   }));
-
-  beforeEach(() => {
-  });
 
   describe('when no notes are loaded', () => {
     beforeEach(() => {
@@ -57,6 +53,7 @@ describe('NotesComponent', () => {
           annotationSets: []
         }
       });
+      component.page = 0;
       fixture.detectChanges();
     });
 
@@ -101,6 +98,53 @@ describe('NotesComponent', () => {
       });
     });
   });
+
+  describe('when notes are loaded', () => {
+    beforeEach(async(() => {
+      const req = httpMock.expectOne('https://anno-url/annotations/find-all-by-document-url?url=https://doc123');
+      req.flush({
+        _embedded: {
+          annotationSets: [{
+            uuid: '',
+            annotations: [{
+              uuid: '',
+              page: 2,
+              type: "PAGENOTE",
+              comments: [{
+                content: 'Page 2 note'
+              }]
+            }, {
+              uuid: '',
+              page: 1,
+              type: "PAGENOTE",
+              comments: [{
+                content: 'Page 1 note'
+              }]
+            }, {
+              uuid: '',
+              page: 1,
+              type: "COMMENT",
+              comments: [{
+                content: 'Page 1 comment'
+              }]
+            }]
+          }]
+        }
+      });
+      fixture.detectChanges();
+    }));
+
+    it('should filter out the non page note annotations', () => {
+      expect(component.notes.length).toBe(2);
+    });
+
+    it('should update the current note to the loaded note', () => {
+      expect(component.currentNote).toEqual('Page 1 note');
+    });
+
+
+  });
+
 
 
   function newEvent(eventName: string, bubbles = false, cancelable = false) {
