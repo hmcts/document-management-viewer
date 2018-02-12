@@ -37,8 +37,12 @@ export class AppConfig {
     return this.config.login_url;
   }
 
+  getAnnotationUrl() {
+    return this.config.annotation_url;
+  }
 }
 
 export class Config {
   login_url: string;
+  annotation_url: string;
 }
