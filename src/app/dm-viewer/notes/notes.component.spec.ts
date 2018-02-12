@@ -1,25 +1,40 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
 
-import { NotesComponent } from './notes.component';
+import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
+import {AnnotationService} from '../annotations/annotation.service';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {SessionService} from '../../auth/session.service';
+import {CookieService} from 'angular2-cookie/core';
+import {WindowService} from '../../utils/window.service';
+import {AppConfig} from '../../app.config';
+
+const jwt = '12345';
 
 describe('NotesComponent', () => {
   let component: NotesComponent;
   let element: DebugElement;
   let fixture: ComponentFixture<NotesComponent>;
+  let httpMock: HttpTestingController;
+  let sessionService: SessionService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NotesComponent ],
-      imports: [ FormsModule ]
+      imports: [ FormsModule, HttpClientTestingModule ],
+      providers: [ AnnotationService, SessionService, WindowService, CookieService, AppConfig ]
     })
     .compileComponents();
   }));
 
   beforeEach(async(() => {
+    sessionService = TestBed.get(SessionService);
+    sessionService.createSession({
+      token: jwt
+    });
     fixture = TestBed.createComponent(NotesComponent);
+    httpMock = TestBed.get(HttpTestingController);
     component = fixture.componentInstance;
     element = fixture.debugElement;
     component.page = 0;
