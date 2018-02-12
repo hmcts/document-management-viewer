@@ -27,12 +27,10 @@ export class NotesComponent implements OnInit {
 
   @Input() set page(value: number) {
     this._page = value;
-    if (this.notes) {
-      if (!this.notes[this._page - 1]) {
-        this.notes[this._page - 1] = new Note();
-      }
-      this.currentNote = this.notes[this._page - 1].content;
+    if (!this.notes[this._page - 1]) {
+      this.notes[this._page - 1] = new Note();
     }
+    this.currentNote = this.notes[this._page - 1].content;
   }
 
   get page(): number {
