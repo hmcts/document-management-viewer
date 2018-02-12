@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class AppConfig {
 
-  private static readonly CONFIG_PATH = '/assets/config.json';
+  public static readonly CONFIG_PATH = '/assets/config.json';
 
   private config: Config;
 
