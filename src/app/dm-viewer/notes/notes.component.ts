@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {AnnotationService, Note} from '../annotations/annotation.service';
 
 @Component({
   selector: 'app-notes',
@@ -7,26 +8,29 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NotesComponent implements OnInit {
 
-  private _page = 0;
+  private _page = 1;
 
   @Input() numPages = 0;
+  @Input() url;
 
-  notes = [];
+  notes: Note[] = [];
   private _currentNote = '';
 
-  constructor() { }
+  constructor(private annotationService: AnnotationService) { }
 
   ngOnInit() {
+    this.annotationService.getNotes(this.url).then(notes => {
+      this.notes = notes;
+      this.page = this._page;
+    }).catch(console.log);
   }
 
   @Input() set page(value: number) {
     this._page = value;
-    if (this.notes) {
-      if (!this.notes[this._page - 1]) {
-        this.notes[this._page - 1] = '';
-      }
-      this.currentNote = this.notes[this._page - 1];
+    if (!this.notes[this._page - 1]) {
+      this.notes[this._page - 1] = new Note();
     }
+    this.currentNote = this.notes[this._page - 1].content;
   }
 
   get page(): number {
@@ -35,7 +39,7 @@ export class NotesComponent implements OnInit {
 
   set currentNote(value: string) {
     this._currentNote = value;
-    this.notes[this._page - 1] = this._currentNote;
+    this.notes[this._page - 1].content = this._currentNote;
   }
 
   get currentNote(): string {

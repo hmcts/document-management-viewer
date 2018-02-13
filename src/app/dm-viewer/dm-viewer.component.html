@@ -16,6 +16,7 @@
 
 <app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
            class="notes"
+           [url]="url"
            [page]="viewerComponent.page"
            [numPages]="viewerComponent.numPages">
 </app-notes>
