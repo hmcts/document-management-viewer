@@ -1,3 +1,4 @@
 {
-  "login_url": "https://localhost:9000/login"
+  "login_url": "https://localhost:9000/login",
+  "annotation_url": "http://localhost:8086/annotation-sets"
 }

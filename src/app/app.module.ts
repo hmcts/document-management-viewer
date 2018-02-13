@@ -22,6 +22,7 @@ import { UnsupportedViewerComponent } from './dm-viewer/unsupported-viewer/unsup
 import {ViewerFactoryService} from './dm-viewer/viewer-factory.service';
 import { NotesComponent } from './dm-viewer/notes/notes.component';
 import {ImagePipe} from './utils/image-pipe';
+import {AnnotationService} from './dm-viewer/annotations/annotation.service';
 
 const appRoutes: Routes = [
   { path: ':url', canActivate: [IdamGuard], component: DmViewerComponent },
@@ -61,6 +62,7 @@ const appRoutes: Routes = [
     SessionService,
     CookieService,
     ViewerFactoryService,
+    AnnotationService,
     AppConfig,
     { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
   ],
