@@ -1,4 +1,6 @@
 <h4>Notes<span *ngIf="numPages > 1"> against page {{_page}}</span></h4>
-<form>
+<form id="notesForm" name="notesForm" #notesForm="ngForm">
   <textarea name="currentNote" [(ngModel)]="currentNote"></textarea>
+  <button [disabled]="!notesForm.form.dirty"
+          (click)="save($event)">Save</button>
 </form>

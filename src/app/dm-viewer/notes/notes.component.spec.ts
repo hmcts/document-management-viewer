@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
 import {AnnotationService} from '../annotations/annotation.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
 import {SessionService} from '../../auth/session.service';
 import {CookieService} from 'angular2-cookie/core';
 import {WindowService} from '../../utils/window.service';
@@ -105,7 +105,7 @@ describe('NotesComponent', () => {
       req.flush({
         _embedded: {
           annotationSets: [{
-            uuid: '',
+            uuid: '1234',
             annotations: [{
               uuid: '',
               page: 2,
@@ -142,6 +142,21 @@ describe('NotesComponent', () => {
       expect(component.currentNote).toEqual('Page 1 note');
     });
 
+    describe('when we change the current note and save', () => {
+      beforeEach(async(() => {
+        component.currentNote = 'New page 1 note';
+        component.notesForm.form.markAsDirty();
+        fixture.detectChanges();
+        component.save();
+
+        const req = httpMock.expectOne('https://anno-url/annotations/1234');
+        req.flush({}, {status: 200, statusText: 'Good!'});
+      }));
+
+      it('should set the form to pristine', () => {
+        expect(component.notesForm.form.dirty).toBe(false);
+      });
+    });
 
   });
 
