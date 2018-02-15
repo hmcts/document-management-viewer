@@ -56,7 +56,10 @@ export class AnnotationService {
       if (note.content) {
         return this.httpClient.put(note.url, note.toObject(), this.getHttpOptions()).map(resp => note);
       }
-      return this.httpClient.delete(note.url, this.getHttpOptions()).map(resp => note);
+      return this.httpClient.delete(note.url, this.getHttpOptions()).map(resp => {
+        note.url = '';
+        return note;
+      });
     }
     return this.httpClient.post(this.annotationSet._links['add-annotation'].href, note.toObject(), this.getHttpOptions())
       .map(annotation => this.newNoteFromAnnotation(annotation));

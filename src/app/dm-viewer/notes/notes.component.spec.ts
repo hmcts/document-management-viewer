@@ -166,19 +166,52 @@ describe('NotesComponent', () => {
     });
 
     describe('when we change the current note and save', () => {
+      let putRequest;
+
       beforeEach(async(() => {
         component.currentNote.content = 'New page 1 note';
         component.notesForm.form.markAsDirty();
         fixture.detectChanges();
         component.save();
 
-        const req = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
-        req.flush({}, {status: 200, statusText: 'Good!'});
+        putRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+        putRequest.flush({}, {status: 200, statusText: 'Good!'});
       }));
+
+      it('should be a put request', () => {
+        expect(putRequest.request.method).toEqual('PUT');
+      });
 
       it('should set the form to pristine', () => {
         expect(component.notesForm.form.dirty).toBe(false);
       });
+    });
+  });
+
+  describe('when we remove the current note and save', () => {
+    let deleteRequest;
+
+    beforeEach(async(() => {
+      component.currentNote.content = '';
+      component.currentNote.url = 'https://anno-url/annotation-sets/1234/annotation/2';
+      component.notesForm.form.markAsDirty();
+      fixture.detectChanges();
+      component.save();
+
+      deleteRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+      deleteRequest.flush({}, {status: 200, statusText: 'Good!'});
+    }));
+
+    it('should be a delete request', () => {
+      expect(deleteRequest.request.method).toEqual('DELETE');
+    });
+
+    it('should set the form to pristine', () => {
+      expect(component.notesForm.form.dirty).toBe(false);
+    });
+
+    it('should clear the url from the current note', () => {
+      expect(component.currentNote.url).toBe('');
     });
   });
 
