@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {AnnotationService} from '../annotations/annotation.service';
+import {AnnotationService, Note} from '../annotations/annotation.service';
 import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
 import {SessionService} from '../../auth/session.service';
 import {CookieService} from 'angular2-cookie/core';
@@ -19,7 +19,7 @@ describe('NotesComponent', () => {
   let httpMock: HttpTestingController;
   let sessionService: SessionService;
   let appConfig: AppConfig;
-  const val = 'https://anno-url/annotations';
+  const val = 'https://anno-url/annotation-sets';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -47,7 +47,7 @@ describe('NotesComponent', () => {
 
   describe('when no notes are loaded', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne('https://anno-url/annotations/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: []
@@ -71,7 +71,7 @@ describe('NotesComponent', () => {
 
     describe('when there is a note against the current page', () => {
       beforeEach(() => {
-        component.currentNote = 'A note';
+        component.currentNote = new Note('', 'A note');
         fixture.detectChanges();
       });
 
@@ -82,7 +82,7 @@ describe('NotesComponent', () => {
         });
 
         it('should update the current note to a blank note', () => {
-          expect(component.currentNote).toEqual('');
+          expect(component.currentNote.content).toEqual('');
         });
 
         describe('when we swap back to the previous page', () => {
@@ -92,7 +92,7 @@ describe('NotesComponent', () => {
           });
 
           it('should update the current note to the first page note', () => {
-            expect(component.currentNote).toEqual('A note');
+            expect(component.currentNote.content).toEqual('A note');
           });
         });
       });
@@ -101,33 +101,50 @@ describe('NotesComponent', () => {
 
   describe('when notes are loaded', () => {
     beforeEach(async(() => {
-      const req = httpMock.expectOne('https://anno-url/annotations/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: [{
             uuid: '1234',
             annotations: [{
-              uuid: '',
+              uuid: '1',
               page: 2,
               type: 'PAGENOTE',
               comments: [{
                 content: 'Page 2 note'
-              }]
+              }],
+              '_links': {
+                self: 'https://anno-url/annotation-sets/1234/annotation/1'
+              }
             }, {
-              uuid: '',
+              uuid: '2',
               page: 1,
               type: 'PAGENOTE',
               comments: [{
                 content: 'Page 1 note'
-              }]
+              }],
+              '_links': {
+                self: 'https://anno-url/annotation-sets/1234/annotation/2'
+              }
             }, {
-              uuid: '',
+              uuid: '3',
               page: 1,
               type: 'COMMENT',
               comments: [{
                 content: 'Page 1 comment'
-              }]
-            }]
+              }],
+              '_links': {
+                self: 'https://anno-url/annotation-sets/1234/annotation/3'
+              }
+            }],
+            '_links': {
+              self: {
+                href: 'https://anno-url/annotation-sets/1234'
+              },
+              'add-annotation': {
+                href: 'https://anno-url/annotation-sets/1234/annotation'
+              }
+            }
           }]
         }
       });
@@ -139,17 +156,17 @@ describe('NotesComponent', () => {
     });
 
     it('should update the current note to the loaded note', () => {
-      expect(component.currentNote).toEqual('Page 1 note');
+      expect(component.currentNote.content).toEqual('Page 1 note');
     });
 
     describe('when we change the current note and save', () => {
       beforeEach(async(() => {
-        component.currentNote = 'New page 1 note';
+        component.currentNote = new Note('', 'New page 1 note');
         component.notesForm.form.markAsDirty();
         fixture.detectChanges();
         component.save();
 
-        const req = httpMock.expectOne('https://anno-url/annotations/1234');
+        const req = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation');
         req.flush({}, {status: 200, statusText: 'Good!'});
       }));
 
@@ -157,10 +174,7 @@ describe('NotesComponent', () => {
         expect(component.notesForm.form.dirty).toBe(false);
       });
     });
-
   });
-
-
 
   function newEvent(eventName: string, bubbles = false, cancelable = false) {
     const evt = document.createEvent('CustomEvent');  // MUST be 'CustomEvent'

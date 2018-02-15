@@ -14,7 +14,7 @@ export class NotesComponent implements OnInit {
   @Input() url;
 
   notes: Note[] = [];
-  private _currentNote = '';
+  private _currentNote: Note = new Note();
 
   constructor(private annotationService: AnnotationService) { }
 
@@ -28,27 +28,29 @@ export class NotesComponent implements OnInit {
   @Input() set page(value: number) {
     this._page = value;
     if (!this.notes[this._page - 1]) {
-      this.notes[this._page - 1] = new Note();
+      this.notes[this._page - 1] = new Note('', '', '', this._page);
     }
-    this.currentNote = this.notes[this._page - 1].content;
+    this.currentNote = this.notes[this._page - 1];
   }
 
   get page(): number {
     return this._page;
   }
 
-  set currentNote(value: string) {
+  set currentNote(value: Note) {
     this._currentNote = value;
-    this.notes[this._page - 1].content = this._currentNote;
+    this.notes[this._page - 1] = this._currentNote;
   }
 
-  get currentNote(): string {
+  get currentNote(): Note {
     return this._currentNote;
   }
 
   save() {
-    this.annotationService.saveNotes(this.notes).then(() => {
+    this.annotationService.saveNote(this.currentNote).subscribe(() => {
       this.notesForm.form.markAsPristine();
+    }, error => {
+      console.log(error);
     });
   }
 }

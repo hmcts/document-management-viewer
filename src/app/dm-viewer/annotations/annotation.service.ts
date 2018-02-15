@@ -2,15 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AppConfig} from '../../app.config';
 import {SessionService} from '../../auth/session.service';
+import {Observable} from 'rxjs/Observable';
 
 const pageNoteType = 'PAGENOTE';
 
 export class Note {
+  url: string;
   content: string;
   uuid: string;
   page: number;
 
-  constructor(content: string = '', uuid: string = '', page: number = 1) {
+  constructor(url = '', content: string = '', uuid: string = '', page: number = 1) {
+    this.url = url;
     this.content = content;
     this.uuid = uuid;
     this.page = page;
@@ -39,54 +42,65 @@ export class AnnotationService {
   }
 
   getNotes(url): Promise<Note[]> {
+    return this.lookForAnnotationSets(url).then(possibleSet => {
+      if (possibleSet) {
+        this.annotationSet = possibleSet;
+        return this.extractNotes(possibleSet);
+      }
+      return this.initiateNewSet(url);
+    });
+  }
+
+  saveNote(note: Note): Observable<any> {
+    if (note.url) {
+      if (note.content) {
+        return this.httpClient.put(note.url, note.toObject(), this.getHttpOptions());
+      }
+      return this.httpClient.delete(note.url, this.getHttpOptions());
+    }
+    return this.httpClient.post(this.annotationSet._links['add-annotation'].href, note.toObject(), this.getHttpOptions());
+  }
+
+  private lookForAnnotationSets(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const httpOptions = this.getHttpOptions();
       const annoUrl = `${this.appConfig.getAnnotationUrl()}/find-all-by-document-url?url=${url}`;
       this.httpClient.get<any>(annoUrl, httpOptions).subscribe(response => {
         if (response._embedded && response._embedded.annotationSets && response._embedded.annotationSets.length) {
-          resolve(this.extractNotes(response));
+          resolve(response._embedded.annotationSets[0]);
         } else {
-          this.annotationSet = {
-            documentUri: url,
-            annotations: []
-          };
-          resolve(new Array<Note>());
+          resolve(null);
         }
       }, reject);
     });
   }
 
-  saveNotes(notes: Note[]) {
-    // filter page notes out of existing annotations and add all new ones with content
-    this.annotationSet.annotations =
-      this.annotationSet.annotations
-        .filter(annotation => annotation.type !== pageNoteType)
-        .concat(notes
-          .filter(note => note.content)
-          .map(note => note.toObject()));
-
-    return new Promise((resolve, reject) => {
-      // If we have a UUID then we update, if not then we're adding a new set
-      if (!this.annotationSet.uuid) {
-        this.httpClient.post<any>(this.appConfig.getAnnotationUrl(), this.annotationSet, this.getHttpOptions())
-          .subscribe(resolve, reject);
-      } else {
-        const updateUrl = `${this.appConfig.getAnnotationUrl()}/${this.annotationSet.uuid}`;
-        this.httpClient.put<any>(updateUrl, this.annotationSet, this.getHttpOptions())
-          .subscribe(resolve, reject);
-      }
-    });
-  }
-
-  private extractNotes(response) {
-    this.annotationSet = response._embedded.annotationSets[0];
-    const notes = this.annotationSet.annotations
+  private extractNotes(set) {
+    const notes = set.annotations
       .filter(a => a.type === pageNoteType) // only page notes
       .sort((a, b) => a.page - b.page) // order by page
       .map(annotation => {
-        return new Note(annotation.comments[0].content, annotation.uuid, annotation.page);
-      });
+        return new Note(annotation._links.self.href, annotation.comments[0].content, annotation.uuid, annotation.page);
+      })
+      .reduce((acc, current) => {
+        acc[current.page - 1] = current;
+        return acc;
+      }, []);
     return notes;
+  }
+
+  private initiateNewSet(url: string) {
+    return new Promise((resolve, reject) => {
+      const body = {
+        documentUri: url,
+        annotations: [],
+      };
+      this.httpClient.post(this.appConfig.getAnnotationUrl(), body, this.getHttpOptions()).subscribe(response => {
+        this.annotationSet = response;
+        resolve(new Array<Note>());
+      },
+        reject);
+    });
   }
 
   private getHttpOptions() {
