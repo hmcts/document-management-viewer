@@ -114,7 +114,9 @@ describe('NotesComponent', () => {
                 content: 'Page 2 note'
               }],
               '_links': {
-                self: 'https://anno-url/annotation-sets/1234/annotation/1'
+                self: {
+                  href: 'https://anno-url/annotation-sets/1234/annotation/1'
+                }
               }
             }, {
               uuid: '2',
@@ -124,7 +126,9 @@ describe('NotesComponent', () => {
                 content: 'Page 1 note'
               }],
               '_links': {
-                self: 'https://anno-url/annotation-sets/1234/annotation/2'
+                self: {
+                  href: 'https://anno-url/annotation-sets/1234/annotation/2'
+                }
               }
             }, {
               uuid: '3',
@@ -134,7 +138,9 @@ describe('NotesComponent', () => {
                 content: 'Page 1 comment'
               }],
               '_links': {
-                self: 'https://anno-url/annotation-sets/1234/annotation/3'
+                self: {
+                  href: 'https://anno-url/annotation-sets/1234/annotation/3'
+                }
               }
             }],
             '_links': {
@@ -161,17 +167,72 @@ describe('NotesComponent', () => {
 
     describe('when we change the current note and save', () => {
       beforeEach(async(() => {
-        component.currentNote = new Note('', 'New page 1 note');
+        component.currentNote.content = 'New page 1 note';
         component.notesForm.form.markAsDirty();
         fixture.detectChanges();
         component.save();
 
-        const req = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation');
+        const req = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
         req.flush({}, {status: 200, statusText: 'Good!'});
       }));
 
       it('should set the form to pristine', () => {
         expect(component.notesForm.form.dirty).toBe(false);
+      });
+    });
+  });
+
+  describe('when we try and load notes but we have no sets', () => {
+    beforeEach(async(() => {
+      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
+      req.flush({});
+      fixture.detectChanges();
+    }));
+
+    beforeEach(async(() => {
+      const postReq = httpMock.expectOne('https://anno-url/annotation-sets');
+      postReq.flush({
+        uuid: '1234',
+          annotations: [],
+          '_links': {
+          self: {
+            href: 'https://anno-url/annotation-sets/1234'
+          },
+          'add-annotation': {
+            href: 'https://anno-url/annotation-sets/1234/annotation'
+          }
+        }
+      });
+      fixture.detectChanges();
+    }));
+
+    it('should initialise blank note', () => {
+      expect(component.currentNote.content).toBe('');
+    });
+
+    describe('when I update the note and save', () => {
+      beforeEach(async(() => {
+        component.currentNote.content = 'A really great note';
+        fixture.detectChanges();
+        component.save();
+        const postReq = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation');
+        postReq.flush({
+          uuid: '1',
+          page: 1,
+          type: 'PAGENOTE',
+          comments: [{
+            content: 'A really great note'
+          }],
+          '_links': {
+            self: {
+              href: 'https://anno-url/annotation-sets/1234/annotation/1'
+            }
+          }
+        });
+      }));
+
+      it('should update the note with the generated url', () => {
+        expect(component.currentNote.url).toEqual('https://anno-url/annotation-sets/1234/annotation/1');
       });
     });
   });

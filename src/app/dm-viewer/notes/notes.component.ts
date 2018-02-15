@@ -47,7 +47,8 @@ export class NotesComponent implements OnInit {
   }
 
   save() {
-    this.annotationService.saveNote(this.currentNote).subscribe(() => {
+    this.annotationService.saveNote(this.currentNote).subscribe((note) => {
+      this._currentNote.url = note.url;
       this.notesForm.form.markAsPristine();
     }, error => {
       console.log(error);

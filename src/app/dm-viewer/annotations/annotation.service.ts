@@ -54,11 +54,16 @@ export class AnnotationService {
   saveNote(note: Note): Observable<any> {
     if (note.url) {
       if (note.content) {
-        return this.httpClient.put(note.url, note.toObject(), this.getHttpOptions());
+        return this.httpClient.put(note.url, note.toObject(), this.getHttpOptions()).map(resp => note);
       }
-      return this.httpClient.delete(note.url, this.getHttpOptions());
+      return this.httpClient.delete(note.url, this.getHttpOptions()).map(resp => note);
     }
-    return this.httpClient.post(this.annotationSet._links['add-annotation'].href, note.toObject(), this.getHttpOptions());
+    return this.httpClient.post(this.annotationSet._links['add-annotation'].href, note.toObject(), this.getHttpOptions())
+      .map(annotation => this.newNoteFromAnnotation(annotation));
+  }
+
+  private newNoteFromAnnotation(annotation) {
+    return new Note(annotation._links.self.href, annotation.comments[0].content, annotation.uuid, annotation.page);
   }
 
   private lookForAnnotationSets(url: string): Promise<any> {
@@ -80,7 +85,7 @@ export class AnnotationService {
       .filter(a => a.type === pageNoteType) // only page notes
       .sort((a, b) => a.page - b.page) // order by page
       .map(annotation => {
-        return new Note(annotation._links.self.href, annotation.comments[0].content, annotation.uuid, annotation.page);
+        return this.newNoteFromAnnotation(annotation);
       })
       .reduce((acc, current) => {
         acc[current.page - 1] = current;
@@ -95,7 +100,8 @@ export class AnnotationService {
         documentUri: url,
         annotations: [],
       };
-      this.httpClient.post(this.appConfig.getAnnotationUrl(), body, this.getHttpOptions()).subscribe(response => {
+      const annotationUrl = this.appConfig.getAnnotationUrl();
+      this.httpClient.post(annotationUrl, body, this.getHttpOptions()).subscribe(response => {
         this.annotationSet = response;
         resolve(new Array<Note>());
       },
