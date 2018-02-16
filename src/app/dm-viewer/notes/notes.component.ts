@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AnnotationService, Note} from '../annotations/annotation.service';
 
 @Component({
@@ -8,13 +8,13 @@ import {AnnotationService, Note} from '../annotations/annotation.service';
 })
 export class NotesComponent implements OnInit {
 
+  @ViewChild('notesForm') notesForm;
   private _page = 1;
-
   @Input() numPages = 0;
   @Input() url;
 
   notes: Note[] = [];
-  private _currentNote = '';
+  private _currentNote: Note = new Note();
 
   constructor(private annotationService: AnnotationService) { }
 
@@ -28,21 +28,30 @@ export class NotesComponent implements OnInit {
   @Input() set page(value: number) {
     this._page = value;
     if (!this.notes[this._page - 1]) {
-      this.notes[this._page - 1] = new Note();
+      this.notes[this._page - 1] = new Note('', '', '', this._page);
     }
-    this.currentNote = this.notes[this._page - 1].content;
+    this.currentNote = this.notes[this._page - 1];
   }
 
   get page(): number {
     return this._page;
   }
 
-  set currentNote(value: string) {
+  set currentNote(value: Note) {
     this._currentNote = value;
-    this.notes[this._page - 1].content = this._currentNote;
+    this.notes[this._page - 1] = this._currentNote;
   }
 
-  get currentNote(): string {
+  get currentNote(): Note {
     return this._currentNote;
+  }
+
+  save() {
+    this.annotationService.saveNote(this.currentNote).subscribe((note) => {
+      this._currentNote.url = note.url;
+      this.notesForm.form.markAsPristine();
+    }, error => {
+      console.log(error);
+    });
   }
 }
