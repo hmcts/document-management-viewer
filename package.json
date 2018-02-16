@@ -7,7 +7,7 @@
     "start": "cross-env NODE_PATH=. node server.js",
     "start-dev": "ng serve",
     "setup": "echo 'setup not implemented'",
-    "build": "ng build",
+    "build": "ng build --prod --verbose",
     "test": "ng test --single-run=true",
     "test-all": "echo 'test all not implemented'",
     "test:a11y": "echo 'ally test not implemented'",
