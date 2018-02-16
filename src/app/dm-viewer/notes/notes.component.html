@@ -2,5 +2,5 @@
 <form id="notesForm" name="notesForm" #notesForm="ngForm">
   <textarea name="currentNote" [(ngModel)]="currentNote.content"></textarea>
   <button [disabled]="!notesForm.form.dirty"
-          (click)="save($event)">Save</button>
+          (click)="save()">Save</button>
 </form>
