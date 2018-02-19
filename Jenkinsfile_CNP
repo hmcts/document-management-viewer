@@ -15,6 +15,14 @@ properties([
 
 def type = "nodejs"
 def product = "em"
-def component = "em-viewer-web"
+def component = "viewer-web"
 
-withPipeline(type, product, component) {}
+def channel = '#dm-pipeline'
+
+withPipeline(type , product, component) {
+
+    after('checkout') {
+        echo '${component} out'
+    }
+    enableSlackNotifications(channel)
+}
