@@ -1,6 +1,13 @@
+locals {
+  app_full_name = "${var.product}-${var.app_name}-${var.app_type}"
+  ase_name = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+}
+# "${local.ase_name}"
+# "${local.app_full_name}"
+
 module "app" {
   source = "git@github.com:contino/moj-module-webapp?ref=master"
-  product = "${var.product}-${var.app_name}-${var.app_type}"
+  product = "${local.app_full_name}"
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
@@ -16,25 +23,24 @@ module "app" {
     # PORT = "8080"
 
     # logging vars & healthcheck
-    REFORM_SERVICE_NAME = "${var.product}-${var.app_name}-${var.app_type}"
+    REFORM_SERVICE_NAME = "${local.app_full_name}"
     REFORM_TEAM = "${var.team_name}"
     REFORM_SERVICE_TYPE = "${var.app_language}"
     REFORM_ENVIRONMENT = "${var.env}"
 
-    PACKAGES_NAME = "${var.product}-${var.app_name}-${var.app_type}"
+    PACKAGES_NAME = "${local.app_full_name}"
     PACKAGES_PROJECT = "${var.team_name}"
     PACKAGES_ENVIRONMENT = "${var.env}"
 
     ROOT_APPENDER = "${var.root_appender}"
     JSON_CONSOLE_PRETTY_PRINT = "${var.json_console_pretty_print}"
     LOG_OUTPUT = "${var.log_output}"
-    
   }
 }
 
-module "key-vault" {
+module "key_vault" {
   source = "git@github.com:contino/moj-module-key-vault?ref=master"
-  product = "${var.product}-${var.app_name}-${var.app_type}"
+  product = "${local.app_full_name}"
   env = "${var.env}"
   tenant_id = "${var.tenant_id}"
   object_id = "${var.jenkins_AAD_objectId}"
