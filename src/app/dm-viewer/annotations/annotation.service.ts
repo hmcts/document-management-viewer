@@ -9,19 +9,16 @@ const pageNoteType = 'PAGENOTE';
 export class Note {
   url: string;
   content: string;
-  uuid: string;
   page: number;
 
-  constructor(url = '', content: string = '', uuid: string = '', page: number = 1) {
+  constructor(url = '', content: string = '', page: number = 1) {
     this.url = url;
     this.content = content;
-    this.uuid = uuid;
     this.page = page;
   }
 
   toObject() {
     return {
-      uuid: this.uuid,
       page: this.page,
       comments: [{
         content: this.content
@@ -51,6 +48,16 @@ export class AnnotationService {
     });
   }
 
+  getNote(note: Note): Observable<Note> {
+    if (note.url) {
+      return this.httpClient.get(note.url, this.getHttpOptions()).map(this.newNoteFromAnnotation);
+    }
+    note.content = ''; // No URL means it's a new note so just clear the content.
+    return new Observable<Note>(observer => {
+      observer.next(note);
+    });
+  }
+
   saveNote(note: Note): Observable<any> {
     if (note.url) {
       if (note.content) {
@@ -66,7 +73,7 @@ export class AnnotationService {
   }
 
   private newNoteFromAnnotation(annotation) {
-    return new Note(annotation._links.self.href, annotation.comments[0].content, annotation.uuid, annotation.page);
+    return new Note(annotation._links.self.href, annotation.comments[0].content, annotation.page);
   }
 
   private lookForAnnotationSets(url: string): Promise<any> {
@@ -105,9 +112,9 @@ export class AnnotationService {
       };
       const annotationUrl = this.appConfig.getAnnotationUrl();
       this.httpClient.post(annotationUrl, body, this.getHttpOptions()).subscribe(response => {
-        this.annotationSet = response;
-        resolve(new Array<Note>());
-      },
+          this.annotationSet = response;
+          resolve(new Array<Note>());
+        },
         reject);
     });
   }
@@ -120,4 +127,5 @@ export class AnnotationService {
       })
     };
   }
+
 }

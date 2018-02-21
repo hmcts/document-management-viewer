@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImgViewerComponent } from './img-viewer.component';
-import {ImagePipe} from '../../utils/image-pipe';
+import {ImagePipe} from '../../../utils/image-pipe';
 import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {SessionService} from '../../auth/session.service';
+import {SessionService} from '../../../auth/session.service';
 import {CookieService} from 'angular2-cookie/core';
-import {WindowService} from '../../utils/window.service';
+import {WindowService} from '../../../utils/window.service';
 import {DebugElement} from '@angular/core';
 
 describe('ImgViewerComponent', () => {

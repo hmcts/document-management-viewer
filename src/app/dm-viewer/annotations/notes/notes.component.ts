@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AnnotationService, Note} from '../annotations/annotation.service';
+import {AnnotationService, Note} from '../annotation.service';
 
 @Component({
   selector: 'app-notes',
@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit {
   @Input() set page(value: number) {
     this._page = value;
     if (!this.notes[this._page - 1]) {
-      this.notes[this._page - 1] = new Note('', '', '', this._page);
+      this.notes[this._page - 1] = new Note('', '', this._page);
     }
     this.currentNote = this.notes[this._page - 1];
   }
@@ -52,6 +52,13 @@ export class NotesComponent implements OnInit {
       this.notesForm.form.markAsPristine();
     }, error => {
       console.log(error);
+    });
+  }
+
+  clear() {
+    this.annotationService.getNote(this.currentNote).subscribe(note => {
+      this.currentNote = note;
+      this.notesForm.form.markAsPristine();
     });
   }
 }
