@@ -75,11 +75,6 @@ node {
       }
     }
 
-//    don't know if you need this...
-    stage('Package') {
-      sh 'yarn build'
-    }
-
     if ("master" == "${env.BRANCH_NAME}") {
 
       stage('Publish Docker') {
