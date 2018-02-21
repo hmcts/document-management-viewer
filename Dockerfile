@@ -10,7 +10,7 @@ COPY yarn.lock .
 RUN yarn install
 
 COPY . .
-RUN yarn build
+RUN yarn setup
 
 EXPOSE 8080
 CMD [ "yarn", "start" ]

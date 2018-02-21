@@ -5,7 +5,7 @@ services:
   em-viewer-web:
     build:
       context: ../../.
-    image: docker.artifactory.reform.hmcts.net/evidence/em-viewer-web:latest
+#    image: docker.artifactory.reform.hmcts.net/evidence/em-viewer-web:latest
     environment:
     - NODE_ENV=development
     - PORT=8080
