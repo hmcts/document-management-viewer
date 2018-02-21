@@ -186,6 +186,40 @@ describe('NotesComponent', () => {
         expect(component.notesForm.form.dirty).toBe(false);
       });
     });
+
+    describe('when we change the current note and cancel', () => {
+      let putRequest;
+
+      beforeEach(async(() => {
+        component.currentNote.content = 'New page 1 note';
+        component.notesForm.form.markAsDirty();
+        fixture.detectChanges();
+        component.clear();
+
+        putRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+        putRequest.flush({
+          uuid: '1',
+          page: 1,
+          type: 'PAGENOTE',
+          comments: [{
+            content: ''
+          }],
+          '_links': {
+            self: {
+              href: 'https://anno-url/annotation-sets/1234/annotation/1'
+            }
+          }
+        });
+      }));
+
+      it('should be a get request', () => {
+        expect(putRequest.request.method).toEqual('GET');
+      });
+
+      it('should reset the content', () => {
+        expect(component.currentNote.content).toEqual('');
+      });
+    });
   });
 
   describe('when we remove the current note and save', () => {
@@ -266,6 +300,19 @@ describe('NotesComponent', () => {
 
       it('should update the note with the generated url', () => {
         expect(component.currentNote.url).toEqual('https://anno-url/annotation-sets/1234/annotation/1');
+      });
+    });
+
+    describe('when I update the note and cancel', () => {
+      beforeEach(async(() => {
+        component.currentNote.content = 'A rubbish note';
+        fixture.detectChanges();
+        component.clear();
+        const postReq = httpMock.expectNone('https://anno-url/annotation-sets/1234/annotation');
+      }));
+
+      it('should update the note with the generated url', () => {
+        expect(component.currentNote.content).toEqual('');
       });
     });
   });
