@@ -16,13 +16,14 @@ import {AppConfig} from './app.config';
 import {Http, HttpModule} from '@angular/http';
 import {WindowService} from './utils/window.service';
 import {DocumentService} from './utils/document.service';
-import {CookieService} from 'angular2-cookie/core';
+import {CookieModule, CookieService} from 'ngx-cookie';
 import {SessionService} from './auth/session.service';
 import { UnsupportedViewerComponent } from './dm-viewer/viewers/unsupported-viewer/unsupported-viewer.component';
 import {ViewerFactoryService} from './dm-viewer/viewers/viewer-factory.service';
 import { NotesComponent } from './dm-viewer/annotations/notes/notes.component';
 import {ImagePipe} from './utils/image-pipe';
 import {AnnotationService} from './dm-viewer/annotations/annotation.service';
+import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 const appRoutes: Routes = [
   { path: ':url', canActivate: [IdamGuard], component: DmViewerComponent },
@@ -53,14 +54,14 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     PdfViewerModule,
-    HttpModule
+    HttpModule,
+    CookieModule.forRoot()
   ],
   providers: [
     IdamGuard,
     WindowService,
     DocumentService,
     SessionService,
-    CookieService,
     ViewerFactoryService,
     AnnotationService,
     AppConfig,

@@ -1,5 +1,5 @@
 import { SessionService } from './session.service';
-import { CookieService } from 'angular2-cookie/core';
+import { CookieService } from 'ngx-cookie';
 import { JwtService } from './jwt.service';
 import {WindowService} from '../utils/window.service';
 

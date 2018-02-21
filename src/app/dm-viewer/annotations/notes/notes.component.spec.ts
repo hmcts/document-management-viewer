@@ -6,9 +6,10 @@ import {DebugElement} from '@angular/core';
 import {AnnotationService, Note} from '../annotation.service';
 import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
 import {SessionService} from '../../../auth/session.service';
-import {CookieService} from 'angular2-cookie/core';
+import {CookieModule, CookieService} from 'ngx-cookie';
 import {WindowService} from '../../../utils/window.service';
 import {AppConfig} from '../../../app.config';
+import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 const jwt = '12345';
 
@@ -24,8 +25,8 @@ describe('NotesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
-      imports: [FormsModule, HttpClientTestingModule],
-      providers: [AnnotationService, SessionService, WindowService, CookieService, AppConfig]
+      imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
+      providers: [AnnotationService, SessionService, WindowService, AppConfig]
     })
       .compileComponents();
   }));

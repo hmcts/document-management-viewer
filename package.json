@@ -35,7 +35,6 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
-    "angular2-cookie": "^1.2.6",
     "core-js": "^2.4.1",
     "cross-env": "^5.0.5",
     "express": "^4.16.2",
@@ -44,10 +43,11 @@
     "http": "^0.0.0",
     "jwt-decode": "^2.2.0",
     "ng2-pdf-viewer": "^3.0.8",
+    "ngx-cookie": "^2.0.1",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14",
+    "snyk": "^1.59.1",
     "yarn": "1.2.1",
-    "snyk": "^1.59.1"
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/cli": "1.6.0",
