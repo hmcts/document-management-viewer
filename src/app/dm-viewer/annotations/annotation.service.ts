@@ -48,12 +48,14 @@ export class AnnotationService {
     });
   }
 
-  getNote(note: Note) : Observable<Note> {
+  getNote(note: Note): Observable<Note> {
     if (note.url) {
       return this.httpClient.get(note.url, this.getHttpOptions()).map(this.newNoteFromAnnotation);
     }
     note.content = ''; // No URL means it's a new note so just clear the content.
-    return new Observable<Note>(observer => {observer.next(note)});
+    return new Observable<Note>(observer => {
+      observer.next(note);
+    });
   }
 
   saveNote(note: Note): Observable<any> {
@@ -110,9 +112,9 @@ export class AnnotationService {
       };
       const annotationUrl = this.appConfig.getAnnotationUrl();
       this.httpClient.post(annotationUrl, body, this.getHttpOptions()).subscribe(response => {
-        this.annotationSet = response;
-        resolve(new Array<Note>());
-      },
+          this.annotationSet = response;
+          resolve(new Array<Note>());
+        },
         reject);
     });
   }

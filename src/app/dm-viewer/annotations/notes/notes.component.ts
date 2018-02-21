@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit {
   @Input() set page(value: number) {
     this._page = value;
     if (!this.notes[this._page - 1]) {
-      this.notes[this._page - 1] = new Note('', '', '', this._page);
+      this.notes[this._page - 1] = new Note('', '', this._page);
     }
     this.currentNote = this.notes[this._page - 1];
   }
@@ -59,6 +59,6 @@ export class NotesComponent implements OnInit {
     this.annotationService.getNote(this.currentNote).subscribe(note => {
       this.currentNote = note;
       this.notesForm.form.markAsPristine();
-    })
+    });
   }
 }
