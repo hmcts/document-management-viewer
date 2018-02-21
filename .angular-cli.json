@@ -64,6 +64,9 @@
   "defaults": {
     "styleExt": "scss",
     "component": {
+    },
+    "serve": {
+      "port": 3621
     }
   }
 }
