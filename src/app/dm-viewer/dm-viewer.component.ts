@@ -1,9 +1,9 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SessionService} from '../auth/session.service';
-import {ViewerAnchorDirective} from './viewer-anchor.directive';
-import {ViewerFactoryService} from './viewer-factory.service';
-import {Viewer} from './viewer';
+import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
+import {ViewerFactoryService} from './viewers/viewer-factory.service';
+import {Viewer} from './viewers/viewer';
 
 @Component({
   selector: 'app-dm-viewer',

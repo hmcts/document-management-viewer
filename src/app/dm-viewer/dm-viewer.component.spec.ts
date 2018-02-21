@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DmViewerComponent } from './dm-viewer.component';
-import { PdfViewerComponent} from './pdf-viewer/pdf-viewer.component';
+import { PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {DebugElement} from '@angular/core';
 import {SessionService} from '../auth/session.service';
 import {AppModule} from '../app.module';
 import {CookieService} from 'angular2-cookie/core';
-import {ImgViewerComponent} from './img-viewer/img-viewer.component';
-import {ViewerAnchorDirective} from './viewer-anchor.directive';
-import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
-import {ViewerFactoryService} from './viewer-factory.service';
+import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
+import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
+import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupported-viewer.component';
+import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import {NotesComponent} from './notes/notes.component';
+import {NotesComponent} from './annotations/notes/notes.component';
 import {FormsModule} from '@angular/forms';
 import {WindowService} from '../utils/window.service';
 import {ImagePipe} from '../utils/image-pipe';

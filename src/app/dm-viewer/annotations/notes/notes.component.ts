@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AnnotationService, Note} from '../annotations/annotation.service';
+import {AnnotationService, Note} from '../annotation.service';
 
 @Component({
   selector: 'app-notes',
@@ -53,5 +53,12 @@ export class NotesComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  clear() {
+    this.annotationService.getNote(this.currentNote).subscribe(note => {
+      this.currentNote = note;
+      this.notesForm.form.markAsPristine();
+    })
   }
 }

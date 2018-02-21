@@ -3,12 +3,12 @@ import {FormsModule} from '@angular/forms';
 
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {AnnotationService, Note} from '../annotations/annotation.service';
+import {AnnotationService, Note} from '../annotation.service';
 import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
-import {SessionService} from '../../auth/session.service';
+import {SessionService} from '../../../auth/session.service';
 import {CookieService} from 'angular2-cookie/core';
-import {WindowService} from '../../utils/window.service';
-import {AppConfig} from '../../app.config';
+import {WindowService} from '../../../utils/window.service';
+import {AppConfig} from '../../../app.config';
 
 const jwt = '12345';
 

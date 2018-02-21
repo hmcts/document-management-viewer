@@ -8,9 +8,9 @@ import {IdamGuard} from './auth/idam.guard';
 
 import { AppComponent } from './app.component';
 import { DmViewerComponent } from './dm-viewer/dm-viewer.component';
-import { ViewerAnchorDirective} from './dm-viewer/viewer-anchor.directive';
-import { PdfViewerComponent } from './dm-viewer/pdf-viewer/pdf-viewer.component';
-import { ImgViewerComponent } from './dm-viewer/img-viewer/img-viewer.component';
+import { ViewerAnchorDirective} from './dm-viewer/viewers/viewer-anchor.directive';
+import { PdfViewerComponent } from './dm-viewer/viewers/pdf-viewer/pdf-viewer.component';
+import { ImgViewerComponent } from './dm-viewer/viewers/img-viewer/img-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {AppConfig} from './app.config';
 import {Http, HttpModule} from '@angular/http';
@@ -18,9 +18,9 @@ import {WindowService} from './utils/window.service';
 import {DocumentService} from './utils/document.service';
 import {CookieService} from 'angular2-cookie/core';
 import {SessionService} from './auth/session.service';
-import { UnsupportedViewerComponent } from './dm-viewer/unsupported-viewer/unsupported-viewer.component';
-import {ViewerFactoryService} from './dm-viewer/viewer-factory.service';
-import { NotesComponent } from './dm-viewer/notes/notes.component';
+import { UnsupportedViewerComponent } from './dm-viewer/viewers/unsupported-viewer/unsupported-viewer.component';
+import {ViewerFactoryService} from './dm-viewer/viewers/viewer-factory.service';
+import { NotesComponent } from './dm-viewer/annotations/notes/notes.component';
 import {ImagePipe} from './utils/image-pipe';
 import {AnnotationService} from './dm-viewer/annotations/annotation.service';
 
