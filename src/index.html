@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <base href="/">
 
@@ -9,7 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
+
+<body class="">
+
 <div id="global-cookie-message">
   <p>GOV.UK uses cookies to make the site simpler. <a href="https://www.gov.uk/help/cookies">Find out more about cookies</a></p>
 </div>
@@ -18,8 +21,8 @@
   <div class="header-wrapper">
     <div class="header-global">
       <div class="header-logo">
-        <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" id="logo" class="content">
-          <img src="assets/images/gov.uk_logotype_crown_invert_trans.png?0.23.0" width="36" height="32" alt=""> GOV.UK
+        <a href="/" title="Document Viewer" id="logo" class="content">
+          <img src="assets/images/gov.uk_logotype_crown_invert_trans.png?0.23.0" width="36" height="32" alt=""> Document Viewer
         </a>
       </div>
     </div>
@@ -28,7 +31,19 @@
 
 <div id="global-header-bar"></div>
 
-<app-root></app-root>
+<!--content-->
+<main id="content" role="main">
+  <div class="phase-banner-alpha">
+    <p>
+      <strong class="phase-tag">ALPHA</strong>
+      <span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+    </p>
+  </div>
+  <div class="grid-row">
+    <app-root></app-root>
+  </div>
+</main>
+<!-- content END -->
 
 <footer class="group js-footer" id="footer" role="contentinfo">
   <div class="footer-wrapper">
@@ -40,7 +55,7 @@
         </div>
       </div>
       <div class="copyright">
-        <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a>
+        <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">&copy; Crown copyright</a>
       </div>
     </div>
   </div>
