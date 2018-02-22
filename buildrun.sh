@@ -4,6 +4,6 @@
 clear;
 ./bin/fakeversion.sh
 yarn install
-yarn setup # when run in live env
-yarn start # when run in live env
-#yarn start-dev
+#yarn setup # when run in live env
+#yarn start # when run in live env
+yarn start-dev

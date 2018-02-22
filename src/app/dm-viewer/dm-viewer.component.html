@@ -1,24 +1,35 @@
-<h2 *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h2>
+<h1 class="heading-large" *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h1>
 
-<div *ngIf="viewerComponent && viewerComponent.numPages > 1">
+<div class="grid-row" *ngIf="viewerComponent && viewerComponent.numPages > 1">
   <p>
-    Showing page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
+    Page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
   </p>
-  <a (click)="viewerComponent.prevPage()">Previous</a>
-  <a (click)="viewerComponent.nextPage()">Next</a>
+  <p>
+    <a class="button" (click)="viewerComponent.prevPage()">Previous</a>
+    <a class="button" (click)="viewerComponent.nextPage()">Next</a>
+  </p>
 </div>
 
-<div [ngClass]="{'viewer--full-width': !annotate,
-                 'viewer--with-notes': annotate && viewerComponent && viewerComponent.numPages > 0,
-                 'viewer': true}">
-  <ng-template appViewerAnchor></ng-template>
+<div class="grid-row">
+  <div [ngClass]="{'column-full': !annotate,
+                 'column-two-thirds': annotate && viewerComponent && viewerComponent.numPages > 0}">
+    <ng-template appViewerAnchor></ng-template>
+  </div>
+
+  <app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
+             class="column-one-third"
+             [url]="url"
+             [page]="viewerComponent.page"
+             [numPages]="viewerComponent.numPages">
+  </app-notes>
 </div>
 
-<app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
-           class="notes"
-           [url]="url"
-           [page]="viewerComponent.page"
-           [numPages]="viewerComponent.numPages">
-</app-notes>
-
-<p *ngIf="error" class="error-message">There was an error while loading your document. Response status was {{error.status}}.</p>
+<div class="grid-row">
+  <div *ngIf="error"  class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">There was an error while loading your document.</h2>
+    <p>Response status was {{error.status}}.</p>
+    <ul class="error-summary-list">
+      <li><a href="javascript:history.back()">Go Back</a></li>
+    </ul>
+  </div>
+</div>

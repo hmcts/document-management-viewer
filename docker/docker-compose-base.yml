@@ -35,6 +35,7 @@ services:
       - PACKAGES_VERSION=unkown
       - XFWD=true
     links:
+     - em-annotation-app
      - idam-api
      - service-auth-provider-api
     depends_on:
