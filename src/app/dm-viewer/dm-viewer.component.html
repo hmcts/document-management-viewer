@@ -2,7 +2,7 @@
 
 <div *ngIf="viewerComponent && viewerComponent.numPages > 1">
   <p>
-    Showing page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
+    Page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
   </p>
 
   <a class="button" (click)="viewerComponent.prevPage()">Previous</a>
