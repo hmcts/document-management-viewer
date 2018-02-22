@@ -1,7 +1,8 @@
 <a (click)="logout()" class="">Sign out</a>
 <app-dm-viewer *ngIf="url;else no_url" [url]="url" [annotate]="annotate"></app-dm-viewer>
-<ng-template #no_url >
+<ng-template class="grid-row" #no_url >
   <div>
     <p>No document URL has been provided to the Document Viewer</p>
   </div>
 </ng-template>
+
