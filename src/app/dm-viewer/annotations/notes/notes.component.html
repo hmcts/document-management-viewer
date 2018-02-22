@@ -1,7 +1,9 @@
-
-
 <form id="notesForm" name="notesForm" #notesForm="ngForm">
-  <label for="currentNote">Notes<span *ngIf="numPages > 1"> against page {{_page}}</span></label>
+  <label class="form-label" for="currentNote">
+    Notes:
+    <span class="form-hint" *ngIf="numPages > 1">Page {{_page}}</span>
+  </label>
+
   <textarea class="form-control" id="currentNote" name="currentNote" [(ngModel)]="currentNote.content"></textarea>
 
   <div class="button-start">
