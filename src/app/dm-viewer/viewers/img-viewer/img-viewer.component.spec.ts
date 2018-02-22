@@ -5,9 +5,10 @@ import {ImagePipe} from '../../../utils/image-pipe';
 import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {SessionService} from '../../../auth/session.service';
-import {CookieService} from 'angular2-cookie/core';
+import {CookieModule, CookieService} from 'ngx-cookie';
 import {WindowService} from '../../../utils/window.service';
 import {DebugElement} from '@angular/core';
+import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 describe('ImgViewerComponent', () => {
   let component: ImgViewerComponent;
@@ -18,8 +19,8 @@ describe('ImgViewerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ImgViewerComponent, ImagePipe ],
-      imports: [HttpClientTestingModule],
-      providers: [HttpClient, SessionService, CookieService, WindowService]
+      imports: [HttpClientTestingModule, CookieModule.forRoot()],
+      providers: [HttpClient, SessionService, WindowService]
     })
     .compileComponents();
   }));

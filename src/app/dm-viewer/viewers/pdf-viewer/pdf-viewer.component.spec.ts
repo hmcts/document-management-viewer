@@ -4,8 +4,9 @@ import { PdfViewerComponent } from './pdf-viewer.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {SessionService} from '../../../auth/session.service';
-import {CookieService} from 'angular2-cookie/core';
+import {CookieModule, CookieService} from 'ngx-cookie';
 import {WindowService} from '../../../utils/window.service';
+import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 describe('PdfViewerComponent', () => {
   let sessionService: SessionService;
@@ -14,9 +15,9 @@ describe('PdfViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PdfViewerModule],
+      imports: [PdfViewerModule,  CookieModule.forRoot()],
       declarations: [ PdfViewerComponent ],
-      providers: [SessionService, CookieService, WindowService]
+      providers: [SessionService, WindowService]
     })
     .compileComponents();
   }));

@@ -7,7 +7,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import {DebugElement} from '@angular/core';
 import {SessionService} from '../auth/session.service';
 import {AppModule} from '../app.module';
-import {CookieService} from 'angular2-cookie/core';
+import {CookieModule, CookieService} from 'ngx-cookie';
 import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupported-viewer.component';
@@ -17,6 +17,7 @@ import {NotesComponent} from './annotations/notes/notes.component';
 import {FormsModule} from '@angular/forms';
 import {WindowService} from '../utils/window.service';
 import {ImagePipe} from '../utils/image-pipe';
+import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -30,7 +31,7 @@ describe('DmViewerComponent', () => {
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [PdfViewerModule, HttpClientTestingModule, FormsModule],
+      imports: [PdfViewerModule, HttpClientTestingModule, FormsModule,  CookieModule.forRoot()],
       declarations: [
         DmViewerComponent,
         PdfViewerComponent,
@@ -39,7 +40,7 @@ describe('DmViewerComponent', () => {
         UnsupportedViewerComponent,
         ViewerAnchorDirective,
         ImagePipe],
-      providers: [SessionService, CookieService, ViewerFactoryService, WindowService]
+      providers: [SessionService, ViewerFactoryService, WindowService]
     });
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
