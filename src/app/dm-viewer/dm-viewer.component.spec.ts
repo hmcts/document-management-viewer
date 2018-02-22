@@ -167,7 +167,7 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display an error with the status', () => {
-      expect(element.nativeElement.querySelector('.error-message').textContent).toContain('404');
+      expect(element.nativeElement.querySelector('.error-summary').textContent).toContain('404');
     });
 
     it('img element should not be visible', () => {
