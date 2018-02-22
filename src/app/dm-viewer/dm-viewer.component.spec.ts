@@ -82,7 +82,7 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2').textContent).toEqual('image.jpeg');
+      expect(element.nativeElement.querySelector('h1').textContent).toEqual('image.jpeg');
     });
 
     it('img element should be visible', () => {
@@ -110,7 +110,7 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2').textContent).toEqual('cert.pdf');
+      expect(element.nativeElement.querySelector('h1').textContent).toEqual('cert.pdf');
     });
 
     it('img element should not be visible', () => {
@@ -138,7 +138,7 @@ describe('DmViewerComponent', () => {
     });
 
     it('should display document name', () => {
-      expect(element.nativeElement.querySelector('h2').textContent).toEqual('plain.txt');
+      expect(element.nativeElement.querySelector('h1').textContent).toEqual('plain.txt');
     });
 
     it('should show a message with link to download', () => {
