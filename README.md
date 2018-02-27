@@ -1,8 +1,10 @@
-# DmViewer
-
-[![Build Status](https://travis-ci.org/hmcts/document-management-viewer.svg?branch=travis)](https://travis-ci.org/hmcts/document-management-viewer)
-[![codecov](https://codecov.io/gh/hmcts/document-management-viewer/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/document-management-viewer)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb30eeb6551b40fd95494c3f2397707b)](https://www.codacy.com/app/Louisblack/document-management-viewer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hmcts/document-management-viewer&amp;utm_campaign=Badge_Grade)
+# Evidence Management Viewer Web
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/hmcts/em-viewer-web.svg?branch=master)](https://travis-ci.org/hmcts/em-viewer-web) 
+[![codecov](https://codecov.io/gh/hmcts/em-viewer-web/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/em-viewer-web) 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8931f0f4be494ecc9ff88d11b367d21e)](https://www.codacy.com/app/HMCTS/em-viewer-web) 
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/8931f0f4be494ecc9ff88d11b367d21e)](https://www.codacy.com/app/HMCTS/em-viewer-web) 
+[![Known Vulnerabilities](https://snyk.io/test/github/hmcts/em-viewer-web/badge.svg)](https://snyk.io/test/github/hmcts/em-viewer-web) 
 
 This project is a viewer front end component for the Document Management service.
 

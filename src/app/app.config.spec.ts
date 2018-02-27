@@ -20,12 +20,17 @@ describe('AppConfig tests', () => {
     appConfig.load();
     const request = httpMock.expectOne('assets/config.json');
     request.flush({
-      'annotation_url': 'http://localhost:8086/annotation-sets'
+      'annotation_url': 'http://localhost:3623/annotation-sets',
+      'login_url': 'https://localhost:3501/login'
     });
   }));
 
   it('should load annotation url', () => {
-    expect(appConfig.getAnnotationUrl()).toEqual('http://localhost:8086/annotation-sets');
+    expect(appConfig.getAnnotationUrl()).toEqual('http://localhost:3623/annotation-sets');
+  });
+
+  it('should load annotation url', () => {
+    expect(appConfig.getLoginUrl()).toEqual('https://localhost:3501/login');
   });
 
 });
