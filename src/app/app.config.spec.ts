@@ -18,7 +18,7 @@ describe('AppConfig tests', () => {
     httpMock = TestBed.get(HttpTestingController);
     appConfig = TestBed.get(AppConfig);
     appConfig.load();
-    const request = httpMock.expectOne('assert/config.json');
+    const request = httpMock.expectOne('assets/config.json');
     request.flush({
       'annotation_url': 'http://localhost:8086/annotation-sets'
     });
