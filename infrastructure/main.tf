@@ -37,6 +37,9 @@ module "app" {
     ROOT_APPENDER = "${var.root_appender}"
     JSON_CONSOLE_PRETTY_PRINT = "${var.json_console_pretty_print}"
     LOG_OUTPUT = "${var.log_output}"
+
+    IDAM_LOGIN_URL = "${var.idam_login_url}"
+    EM_API_GW_URL = "http://${var.em_gw_web_url}-${var.env}.service.${local.ase_name}.internal/annotation-sets"
   }
 }
 

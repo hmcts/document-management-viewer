@@ -1,0 +1,3 @@
+test_env: none
+login_url: IDAM_LOGIN_URL
+annotation_url: EM_API_GW_URL

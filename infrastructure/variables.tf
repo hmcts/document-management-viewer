@@ -62,9 +62,14 @@ variable "jenkins_AAD_objectId" {
 //  default = "http://betaDevBccidamS2SLB.reform.hmcts.net:80"
 //}
 //
-//variable "dm_store_app_url" {
-//  default = "dm-store-app"
-//}
+
+variable "idam_login_url" {
+  default = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
+}
+
+variable "em_gw_web_url" {
+  default = "em-api-gw-web"
+}
 
 ////////////////////////////////////////////////
 // Logging
