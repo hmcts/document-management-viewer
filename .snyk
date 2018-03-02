@@ -1,0 +1,9 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:lodash:20180130':
+    - codeceptjs > inquirer > lodash:
+        reason: None given
+        expires: '2018-04-01T18:28:53.418Z'
+patch: {}

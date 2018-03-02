@@ -1,0 +1,35 @@
+{
+  "tests": "./e2e/*_test.js",
+  "timeout": 35000,
+  "output": "./output",
+  "helpers": {
+    "Protractor": {
+      "url": "http://localhost:3621",
+      "driver": "hosted",
+      "browser": "chrome",
+      "rootElement": "app-root"
+    }
+    ,
+    "WebDriverIO" : {
+       "url": "http://localhost:3621",
+       "smartWait": 5000,
+       "browser": "chrome",
+       "keepCookies": true,
+       "restart": false,
+       "windowSize": "maximize",
+       "timeouts": {
+         "script": 60000,
+         "page load": 10000
+       },
+       "reporterOptions": {
+    "outputDir": "./test"
+  }
+     }
+  },
+  "include": {
+    "I": "./e2e/steps_file.js"
+  },
+  "bootstrap": false,
+  "mocha": {},
+  "name": "em-viewer-web"
+}
