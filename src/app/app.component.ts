@@ -7,20 +7,12 @@ import {SessionService} from './auth/session.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   url: string;
   annotate: boolean;
 
   constructor(private route: ActivatedRoute,
               private sessionService: SessionService) { }
-
-  ngOnInit() {
-    this.route.queryParams
-      .subscribe(params => {
-        this.url = params.url;
-        this.annotate = params.annotate === 'true';
-      });
-  }
 
   logout() {
     this.sessionService.clearSession();
