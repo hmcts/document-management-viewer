@@ -258,27 +258,13 @@ describe('EmAnnotationSummaryComponent', () => {
       });
 
       describe('and has with annotation', () => {
-        beforeEach(() => {
+        beforeEach(async(() => {
           const annoReq = httpMock.expectOne(findAnnotationUrl);
           annoReq.flush(annotationSetObject);
-          component.annotationSet = annotationSetObject;
-          component.annotations = annotationsObject;
-          fixture.detectChanges();
-        });
-
-        it('should have one summary', () => {
-          expect(element.nativeElement.querySelector('.lede').textContent).toContain('I am some test Text');
-        });
-      });
-
-      describe('and has with annotation', () => {
-        beforeEach(() => {
-          const annoReq = httpMock.expectOne(findAnnotationUrl);
-          annoReq.flush(annotationSetObject);
-          component.annotationSet = annotationSet4Object;
-          component.annotations = annotations4Object;
-          fixture.detectChanges();
-        });
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+          });
+        }));
 
         it('should have one summary', () => {
           expect(element.nativeElement.querySelector('.lede').textContent).toContain('I am some test Text');
@@ -286,28 +272,28 @@ describe('EmAnnotationSummaryComponent', () => {
       });
 
       describe('and has fails to get annotations', () => {
-        beforeEach(() => {
+        beforeEach(async(() => {
           const annoReq = httpMock.expectOne(findAnnotationUrl);
           annoReq.flush(null);
-          // component.annotationSet = null;
-          // component.annotations = null;
-          fixture.detectChanges();
-        });
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+          });
+        }));
 
         it('should display an error with the status', () => {
           expect(element.nativeElement.querySelector('.lede')).not.toBeTruthy();
         });
       });
-
-
     });
 
     describe('when the server returns an error', () => {
-      beforeEach(() => {
+      beforeEach(async(() => {
         const req = httpMock.expectOne(documentUrl);
         req.flush(invalidDataParameter, mockError404);
-        fixture.detectChanges();
-      });
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+        });
+      }));
 
       it('should display an error with the status', () => {
         expect(element.nativeElement.querySelector('.error-summary').textContent).toContain('404');
