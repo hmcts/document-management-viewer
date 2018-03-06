@@ -16,6 +16,7 @@ import {NotesComponent} from './annotations/notes/notes.component';
 import {FormsModule} from '@angular/forms';
 import {WindowService} from '../utils/window.service';
 import {ImagePipe} from '../utils/image-pipe';
+import {DmViewerModule} from './dm-viewer.module';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const jwt = '12345';
@@ -29,16 +30,9 @@ describe('DmViewerComponent', () => {
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [PdfViewerModule, HttpClientTestingModule, FormsModule,  CookieModule.forRoot()],
-      declarations: [
-        DmViewerComponent,
-        PdfViewerComponent,
-        ImgViewerComponent,
-        NotesComponent,
-        UnsupportedViewerComponent,
-        ViewerAnchorDirective,
-        ImagePipe],
-      providers: [SessionService, ViewerFactoryService, WindowService]
+      imports: [DmViewerModule, HttpClientTestingModule],
+      declarations: [],
+      providers: []
     });
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
