@@ -207,7 +207,6 @@ const invalidDataParameter = 'Invalid request parameters';
 describe('EmAnnotationSummaryComponent', () => {
   let httpMock: HttpTestingController;
   let sessionService: SessionService;
-  let appConfig: AppConfig;
   let component: EmAnnotationSummaryComponent;
   let fixture: ComponentFixture<EmAnnotationSummaryComponent>;
 
