@@ -5,7 +5,7 @@ import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {Viewer} from './viewers/viewer';
 
 @Component({
-  selector: 'em-viewer',
+  selector: 'app-em-viewer',
   templateUrl: './em-viewer.component.html',
   styleUrls: ['./em-viewer.component.scss']
 })

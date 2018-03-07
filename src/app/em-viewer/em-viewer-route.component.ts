@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-dm-viewer-route',
   template: `
-    <em-viewer *ngIf="url;else no_url" [url]="url" [annotate]="annotate"></em-viewer>
+    <app-em-viewer *ngIf="url;else no_url" [url]="url" [annotate]="annotate"></app-em-viewer>
     <ng-template class="grid-row" #no_url >
         <div class="column-full">
           <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
