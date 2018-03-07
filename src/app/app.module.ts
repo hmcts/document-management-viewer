@@ -26,6 +26,7 @@ import {AnnotationService} from './dm-viewer/annotations/annotation.service';
 import {DmViewerRouteComponent} from './dm-viewer/dm-viewer-route.component';
 import {EmAnnotationSummaryRouteComponent} from './em-annotation-summary/em-annotation-summary-route.component';
 import {DmViewerModule} from './dm-viewer/dm-viewer.module';
+import {EmAnnotationSummaryModule} from './em-annotation-summary/em-annotation-summary.module';
 
 const appRoutes: Routes = [
   { path: 'summary', canActivate: [IdamGuard], component: EmAnnotationSummaryRouteComponent },
@@ -37,7 +38,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DmViewerRouteComponent,
-    EmAnnotationSummaryComponent,
     EmAnnotationSummaryRouteComponent
   ],
   imports: [
@@ -46,6 +46,7 @@ const appRoutes: Routes = [
       {enableTracing: true} // <-- debugging purposes only
     ),
     DmViewerModule,
+    EmAnnotationSummaryModule,
     BrowserModule
   ],
   providers: [
