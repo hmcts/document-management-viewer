@@ -10,8 +10,8 @@ import {DmViewerModule} from './em-viewer/em-viewer.module';
 import {EmAnnotationSummaryModule} from './em-annotation-summary/em-annotation-summary.module';
 
 const appRoutes: Routes = [
-  { path: 'summary',component: EmAnnotationSummaryRouteComponent },
-  { path: '', component: DmViewerRouteComponent}
+  {path: 'summary', component: EmAnnotationSummaryRouteComponent},
+  {path: '', component: DmViewerRouteComponent}
 ];
 
 @NgModule({
@@ -40,4 +40,5 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
