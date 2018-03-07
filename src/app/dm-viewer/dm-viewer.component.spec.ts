@@ -30,15 +30,7 @@ describe('DmViewerComponent', () => {
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [DmViewerModule, HttpClientTestingModule],
-      declarations: [],
-      providers: []
-    });
-
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent]
-      }
+      imports: [DmViewerModule, HttpClientTestingModule]
     });
 
     testingModule.compileComponents();

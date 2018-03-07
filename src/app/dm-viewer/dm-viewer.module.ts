@@ -21,15 +21,10 @@ import {EmAnnotationSummaryComponent} from '../em-annotation-summary/em-annotati
 import {EmAnnotationSummaryRouteComponent} from '../em-annotation-summary/em-annotation-summary-route.component';
 import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
-import {AppComponent} from '../app.component';
-
 
 @NgModule({
   declarations: [
     DmViewerComponent,
-    DmViewerRouteComponent,
-    EmAnnotationSummaryComponent,
-    EmAnnotationSummaryRouteComponent,
     PdfViewerComponent,
     ImgViewerComponent,
     UnsupportedViewerComponent,

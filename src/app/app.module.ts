@@ -25,6 +25,7 @@ import {ImagePipe} from './utils/image-pipe';
 import {AnnotationService} from './dm-viewer/annotations/annotation.service';
 import {DmViewerRouteComponent} from './dm-viewer/dm-viewer-route.component';
 import {EmAnnotationSummaryRouteComponent} from './em-annotation-summary/em-annotation-summary-route.component';
+import {DmViewerModule} from './dm-viewer/dm-viewer.module';
 
 const appRoutes: Routes = [
   { path: 'summary', canActivate: [IdamGuard], component: EmAnnotationSummaryRouteComponent },
@@ -35,39 +36,23 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DmViewerComponent,
     DmViewerRouteComponent,
     EmAnnotationSummaryComponent,
-    EmAnnotationSummaryRouteComponent,
-    PdfViewerComponent,
-    ImgViewerComponent,
-    UnsupportedViewerComponent,
-    ViewerAnchorDirective,
-    NotesComponent,
-    ImagePipe
+    EmAnnotationSummaryRouteComponent
   ],
-  entryComponents: [
-    PdfViewerComponent,
-    ImgViewerComponent,
-    UnsupportedViewerComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
     ),
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    PdfViewerModule,
-    CookieModule.forRoot()
+    DmViewerModule,
+    BrowserModule
   ],
   providers: [
     IdamGuard,
     WindowService,
     DocumentService,
     SessionService,
-    ViewerFactoryService,
-    AnnotationService,
     AppConfig,
     {
       provide: APP_INITIALIZER,
