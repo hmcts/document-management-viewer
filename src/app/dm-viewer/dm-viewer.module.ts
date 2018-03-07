@@ -29,8 +29,7 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
     ImgViewerComponent,
     UnsupportedViewerComponent,
     ViewerAnchorDirective,
-    NotesComponent,
-    ImagePipe
+    NotesComponent
   ],
   entryComponents: [
     PdfViewerComponent,
@@ -46,9 +45,6 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
     CookieModule.forRoot()
   ],
   providers: [
-    WindowService,
-    DocumentService,
-    SessionService,
     ViewerFactoryService,
     AnnotationService,
     AppConfig,

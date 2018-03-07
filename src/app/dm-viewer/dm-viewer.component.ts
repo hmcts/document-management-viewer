@@ -16,25 +16,19 @@ export class DmViewerComponent implements OnInit {
   @Input() url: string;
   @Input() annotate: boolean;
   // todo make a class
-  jwt: string;
   mimeType: string;
   docName: string;
   viewerComponent: Viewer;
   error: string;
 
   constructor(private http: HttpClient,
-              private sessionService: SessionService,
               private viewerFactoryService: ViewerFactoryService) { }
 
   ngOnInit() {
-    this.jwt = this.sessionService.getSession().token;
-    if (!this.url || !this.jwt) {
-      throw new Error('url and jwt token are required arguments');
+    if (!this.url) {
+      throw new Error('url is a required arguments');
     }
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': `Bearer ${this.jwt}` })
-    };
-    this.http.get<any>(`${this.url}`, httpOptions)
+    this.http.get<any>(`${this.url}`, {})
       .subscribe(
         resp => {
           if (resp && resp._links) {
@@ -44,10 +38,6 @@ export class DmViewerComponent implements OnInit {
           }
         },
         err => {
-          if (err.status === 401) {
-            this.sessionService.clearSession();
-            return;
-          }
           this.error = err;
         });
   }

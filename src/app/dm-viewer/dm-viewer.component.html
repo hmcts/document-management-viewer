@@ -1,5 +1,4 @@
 <h1 class="heading-large" *ngIf="docName" data-hook="dm.viewer.docName">{{docName}}</h1>
-<a href="/summary/?url={{url}}">Summary</a>
 <div class="grid-row" *ngIf="viewerComponent && viewerComponent.numPages > 1">
   <p>
     Page {{viewerComponent.page}} of {{viewerComponent.numPages}}.

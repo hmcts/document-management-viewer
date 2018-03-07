@@ -34,7 +34,6 @@ export class AnnotationService {
   private annotationSet: any;
 
   constructor(private httpClient: HttpClient,
-              private sessionService: SessionService,
               private appConfig: AppConfig) {
   }
 
@@ -122,7 +121,6 @@ export class AnnotationService {
   private getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.sessionService.getSession().token}`,
         'Accept': 'application/json'
       })
     };
