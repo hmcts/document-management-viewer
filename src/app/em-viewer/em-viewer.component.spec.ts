@@ -1,29 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DmViewerComponent } from './dm-viewer.component';
-import { PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {EmViewerComponent} from './em-viewer.component';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DebugElement} from '@angular/core';
-import {SessionService} from '../auth/session.service';
-import {CookieModule} from 'ngx-cookie';
-import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
-import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
-import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupported-viewer.component';
-import {ViewerFactoryService} from './viewers/viewer-factory.service';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import {NotesComponent} from './annotations/notes/notes.component';
-import {FormsModule} from '@angular/forms';
-import {WindowService} from '../utils/window.service';
-import {ImagePipe} from '../utils/image-pipe';
-import {DmViewerModule} from './dm-viewer.module';
+import {DmViewerModule} from './em-viewer.module';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 
 describe('DmViewerComponent', () => {
-  let component: DmViewerComponent;
+  let component: EmViewerComponent;
   let httpMock: HttpTestingController;
-  let fixture: ComponentFixture<DmViewerComponent>;
+  let fixture: ComponentFixture<EmViewerComponent>;
   let element: DebugElement;
 
   beforeEach(async(() => {
@@ -36,7 +23,7 @@ describe('DmViewerComponent', () => {
 
   beforeEach(() => {
     httpMock = TestBed.get(HttpTestingController);
-    fixture = TestBed.createComponent(DmViewerComponent);
+    fixture = TestBed.createComponent(EmViewerComponent);
     component = fixture.componentInstance;
     component.url = url;
     element = fixture.debugElement;

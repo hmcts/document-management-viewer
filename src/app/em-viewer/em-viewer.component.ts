@@ -1,16 +1,15 @@
-import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {SessionService} from '../auth/session.service';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {Viewer} from './viewers/viewer';
 
 @Component({
-  selector: 'app-dm-viewer',
-  templateUrl: './dm-viewer.component.html',
-  styleUrls: ['./dm-viewer.component.scss']
+  selector: 'em-viewer',
+  templateUrl: './em-viewer.component.html',
+  styleUrls: ['./em-viewer.component.scss']
 })
-export class DmViewerComponent implements OnInit {
+export class EmViewerComponent implements OnInit {
 
   @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;

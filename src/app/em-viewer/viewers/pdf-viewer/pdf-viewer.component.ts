@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SessionService} from '../../../auth/session.service';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 
