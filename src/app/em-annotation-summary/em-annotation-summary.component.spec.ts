@@ -7,6 +7,7 @@ import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../app.config';
 import {WindowService} from '../utils/window.service';
 import {DebugElement} from '@angular/core';
+import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const annotationUrl = 'http://api-gateway.em.com/';
@@ -214,9 +215,9 @@ describe('EmAnnotationSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, CookieModule.forRoot()],
-      declarations: [ EmAnnotationSummaryComponent ],
-      providers: [SessionService, AppConfig, WindowService]
+      imports: [EmAnnotationSummaryModule, HttpClientTestingModule, CookieModule.forRoot()],
+      declarations: [],
+      providers: [SessionService, WindowService]
     })
       .compileComponents();
   }));
@@ -234,8 +235,6 @@ describe('EmAnnotationSummaryComponent', () => {
         token: jwt
       });
       httpMock = TestBed.get(HttpTestingController);
-      appConfig = TestBed.get(AppConfig);
-      appConfig.load();
       const configRequest = httpMock.expectOne('assets/config.json');
       configRequest.flush(configObject);
       component.url = documentUrl;

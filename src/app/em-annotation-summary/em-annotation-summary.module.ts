@@ -7,6 +7,7 @@ import {AppConfig} from '../app.config';
 import {SessionService} from '../auth/session.service';
 import {EmAnnotationSummaryComponent} from '../em-annotation-summary/em-annotation-summary.component';
 import {AnnotationService} from '../dm-viewer/annotations/annotation.service';
+import {WindowService} from '../utils/window.service';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,12 @@ import {AnnotationService} from '../dm-viewer/annotations/annotation.service';
   exports: [EmAnnotationSummaryComponent],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     CookieModule.forRoot()
   ],
   providers: [
     SessionService,
+    WindowService,
     AnnotationService,
     AppConfig,
     {
