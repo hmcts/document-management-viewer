@@ -1,12 +1,18 @@
 {
-  "name": "em-viewer-web",
+  "name": "@hmcts/em-viewer-web",
   "version": "0.0.1",
+  "author": "HMCTS",
   "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hmcts/em-viewer-web.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "cross-env NODE_PATH=. node app.js",
     "start-dev": "ng serve",
-    "setup": "ng build --prod",
+    "setup": "ng-packagr -p package.json",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test": "ng test --single-run=true",
@@ -23,7 +29,6 @@
     "test:codacy-upload": "cat ./coverage/lcov.info | codacy-coverage",
     "test:codecov-upload": "codecov -f ./coverage/lcov.info"
   },
-  "private": false,
   "dependencies": {
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
@@ -70,6 +75,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
+    "ng-packagr": "^2.2.0",
     "nsp": "^2.6.3",
     "protractor": "~5.1.2",
     "sonar-scanner": "^1.0.1",

@@ -7,7 +7,7 @@ import {DebugElement} from '@angular/core';
 import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
-const annotationUrl = 'http://api-gateway.em.com/';
+const annotationUrl = '';
 const findAnnotationUrl = annotationUrl + '/find-all-by-document-url?url=' + documentUrl;
 
 const configObject = {
@@ -225,8 +225,6 @@ describe('EmAnnotationSummaryComponent', () => {
       fixture = TestBed.createComponent(EmAnnotationSummaryComponent);
       component = fixture.componentInstance;
       httpMock = TestBed.get(HttpTestingController);
-      const configRequest = httpMock.expectOne('assets/config.json');
-      configRequest.flush(configObject);
       component.url = documentUrl;
       element = fixture.debugElement;
 

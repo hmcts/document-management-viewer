@@ -17,14 +17,7 @@ import {AnnotationService} from '../em-viewer/annotations/annotation.service';
     CookieModule.forRoot()
   ],
   providers: [
-    AnnotationService,
-    AppConfig,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (config: AppConfig) => () => config.load(),
-      deps: [AppConfig],
-      multi: true
-    }
+    AnnotationService
   ],
 })
 export class EmAnnotationSummaryModule {
