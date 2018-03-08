@@ -1,7 +1,13 @@
 {
-  "name": "em-viewer-web",
+  "name": "@hmcts/em-viewer-web",
   "version": "0.0.1",
+  "author": "HMCTS",
   "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hmcts/em-viewer-web.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "cross-env NODE_PATH=. node app.js",
@@ -23,7 +29,6 @@
     "test:codacy-upload": "cat ./coverage/lcov.info | codacy-coverage",
     "test:codecov-upload": "codecov -f ./coverage/lcov.info"
   },
-  "private": false,
   "dependencies": {
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
