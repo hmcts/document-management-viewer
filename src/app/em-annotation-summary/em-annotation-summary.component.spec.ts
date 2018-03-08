@@ -1,17 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EmAnnotationSummaryComponent } from './em-annotation-summary.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {SessionService} from '../auth/session.service';
+import {EmAnnotationSummaryComponent} from './em-annotation-summary.component';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieModule} from 'ngx-cookie';
-import {AppConfig} from '../app.config';
-import {WindowService} from '../utils/window.service';
 import {DebugElement} from '@angular/core';
+import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const annotationUrl = 'http://api-gateway.em.com/';
 const findAnnotationUrl = annotationUrl + '/find-all-by-document-url?url=' + documentUrl;
-const jwt = '12345';
 
 const configObject = {
   'annotation_url' : annotationUrl
@@ -205,8 +202,6 @@ const invalidDataParameter = 'Invalid request parameters';
 
 describe('EmAnnotationSummaryComponent', () => {
   let httpMock: HttpTestingController;
-  let sessionService: SessionService;
-  let appConfig: AppConfig;
   let component: EmAnnotationSummaryComponent;
   let fixture: ComponentFixture<EmAnnotationSummaryComponent>;
 
@@ -214,9 +209,9 @@ describe('EmAnnotationSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, CookieModule.forRoot()],
-      declarations: [ EmAnnotationSummaryComponent ],
-      providers: [SessionService, AppConfig, WindowService]
+      imports: [EmAnnotationSummaryModule, HttpClientTestingModule, CookieModule.forRoot()],
+      declarations: [],
+      providers: []
     })
       .compileComponents();
   }));
@@ -229,17 +224,10 @@ describe('EmAnnotationSummaryComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(EmAnnotationSummaryComponent);
       component = fixture.componentInstance;
-      sessionService = TestBed.get(SessionService);
-      sessionService.createSession({
-        token: jwt
-      });
       httpMock = TestBed.get(HttpTestingController);
-      appConfig = TestBed.get(AppConfig);
-      appConfig.load();
       const configRequest = httpMock.expectOne('assets/config.json');
       configRequest.flush(configObject);
       component.url = documentUrl;
-      component.jwt = jwt;
       element = fixture.debugElement;
 
       fixture.detectChanges();
@@ -330,20 +318,6 @@ describe('EmAnnotationSummaryComponent', () => {
       });
 
     });
-
-    describe('when the server returns a 401 error', () => {
-      beforeEach(() => {
-        spyOn(sessionService, 'clearSession');
-        const req = httpMock.expectOne(documentUrl);
-        req.flush(invalidDataParameter, mockError401);
-        fixture.detectChanges();
-      });
-
-      it('should clear the local session and reload', () => {
-        expect(sessionService.clearSession).toHaveBeenCalled();
-      });
-    });
-
   });
 ///////////////////////////////
 // Without URL & With JWT    //
@@ -353,41 +327,10 @@ describe('EmAnnotationSummaryComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(EmAnnotationSummaryComponent);
       component = fixture.componentInstance;
-      sessionService = TestBed.get(SessionService);
-      sessionService.createSession({
-        token: jwt
-      });
       httpMock = TestBed.get(HttpTestingController);
       component.url = '';
-      component.jwt = jwt;
       element = fixture.debugElement;
       fixture.detectChanges();
-    });
-
-    it('should display an error with the status', () => {
-      expect(element.nativeElement.querySelector('.error-summary').textContent)
-        .toContain('Something went wrong!');
-    });
-  });
-
-///////////////////////////////
-// With URL & Without JWT    //
-///////////////////////////////
-
-  describe('With URL & Without JWT', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(EmAnnotationSummaryComponent);
-      component = fixture.componentInstance;
-      sessionService = TestBed.get(SessionService);
-      sessionService.createSession({
-        // token: jwt
-      });
-      httpMock = TestBed.get(HttpTestingController);
-      component.url = documentUrl;
-      component.jwt = null;
-      element = fixture.debugElement;
-      fixture.detectChanges();
-      spyOn(sessionService, 'clearSession');
     });
 
     it('should display an error with the status', () => {
@@ -404,17 +347,11 @@ describe('EmAnnotationSummaryComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(EmAnnotationSummaryComponent);
       component = fixture.componentInstance;
-      sessionService = TestBed.get(SessionService);
-      sessionService.createSession({
-        // token: jwt
-      });
       httpMock = TestBed.get(HttpTestingController);
       component.url = null;
-      component.jwt = null;
       element = fixture.debugElement;
 
       fixture.detectChanges();
-      spyOn(sessionService, 'clearSession');
     });
 
     it('should display an error with the status', () => {

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AppConfig} from '../../app.config';
-import {SessionService} from '../../auth/session.service';
 import {Observable} from 'rxjs/Observable';
 
 const pageNoteType = 'PAGENOTE';
@@ -34,7 +33,6 @@ export class AnnotationService {
   private annotationSet: any;
 
   constructor(private httpClient: HttpClient,
-              private sessionService: SessionService,
               private appConfig: AppConfig) {
   }
 
@@ -122,7 +120,6 @@ export class AnnotationService {
   private getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.sessionService.getSession().token}`,
         'Accept': 'application/json'
       })
     };

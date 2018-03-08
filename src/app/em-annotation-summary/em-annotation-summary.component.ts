@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {SessionService} from '../auth/session.service';
+import {HttpClient} from '@angular/common/http';
 import {AppConfig} from '../app.config';
-
 
 @Component({
   selector: 'app-em-annotation-summary',
@@ -20,14 +18,11 @@ export class EmAnnotationSummaryComponent implements OnInit {
   annotations: any;
 
   constructor(private http: HttpClient,
-              private sessionService: SessionService,
               private appConfig: AppConfig) { }
 
   ngOnInit() {
-    this.jwt = this.sessionService.getSession().token;
-    if (!this.jwt || !this.url) {
-      // this.error = new Error('A Url & jwt token are required').message;
-      this.error = 'A Url & jwt token are required';
+    if (!this.url) {
+      this.error = 'A Url is required';
     } else {
       this.http.get<any>(`${this.url}`, this.httpOptions())
         .subscribe(
@@ -37,10 +32,6 @@ export class EmAnnotationSummaryComponent implements OnInit {
             }
           },
           err => {
-            if (err.status === 401) {
-              this.sessionService.clearSession();
-              return;
-            }
             this.error = err;
           });
 
@@ -58,9 +49,7 @@ export class EmAnnotationSummaryComponent implements OnInit {
 
 
   private httpOptions() {
-    return {
-      headers: new HttpHeaders({'Authorization': `Bearer ${this.jwt}`})
-    };
+    return {};
   }
 
   private lookForAnnotationSets(): Promise<any> {

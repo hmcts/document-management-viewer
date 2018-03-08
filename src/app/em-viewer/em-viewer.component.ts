@@ -1,40 +1,33 @@
-import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {SessionService} from '../auth/session.service';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {Viewer} from './viewers/viewer';
 
 @Component({
-  selector: 'app-dm-viewer',
-  templateUrl: './dm-viewer.component.html',
-  styleUrls: ['./dm-viewer.component.scss']
+  selector: 'app-em-viewer',
+  templateUrl: './em-viewer.component.html',
+  styleUrls: ['./em-viewer.component.scss']
 })
-export class DmViewerComponent implements OnInit {
+export class EmViewerComponent implements OnInit {
 
   @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;
   @Input() annotate: boolean;
   // todo make a class
-  jwt: string;
   mimeType: string;
   docName: string;
   viewerComponent: Viewer;
   error: string;
 
   constructor(private http: HttpClient,
-              private sessionService: SessionService,
               private viewerFactoryService: ViewerFactoryService) { }
 
   ngOnInit() {
-    this.jwt = this.sessionService.getSession().token;
-    if (!this.url || !this.jwt) {
-      throw new Error('url and jwt token are required arguments');
+    if (!this.url) {
+      throw new Error('url is a required arguments');
     }
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': `Bearer ${this.jwt}` })
-    };
-    this.http.get<any>(`${this.url}`, httpOptions)
+    this.http.get<any>(`${this.url}`, {})
       .subscribe(
         resp => {
           if (resp && resp._links) {
@@ -44,10 +37,6 @@ export class DmViewerComponent implements OnInit {
           }
         },
         err => {
-          if (err.status === 401) {
-            this.sessionService.clearSession();
-            return;
-          }
           this.error = err;
         });
   }

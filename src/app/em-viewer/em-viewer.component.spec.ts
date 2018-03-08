@@ -1,65 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DmViewerComponent } from './dm-viewer.component';
-import { PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {EmViewerComponent} from './em-viewer.component';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DebugElement} from '@angular/core';
-import {SessionService} from '../auth/session.service';
-import {CookieModule} from 'ngx-cookie';
-import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
-import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
-import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupported-viewer.component';
-import {ViewerFactoryService} from './viewers/viewer-factory.service';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import {NotesComponent} from './annotations/notes/notes.component';
-import {FormsModule} from '@angular/forms';
-import {WindowService} from '../utils/window.service';
-import {ImagePipe} from '../utils/image-pipe';
+import {EmViewerModule} from './em-viewer.module';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
-const jwt = '12345';
 
 describe('DmViewerComponent', () => {
-  let component: DmViewerComponent;
+  let component: EmViewerComponent;
   let httpMock: HttpTestingController;
-  let sessionService: SessionService;
-  let fixture: ComponentFixture<DmViewerComponent>;
+  let fixture: ComponentFixture<EmViewerComponent>;
   let element: DebugElement;
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [PdfViewerModule, HttpClientTestingModule, FormsModule,  CookieModule.forRoot()],
-      declarations: [
-        DmViewerComponent,
-        PdfViewerComponent,
-        ImgViewerComponent,
-        NotesComponent,
-        UnsupportedViewerComponent,
-        ViewerAnchorDirective,
-        ImagePipe],
-      providers: [SessionService, ViewerFactoryService, WindowService]
-    });
-
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [PdfViewerComponent, ImgViewerComponent, UnsupportedViewerComponent]
-      }
+      imports: [EmViewerModule, HttpClientTestingModule]
     });
 
     testingModule.compileComponents();
   }));
 
   beforeEach(() => {
-    sessionService = TestBed.get(SessionService);
-    sessionService.createSession({
-      token: jwt
-    });
     httpMock = TestBed.get(HttpTestingController);
-    fixture = TestBed.createComponent(DmViewerComponent);
+    fixture = TestBed.createComponent(EmViewerComponent);
     component = fixture.componentInstance;
     component.url = url;
-    component.jwt = jwt;
     element = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -174,25 +140,6 @@ describe('DmViewerComponent', () => {
 
     it('pdf element should not be visible', () => {
       expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
-    });
-
-  });
-
-  describe('when the server returns a 401 error', () => {
-    beforeEach(() => {
-      spyOn(sessionService, 'clearSession');
-
-      const req = httpMock.expectOne(url);
-      const mockErrorResponse = {
-        status: 401, statusText: 'Unauthorized'
-      };
-      const data = 'Invalid request parameters';
-      req.flush(data, mockErrorResponse);
-      fixture.detectChanges();
-    });
-
-    it('should clear the local session and reload', () => {
-      expect(sessionService.clearSession).toHaveBeenCalled();
     });
 
   });

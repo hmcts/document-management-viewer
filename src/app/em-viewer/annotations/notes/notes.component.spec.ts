@@ -4,12 +4,9 @@ import {FormsModule} from '@angular/forms';
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
 import {AnnotationService, Note} from '../annotation.service';
-import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
-import {SessionService} from '../../../auth/session.service';
-import {CookieModule, CookieService} from 'ngx-cookie';
-import {WindowService} from '../../../utils/window.service';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../../../app.config';
-import {CookieOptionsProvider} from 'ngx-cookie/src/cookie-options-provider';
 
 const jwt = '12345';
 
@@ -18,7 +15,6 @@ describe('NotesComponent', () => {
   let element: DebugElement;
   let fixture: ComponentFixture<NotesComponent>;
   let httpMock: HttpTestingController;
-  let sessionService: SessionService;
   let appConfig: AppConfig;
   const val = 'https://anno-url/annotation-sets';
 
@@ -26,16 +22,12 @@ describe('NotesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
       imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
-      providers: [AnnotationService, SessionService, WindowService, AppConfig]
+      providers: [AnnotationService, AppConfig]
     })
       .compileComponents();
   }));
 
   beforeEach(async(() => {
-    sessionService = TestBed.get(SessionService);
-    sessionService.createSession({
-      token: jwt
-    });
     fixture = TestBed.createComponent(NotesComponent);
     httpMock = TestBed.get(HttpTestingController);
     appConfig = TestBed.get(AppConfig);

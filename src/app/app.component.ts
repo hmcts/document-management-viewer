@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {SessionService} from './auth/session.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +10,8 @@ export class AppComponent {
   url: string;
   annotate: boolean;
 
-  constructor(private route: ActivatedRoute,
-              private sessionService: SessionService) { }
+  constructor() { }
 
   logout() {
-    this.sessionService.clearSession();
   }
 }
