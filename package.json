@@ -1,8 +1,9 @@
 {
   "name": "em-viewer-web",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "HMCTS",
   "license": "MIT",
+  "main": "./public_api.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:hmcts/em-viewer-web.git"
