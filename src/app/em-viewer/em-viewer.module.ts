@@ -48,5 +48,5 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
     }
   ],
 })
-export class DmViewerModule {
+export class EmViewerModule {
 }

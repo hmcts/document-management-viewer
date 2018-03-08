@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {EmViewerComponent} from './em-viewer.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DebugElement} from '@angular/core';
-import {DmViewerModule} from './em-viewer.module';
+import {EmViewerModule} from './em-viewer.module';
 
 const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 
@@ -15,7 +15,7 @@ describe('DmViewerComponent', () => {
 
   beforeEach(async(() => {
     const testingModule = TestBed.configureTestingModule({
-      imports: [DmViewerModule, HttpClientTestingModule]
+      imports: [EmViewerModule, HttpClientTestingModule]
     });
 
     testingModule.compileComponents();
