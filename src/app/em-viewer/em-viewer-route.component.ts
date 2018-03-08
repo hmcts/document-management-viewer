@@ -21,7 +21,7 @@ import {ActivatedRoute} from '@angular/router';
       </div>
     </ng-template>`
 })
-export class DmViewerRouteComponent implements OnInit {
+export class EmViewerRouteComponent implements OnInit {
   url: string;
   annotate: boolean;
 

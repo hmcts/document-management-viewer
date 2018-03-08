@@ -4,20 +4,20 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {AppConfig} from './app.config';
-import {DmViewerRouteComponent} from './em-viewer/em-viewer-route.component';
+import {EmViewerRouteComponent} from './em-viewer/em-viewer-route.component';
 import {EmAnnotationSummaryRouteComponent} from './em-annotation-summary/em-annotation-summary-route.component';
 import {DmViewerModule} from './em-viewer/em-viewer.module';
 import {EmAnnotationSummaryModule} from './em-annotation-summary/em-annotation-summary.module';
 
 const appRoutes: Routes = [
   {path: 'summary', component: EmAnnotationSummaryRouteComponent},
-  {path: '', component: DmViewerRouteComponent}
+  {path: '', component: EmViewerRouteComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    DmViewerRouteComponent,
+    EmViewerRouteComponent,
     EmAnnotationSummaryRouteComponent
   ],
   imports: [
