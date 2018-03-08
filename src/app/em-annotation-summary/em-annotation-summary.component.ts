@@ -17,8 +17,7 @@ export class EmAnnotationSummaryComponent implements OnInit {
   annotationSet: any;
   annotations: any;
 
-  constructor(private http: HttpClient,
-              private appConfig: AppConfig) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     if (!this.url) {
@@ -54,7 +53,7 @@ export class EmAnnotationSummaryComponent implements OnInit {
 
   private lookForAnnotationSets(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const annoUrl = `${this.appConfig.getAnnotationUrl()}/find-all-by-document-url?url=${this.url}`;
+      const annoUrl = `/find-all-by-document-url?url=${this.url}`;
       this.http.get<any>(annoUrl, this.httpOptions()).subscribe(response => {
         if (response._embedded && response._embedded.annotationSets && response._embedded.annotationSets.length) {
           resolve(response._embedded.annotationSets[0]);
