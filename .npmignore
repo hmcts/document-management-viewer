@@ -1,9 +1,0 @@
-*
-!config
-!src
-!.angular-cli.json
-!app.js
-!package.json
-!tsconfig.json
-!LICENSE
-!yarn.lock
