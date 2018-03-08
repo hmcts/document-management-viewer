@@ -38,14 +38,7 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
   ],
   providers: [
     ViewerFactoryService,
-    AnnotationService,
-    AppConfig,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (config: AppConfig) => () => config.load(),
-      deps: [AppConfig],
-      multi: true
-    }
+    AnnotationService
   ],
 })
 export class EmViewerModule {

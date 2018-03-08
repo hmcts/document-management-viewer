@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - node
-addons: 
+addons:
 apt:
   sources:
   - google-chrome
@@ -26,6 +26,8 @@ script:
 after_success:
 - yarn test:codacy-upload
 - yarn test:codecov-upload
+before_deploy:
+  - cd dist
 deploy:
   provider: npm
   email: jenkins-reform@hmcts.net
