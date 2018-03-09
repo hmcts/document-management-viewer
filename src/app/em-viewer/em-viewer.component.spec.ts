@@ -5,7 +5,8 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import {DebugElement} from '@angular/core';
 import {EmViewerModule} from './em-viewer.module';
 
-const url = 'http://api-gateway.dm.com/documents/1234-1234-1234';
+const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
+const url = '/demproxy/dm/documents/1234-1234-1234';
 
 describe('DmViewerComponent', () => {
   let component: EmViewerComponent;
@@ -25,7 +26,7 @@ describe('DmViewerComponent', () => {
     httpMock = TestBed.get(HttpTestingController);
     fixture = TestBed.createComponent(EmViewerComponent);
     component = fixture.componentInstance;
-    component.url = url;
+    component.url = originalUrl;
     element = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -38,7 +39,7 @@ describe('DmViewerComponent', () => {
         originalDocumentName: 'image.jpeg',
         _links: {
           binary: {
-            href: `${url}/binary`
+            href: `${originalUrl}/binary`
           }
         }
       });
@@ -66,7 +67,7 @@ describe('DmViewerComponent', () => {
         originalDocumentName: 'cert.pdf',
         _links: {
           binary: {
-            href: `${url}/binary`
+            href: `${originalUrl}/binary`
           }
         }
       });
@@ -94,7 +95,7 @@ describe('DmViewerComponent', () => {
         originalDocumentName: 'plain.txt',
         _links: {
           binary: {
-            href: `${url}/binary`
+            href: `${originalUrl}/binary`
           }
         }
       });
