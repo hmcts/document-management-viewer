@@ -5,6 +5,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8931f0f4be494ecc9ff88d11b367d21e)](https://www.codacy.com/app/HMCTS/em-viewer-web) 
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/8931f0f4be494ecc9ff88d11b367d21e)](https://www.codacy.com/app/HMCTS/em-viewer-web) 
 [![Known Vulnerabilities](https://snyk.io/test/github/hmcts/em-viewer-web/badge.svg)](https://snyk.io/test/github/hmcts/em-viewer-web) 
+[![npm version](https://badge.fury.io/js/em-viewer-web.svg)](https://www.npmjs.com/package/em-viewer-web)
 
 This project is a viewer front end component for the Document Management service.
 
