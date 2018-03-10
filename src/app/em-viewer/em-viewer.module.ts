@@ -13,6 +13,7 @@ import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupport
 import {NotesComponent} from './annotations/notes/notes.component';
 import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
+import {UrlFixerService} from '../utils/url-fixer.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
   ],
   providers: [
     ViewerFactoryService,
-    AnnotationService
+    AnnotationService,
+    UrlFixerService
   ],
 })
 export class EmViewerModule {

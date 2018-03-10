@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {Viewer} from './viewers/viewer';
+import {UrlFixerService} from '../utils/url-fixer.service';
 
 @Component({
   selector: 'app-em-viewer',
@@ -21,13 +22,14 @@ export class EmViewerComponent implements OnInit {
   error: string;
 
   constructor(private http: HttpClient,
+              private urlFixer: UrlFixerService,
               private viewerFactoryService: ViewerFactoryService) { }
 
   ngOnInit() {
     if (!this.url) {
       throw new Error('url is a required arguments');
     }
-    this.http.get<any>(`${this.url}`, {})
+    this.http.get<any>(`${this.urlFixer.fixDm(this.url)}`, {})
       .subscribe(
         resp => {
           if (resp && resp._links) {

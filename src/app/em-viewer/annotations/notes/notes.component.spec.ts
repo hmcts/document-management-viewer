@@ -7,6 +7,7 @@ import {AnnotationService, Note} from '../annotation.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../../../app.config';
+import {UrlFixerService} from '../../../utils/url-fixer.service';
 
 const jwt = '12345';
 
@@ -15,14 +16,13 @@ describe('NotesComponent', () => {
   let element: DebugElement;
   let fixture: ComponentFixture<NotesComponent>;
   let httpMock: HttpTestingController;
-  let appConfig: AppConfig;
-  const val = 'https://anno-url/annotation-sets';
+  const val = '/demproxy/an/annotation-sets';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
       imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
-      providers: [AnnotationService, AppConfig]
+      providers: [AnnotationService, UrlFixerService]
     })
       .compileComponents();
   }));
@@ -30,8 +30,6 @@ describe('NotesComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(NotesComponent);
     httpMock = TestBed.get(HttpTestingController);
-    appConfig = TestBed.get(AppConfig);
-    spyOn(appConfig, 'getAnnotationUrl').and.returnValue(val);
     component = fixture.componentInstance;
     element = fixture.debugElement;
     component.url = 'https://doc123';
@@ -40,7 +38,7 @@ describe('NotesComponent', () => {
 
   describe('when no notes are loaded', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: []
@@ -94,7 +92,7 @@ describe('NotesComponent', () => {
 
   describe('when notes are loaded', () => {
     beforeEach(async(() => {
-      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: [{
@@ -108,7 +106,7 @@ describe('NotesComponent', () => {
               }],
               '_links': {
                 self: {
-                  href: 'https://anno-url/annotation-sets/1234/annotation/1'
+                  href: 'http://test.com/annotation-sets/1234/annotation/1'
                 }
               }
             }, {
@@ -120,7 +118,7 @@ describe('NotesComponent', () => {
               }],
               '_links': {
                 self: {
-                  href: 'https://anno-url/annotation-sets/1234/annotation/2'
+                  href: 'http://test.com/annotation-sets/1234/annotation/2'
                 }
               }
             }, {
@@ -132,16 +130,16 @@ describe('NotesComponent', () => {
               }],
               '_links': {
                 self: {
-                  href: 'https://anno-url/annotation-sets/1234/annotation/3'
+                  href: 'http://test.com/annotation-sets/1234/annotation/3'
                 }
               }
             }],
             '_links': {
               self: {
-                href: 'https://anno-url/annotation-sets/1234'
+                href: 'http://test.com/annotation-sets/1234'
               },
               'add-annotation': {
-                href: 'https://anno-url/annotation-sets/1234/annotation'
+                href: 'http://test.com/annotation-sets/1234/annotation'
               }
             }
           }]
@@ -167,7 +165,7 @@ describe('NotesComponent', () => {
         fixture.detectChanges();
         component.save();
 
-        putRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+        putRequest = httpMock.expectOne('/demproxy/an/annotation-sets/1234/annotation/2');
         putRequest.flush({}, {status: 200, statusText: 'Good!'});
       }));
 
@@ -189,7 +187,7 @@ describe('NotesComponent', () => {
         fixture.detectChanges();
         component.clear();
 
-        putRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+        putRequest = httpMock.expectOne('/demproxy/an/annotation-sets/1234/annotation/2');
         putRequest.flush({
           uuid: '1',
           page: 1,
@@ -199,7 +197,7 @@ describe('NotesComponent', () => {
           }],
           '_links': {
             self: {
-              href: 'https://anno-url/annotation-sets/1234/annotation/1'
+              href: 'http://test.com/annotation-sets/1234/annotation/1'
             }
           }
         });
@@ -220,12 +218,12 @@ describe('NotesComponent', () => {
 
     beforeEach(async(() => {
       component.currentNote.content = '';
-      component.currentNote.url = 'https://anno-url/annotation-sets/1234/annotation/2';
+      component.currentNote.url = '/demproxy/an/annotation-sets/1234/annotation/2';
       component.notesForm.form.markAsDirty();
       fixture.detectChanges();
       component.save();
 
-      deleteRequest = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation/2');
+      deleteRequest = httpMock.expectOne('/demproxy/an/annotation-sets/1234/annotation/2');
       deleteRequest.flush({}, {status: 200, statusText: 'Good!'});
     }));
 
@@ -244,22 +242,22 @@ describe('NotesComponent', () => {
 
   describe('when we try and load notes but we have no sets', () => {
     beforeEach(async(() => {
-      const req = httpMock.expectOne('https://anno-url/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
       req.flush({});
       fixture.detectChanges();
     }));
 
     beforeEach(async(() => {
-      const postReq = httpMock.expectOne('https://anno-url/annotation-sets');
+      const postReq = httpMock.expectOne('/demproxy/an/annotation-sets');
       postReq.flush({
         uuid: '1234',
           annotations: [],
           '_links': {
           self: {
-            href: 'https://anno-url/annotation-sets/1234'
+            href: 'http://test.com/annotation-sets/1234'
           },
           'add-annotation': {
-            href: 'https://anno-url/annotation-sets/1234/annotation'
+            href: 'http://test.com/annotation-sets/1234/annotation'
           }
         }
       });
@@ -275,7 +273,7 @@ describe('NotesComponent', () => {
         component.currentNote.content = 'A really great note';
         fixture.detectChanges();
         component.save();
-        const postReq = httpMock.expectOne('https://anno-url/annotation-sets/1234/annotation');
+        const postReq = httpMock.expectOne('/demproxy/an/annotation-sets/1234/annotation');
         postReq.flush({
           uuid: '1',
           page: 1,
@@ -285,14 +283,14 @@ describe('NotesComponent', () => {
           }],
           '_links': {
             self: {
-              href: 'https://anno-url/annotation-sets/1234/annotation/1'
+              href: 'http://test.com/annotation-sets/1234/annotation/1'
             }
           }
         });
       }));
 
       it('should update the note with the generated url', () => {
-        expect(component.currentNote.url).toEqual('https://anno-url/annotation-sets/1234/annotation/1');
+        expect(component.currentNote.url).toEqual('/demproxy/an/annotation-sets/1234/annotation/1');
       });
     });
 
@@ -301,7 +299,7 @@ describe('NotesComponent', () => {
         component.currentNote.content = 'A rubbish note';
         fixture.detectChanges();
         component.clear();
-        const postReq = httpMock.expectNone('https://anno-url/annotation-sets/1234/annotation');
+        const postReq = httpMock.expectNone('/demproxy/an/annotation-sets/1234/annotation');
       }));
 
       it('should update the note with the generated url', () => {

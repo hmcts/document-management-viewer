@@ -3,6 +3,7 @@ import { PdfViewerComponent} from './pdf-viewer/pdf-viewer.component';
 import { ImgViewerComponent} from './img-viewer/img-viewer.component';
 import {Viewer} from './viewer';
 import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
+import {UrlFixerService} from '../../utils/url-fixer.service';
 
 @Injectable()
 export class ViewerFactoryService {
@@ -25,7 +26,8 @@ export class ViewerFactoryService {
     return mimeType === 'application/pdf';
   }
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private urlFixer: UrlFixerService) { }
 
   buildViewer(documentMetaData, viewContainerRef: ViewContainerRef) {
     const componentToBuild =
@@ -36,7 +38,7 @@ export class ViewerFactoryService {
     viewContainerRef.clear();
 
     const componentRef: ComponentRef<Viewer> = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.url = documentMetaData._links.binary.href;
+    componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href);
     return componentRef.instance;
   }
 
