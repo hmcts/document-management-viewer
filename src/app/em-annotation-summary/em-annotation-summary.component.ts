@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppConfig} from '../app.config';
+import {UrlFixerService} from '../utils/url-fixer.service';
 
 @Component({
   selector: 'app-em-annotation-summary',
@@ -17,13 +18,14 @@ export class EmAnnotationSummaryComponent implements OnInit {
   annotationSet: any;
   annotations: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private urlFixer: UrlFixerService) { }
 
   ngOnInit() {
     if (!this.url) {
       this.error = 'A Url is required';
     } else {
-      this.http.get<any>(`${this.url}`, this.httpOptions())
+      this.http.get<any>(`${this.urlFixer.fixDm(this.url)}`, this.httpOptions())
         .subscribe(
           resp => {
             if (resp && resp._links) {

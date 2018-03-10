@@ -5,14 +5,11 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import {CookieModule} from 'ngx-cookie';
 import {DebugElement} from '@angular/core';
 import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
+import {UrlFixerService} from '../utils/url-fixer.service';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
-const annotationUrl = '';
 const findAnnotationUrl = '/demproxy/an/annotation-sets/find-all-by-document-url?url=' + documentUrl;
-
-const configObject = {
-  'annotation_url' : annotationUrl
-};
+const proxyDocumentUrl = '/demproxy/dm/documents/1234-1234-1234';
 
 const annotationSetObject = {
   _embedded: {
@@ -211,7 +208,7 @@ describe('EmAnnotationSummaryComponent', () => {
     TestBed.configureTestingModule({
       imports: [EmAnnotationSummaryModule, HttpClientTestingModule, CookieModule.forRoot()],
       declarations: [],
-      providers: []
+      providers: [UrlFixerService]
     })
       .compileComponents();
   }));
@@ -233,7 +230,7 @@ describe('EmAnnotationSummaryComponent', () => {
 
     describe('when the mime type is an image', () => {
       beforeEach(() => {
-        const req = httpMock.expectOne(documentUrl);
+        const req = httpMock.expectOne(proxyDocumentUrl);
         req.flush(jpegObject);
         fixture.detectChanges();
       });
@@ -246,7 +243,7 @@ describe('EmAnnotationSummaryComponent', () => {
 
     describe('when the mime type is pdf', () => {
       beforeEach(() => {
-        const req = httpMock.expectOne(documentUrl);
+        const req = httpMock.expectOne(proxyDocumentUrl);
         req.flush(pdfObject);
         fixture.detectChanges();
       });
@@ -286,7 +283,7 @@ describe('EmAnnotationSummaryComponent', () => {
 
     describe('when the server returns an error', () => {
       beforeEach(async(() => {
-        const req = httpMock.expectOne(documentUrl);
+        const req = httpMock.expectOne(proxyDocumentUrl);
         req.flush(invalidDataParameter, mockError404);
         fixture.whenStable().then(() => {
           fixture.detectChanges();
