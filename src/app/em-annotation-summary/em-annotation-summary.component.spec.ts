@@ -8,7 +8,7 @@ import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const annotationUrl = '';
-const findAnnotationUrl = '/demproxy/dm/find-all-by-document-url?url=' + documentUrl;
+const findAnnotationUrl = '/demproxy/an/annotation-sets/find-all-by-document-url?url=' + documentUrl;
 
 const configObject = {
   'annotation_url' : annotationUrl

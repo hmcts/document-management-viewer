@@ -53,7 +53,7 @@ export class EmAnnotationSummaryComponent implements OnInit {
 
   private lookForAnnotationSets(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const annoUrl = `/demproxy/dm/find-all-by-document-url?url=${this.url}`;
+      const annoUrl = `/demproxy/an/annotation-sets/find-all-by-document-url?url=${this.url}`;
       this.http.get<any>(annoUrl, this.httpOptions()).subscribe(response => {
         if (response._embedded && response._embedded.annotationSets && response._embedded.annotationSets.length) {
           resolve(response._embedded.annotationSets[0]);
