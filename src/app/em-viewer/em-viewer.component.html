@@ -4,8 +4,8 @@
     Page {{viewerComponent.page}} of {{viewerComponent.numPages}}.
   </p>
   <p>
-    <a class="button" (click)="viewerComponent.prevPage()">Previous</a>
-    <a class="button" (click)="viewerComponent.nextPage()">Next</a>
+    <a class="button" data-hook="dm.viewer.nextPage" (click)="viewerComponent.prevPage()">Previous</a>
+    <a class="button" data-hook="dm.viewer.previousPage" (click)="viewerComponent.nextPage()">Next</a>
   </p>
 </div>
 
