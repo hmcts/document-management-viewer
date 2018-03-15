@@ -8,7 +8,7 @@ import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 import {UrlFixerService} from '../utils/url-fixer.service';
 
 const documentUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
-const findAnnotationUrl = '/demproxy/an/annotation-sets/find-all-by-document-url?url=' + documentUrl;
+const findAnnotationUrl = '/demproxy/an/annotation-sets/filter?url=' + documentUrl;
 const proxyDocumentUrl = '/demproxy/dm/documents/1234-1234-1234';
 
 const annotationSetObject = {
