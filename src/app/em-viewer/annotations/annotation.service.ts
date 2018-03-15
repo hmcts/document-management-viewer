@@ -82,7 +82,7 @@ export class AnnotationService {
   private lookForAnnotationSets(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const httpOptions = this.getHttpOptions();
-      const annoUrl = `/demproxy/an/annotation-sets/find-all-by-document-url?url=${url}`;
+      const annoUrl = `/demproxy/an/annotation-sets/filter?url=${url}`;
       this.httpClient.get<any>(annoUrl, httpOptions).subscribe(response => {
         if (response._embedded && response._embedded.annotationSets && response._embedded.annotationSets.length) {
           resolve(response._embedded.annotationSets[0]);
