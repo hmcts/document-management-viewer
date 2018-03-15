@@ -38,7 +38,7 @@ describe('NotesComponent', () => {
 
   describe('when no notes are loaded', () => {
     beforeEach(() => {
-      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/filter?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: []
@@ -92,7 +92,7 @@ describe('NotesComponent', () => {
 
   describe('when notes are loaded', () => {
     beforeEach(async(() => {
-      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/filter?url=https://doc123');
       req.flush({
         _embedded: {
           annotationSets: [{
@@ -242,7 +242,7 @@ describe('NotesComponent', () => {
 
   describe('when we try and load notes but we have no sets', () => {
     beforeEach(async(() => {
-      const req = httpMock.expectOne('/demproxy/an/annotation-sets/find-all-by-document-url?url=https://doc123');
+      const req = httpMock.expectOne('/demproxy/an/annotation-sets/filter?url=https://doc123');
       req.flush({});
       fixture.detectChanges();
     }));
