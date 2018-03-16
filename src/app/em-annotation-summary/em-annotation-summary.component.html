@@ -9,7 +9,7 @@
     </a>
   </h1>
   <h3 class="heading-small" data-hook="em.anno.summary.annotation.createdBy">Created by: {{anno.createdBy}}</h3>
-  <h3 class="heading-small" data-hook="em.anno.summary.annotation.createdOn">Created on: {{anno.createdOn}}</h3>
+  <h3 class="heading-small" data-hook="em.anno.summary.annotation.createdOn">Created on: {{anno.createdOn | date: 'short'}}</h3>
   <p class="lede">
     {{anno.comments[0].content}}
   </p>
