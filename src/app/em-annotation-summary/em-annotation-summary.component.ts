@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AppConfig} from '../app.config';
 import {UrlFixerService} from '../utils/url-fixer.service';
 
 @Component({

@@ -5,7 +5,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FormsModule} from '@angular/forms';
 import {CookieModule} from 'ngx-cookie';
-import {AppConfig} from '../app.config';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {AnnotationService} from './annotations/annotation.service';
 import {PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';

@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AppConfig} from '../../app.config';
 import {Observable} from 'rxjs/Observable';
 import {UrlFixerService} from '../../utils/url-fixer.service';
+import {Injectable} from '@angular/core';
 
 const pageNoteType = 'PAGENOTE';
 
@@ -33,7 +32,7 @@ export class AnnotationService {
 
   private annotationSet: any;
 
-  constructor(private httpClient: HttpClient,
+  constructor(private http: HttpClient,
               private urlFixer: UrlFixerService) {
   }
 
@@ -49,7 +48,7 @@ export class AnnotationService {
 
   getNote(note: Note): Observable<Note> {
     if (note.url) {
-      return this.httpClient.get(note.url, this.getHttpOptions()).map((n) => {
+      return this.http.get(note.url, this.getHttpOptions()).lift((n) => {
         return this.newNoteFromAnnotation(n);
       });
     }
@@ -62,17 +61,17 @@ export class AnnotationService {
   saveNote(note: Note): Observable<any> {
     if (note.url) {
       if (note.content) {
-        return this.httpClient.put(note.url, note.toObject(), this.getHttpOptions()).map(resp => note);
+        return this.http.put(note.url, note.toObject(), this.getHttpOptions()).lift(() => note);
       }
-      return this.httpClient.delete(note.url, this.getHttpOptions()).map(resp => {
+      return this.http.delete(note.url, this.getHttpOptions()).lift(() => {
         note.url = '';
         return note;
       });
     }
-    return this.httpClient.post(this.urlFixer.fixAnno(this.annotationSet._links['add-annotation'].href),
+    return this.http.post(this.urlFixer.fixAnno(this.annotationSet._links['add-annotation'].href),
                                 note.toObject(),
                                 this.getHttpOptions())
-      .map(annotation => this.newNoteFromAnnotation(annotation));
+      .lift((annotation) => this.newNoteFromAnnotation(annotation));
   }
 
   private newNoteFromAnnotation(annotation) {
@@ -83,7 +82,7 @@ export class AnnotationService {
     return new Promise((resolve, reject) => {
       const httpOptions = this.getHttpOptions();
       const annoUrl = `/demproxy/an/annotation-sets/filter?url=${url}`;
-      this.httpClient.get<any>(annoUrl, httpOptions).subscribe(response => {
+      this.http.get<any>(annoUrl, httpOptions).subscribe(response => {
         if (response._embedded && response._embedded.annotationSets && response._embedded.annotationSets.length) {
           resolve(response._embedded.annotationSets[0]);
         } else {
@@ -113,7 +112,7 @@ export class AnnotationService {
         documentUri: url,
         annotations: [],
       };
-      this.httpClient.post('/demproxy/an/annotation-sets', body, this.getHttpOptions()).subscribe(response => {
+      this.http.post('/demproxy/an/annotation-sets', body, this.getHttpOptions()).subscribe(response => {
           this.annotationSet = response;
           resolve(new Array<Note>());
         },
