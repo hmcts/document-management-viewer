@@ -264,6 +264,11 @@ describe('EmAnnotationSummaryComponent', () => {
         it('should have one summary', () => {
           expect(element.nativeElement.querySelector('.lede').textContent).toContain('I am some test Text');
         });
+
+        it('should have display the createdOn date', () => {
+          expect(element.nativeElement.querySelector('h3[data-hook="em.anno.summary.annotation.createdOn"]').textContent)
+            .toEqual('Created on: 2/27/18, 11:40 AM');
+        });
       });
 
       describe('and has fails to get annotations', () => {
