@@ -1,7 +1,6 @@
 
 <h1 class="heading-large" *ngIf="docName" data-hook="em.anno.summary.docName">{{docName}}</h1>
 
-<h2><a href="/?url={{url}}&annotate=true">Go Back</a></h2>
 <div data-hook="em.anno.summary.annotation" [ngClass]="{'column-full': true, 'grid-row': true}" *ngFor="let anno of annotations">
   <h1 class="heading-large" >
     <a href="/?url={{url}}&page={{anno.page}}&annotate=true" data-hook="em.anno.summary.annotation.link">
