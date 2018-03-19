@@ -267,7 +267,7 @@ describe('EmAnnotationSummaryComponent', () => {
 
         it('should have display the createdOn date', () => {
           expect(element.nativeElement.querySelector('h3[data-hook="em.anno.summary.annotation.createdOn"]').textContent)
-            .toEqual('Created on: 2/27/18, 11:40 AM');
+            .toEqual('Created on: 27/2/18, 11:40 AM');
         });
       });
 
