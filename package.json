@@ -1,6 +1,6 @@
 {
   "name": "em-viewer-web",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "HMCTS",
   "license": "MIT",
   "main": "./public_api.ts",
