@@ -5,6 +5,7 @@
   <h1 class="heading-large">Page {{anno.page}}</h1>
   <h3 class="heading-small" data-hook="em.anno.summary.annotation.createdBy">Created by: {{anno.createdBy}}</h3>
   <h3 class="heading-small" data-hook="em.anno.summary.annotation.createdOn">Created on: {{anno.createdOn | date: 'd/M/yy, h:mm a'}}</h3>
+  <h3 class="heading-small" data-hook="em.anno.summary.annotation.modifiedOn">Last Modified on: {{anno.modifiedOn | date: 'd/M/yy, h:mm a'}}</h3>
   <p class="lede">
     {{anno.comments[0].content}}
   </p>

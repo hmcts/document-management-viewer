@@ -23,7 +23,7 @@ const annotationSetObject = {
       annotations: [{
         createdBy: '350',
         lastModifiedBy: '350',
-        modifiedOn: '2018-02-27T11:40:00.363+0000',
+        modifiedOn: '2018-02-27T11:45:00.363+0000',
         createdOn: '2018-02-27T11:40:00.363+0000',
         type: 'PAGENOTE',
         page: 0,
@@ -268,6 +268,11 @@ describe('EmAnnotationSummaryComponent', () => {
         it('should have display the createdOn date', () => {
           expect(element.nativeElement.querySelector('h3[data-hook="em.anno.summary.annotation.createdOn"]').textContent)
             .toEqual('Created on: 27/2/18, 11:40 AM');
+        });
+
+        it('should have display the modifiedOn date', () => {
+          expect(element.nativeElement.querySelector('h3[data-hook="em.anno.summary.annotation.modifiedOn"]').textContent)
+            .toEqual('Last Modified on: 27/2/18, 11:45 AM');
         });
       });
 
