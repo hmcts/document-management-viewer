@@ -5,6 +5,7 @@ import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../app.config';
 import {EmAnnotationSummaryComponent} from '../em-annotation-summary/em-annotation-summary.component';
 import {AnnotationService} from '../em-viewer/annotations/annotation.service';
+import {UrlFixerService} from '../utils/url-fixer.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {AnnotationService} from '../em-viewer/annotations/annotation.service';
     CookieModule.forRoot()
   ],
   providers: [
-    AnnotationService
+    AnnotationService,
+    UrlFixerService
   ],
 })
 export class EmAnnotationSummaryModule {

@@ -208,7 +208,7 @@ describe('EmAnnotationSummaryComponent', () => {
     TestBed.configureTestingModule({
       imports: [EmAnnotationSummaryModule, HttpClientTestingModule, CookieModule.forRoot()],
       declarations: [],
-      providers: [UrlFixerService]
+      providers: []
     })
       .compileComponents();
   }));
