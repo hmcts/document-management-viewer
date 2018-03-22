@@ -4,15 +4,19 @@ import { ImgViewerComponent} from './img-viewer/img-viewer.component';
 import {Viewer} from './viewer';
 import {UnsupportedViewerComponent} from './unsupported-viewer/unsupported-viewer.component';
 import {UrlFixerService} from '../../utils/url-fixer.service';
+import {AnnotatedPdfViewerComponent} from './annotated-pdf-viewer/annotated-pdf-viewer.component';
 
 @Injectable()
 export class ViewerFactoryService {
 
-  private static determineComponent(mimeType: string) {
+  private static determineComponent(mimeType: string, annotate: boolean) {
     if (ViewerFactoryService.isImage(mimeType)) {
       return ImgViewerComponent;
     }
     if (ViewerFactoryService.isPdf(mimeType)) {
+      if (annotate) {
+        return AnnotatedPdfViewerComponent;
+      }
       return PdfViewerComponent;
     }
     return UnsupportedViewerComponent;
@@ -29,9 +33,9 @@ export class ViewerFactoryService {
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private urlFixer: UrlFixerService) { }
 
-  buildViewer(documentMetaData, viewContainerRef: ViewContainerRef) {
+  buildViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef) {
     const componentToBuild =
-      ViewerFactoryService.determineComponent(documentMetaData.mimeType);
+      ViewerFactoryService.determineComponent(documentMetaData.mimeType, annotate);
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(componentToBuild);
 

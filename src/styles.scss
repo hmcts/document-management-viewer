@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-
+$path: "/public/images/";
 @import 'govuk-elements';
 @import '../node_modules/govuk_template_jinja/assets/stylesheets/govuk-template.css';
 @import '../node_modules/govuk_template_jinja/assets/stylesheets/fonts.css';
+@import '../node_modules/pdf-annotate.js/docs/shared/pdf_viewer.css';
+@import '../node_modules/pdf-annotate.js/docs/shared/toolbar.css';
 
 a {
   cursor: pointer;
@@ -10,4 +12,16 @@ a {
 
 .button-warning{
   @include button($grey-2);
+}
+
+.annotationLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+app-annotated-pdf-viewer .toolbar {
+  position: inherit;
 }
