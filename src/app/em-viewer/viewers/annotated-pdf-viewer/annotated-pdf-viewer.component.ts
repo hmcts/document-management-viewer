@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 import { PDFJSStatic as PDFJS } from 'pdfjs-dist';
-import * as PDFJSAnnotate from 'pdf-annotate.js';
+import * as PDFJSAnnotate from '@louisblack/pdf-annotate.js';
 
 const { UI, LocalStoreAdapter } = PDFJSAnnotate;
 

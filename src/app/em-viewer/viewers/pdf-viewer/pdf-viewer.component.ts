@@ -1,9 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
-import * as PDFJSAnnotate from 'pdf-annotate.js';
-
-const { UI, LocalStoreAdapter } = PDFJSAnnotate;
 
 @Component({
   selector: 'app-pdf-viewer',
