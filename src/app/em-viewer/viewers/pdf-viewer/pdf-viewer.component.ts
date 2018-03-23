@@ -14,8 +14,9 @@ export class PdfViewerComponent implements OnInit, Viewer {
   private pdf: PDFDocumentProxy;
 
   @Input() url: string;
-  @Output() afterLoadComplete = new EventEmitter<PDFDocumentProxy>();
-  @Output() pageRendered = new EventEmitter<CustomEvent>();
+  @Input() originalUrl: string;
+  @Output('after-load-complete') afterLoadComplete = new EventEmitter<PDFDocumentProxy>();
+  @Output('page-rendered') pageRendered = new EventEmitter<CustomEvent>();
 
   src: any;
 

@@ -40,6 +40,9 @@ describe('DmViewerComponent', () => {
         _links: {
           binary: {
             href: `${originalUrl}/binary`
+          },
+          self: {
+            href: `${originalUrl}`
           }
         }
       });
@@ -68,6 +71,9 @@ describe('DmViewerComponent', () => {
         _links: {
           binary: {
             href: `${originalUrl}/binary`
+          },
+          self: {
+            href: `${originalUrl}`
           }
         }
       });
@@ -96,6 +102,9 @@ describe('DmViewerComponent', () => {
         _links: {
           binary: {
             href: `${originalUrl}/binary`
+          },
+          self: {
+            href: `${originalUrl}`
           }
         }
       });

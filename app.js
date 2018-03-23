@@ -6,7 +6,7 @@ let app = express();
 console.log(config);
 
 app.use((req, res, next) => {
-  req.headers['ServiceAuthorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2NzIiwiZXhwIjoxNTIxNzQxNzE3fQ.4WYRq2CWXUjvyl89cStyZvaVnQOCh8a3Xbrm8eXu8I__wEJ5biSWqIVLCw8MgI8-thNYreSCFEyyJ-hCDwIt9A";
+  req.headers['ServiceAuthorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2NzIiwiZXhwIjoxNTIxODI1NzIyfQ.2WRTs2aTqxgQ1sXcsAMWXXvj92SRCB163oFpWecsQVttIO26bUNQNQd_bNFjSpPdSKH0a49OYjDApv5FqEwZ3g";
   req.headers['user-id'] = "12";
   req.headers['user-roles'] = "caseworker-cmc";
   next();

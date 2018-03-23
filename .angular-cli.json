@@ -27,7 +27,7 @@
         "includePaths": [
           "../node_modules/govuk_frontend_toolkit/stylesheets",
           "../node_modules/govuk-elements-sass/public/sass",
-          "../node_modules/pdf-annotate.js/docs/shared"
+          "../node_modules/@louisblack/pdf-annotate.js/docs/shared"
         ]
       },
       "scripts": [],

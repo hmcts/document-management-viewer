@@ -42,6 +42,7 @@ export class ViewerFactoryService {
     viewContainerRef.clear();
 
     const componentRef: ComponentRef<Viewer> = viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.originalUrl = documentMetaData._links.self.href
     componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href);
     return componentRef.instance;
   }

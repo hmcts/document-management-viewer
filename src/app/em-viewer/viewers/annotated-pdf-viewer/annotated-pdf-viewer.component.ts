@@ -19,15 +19,17 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
   private pdf: PDFDocumentProxy;
 
   @Input() url: string;
+  @Input() originalUrl: string;
 
-  private RENDER_OPTIONS = {
-    documentId: this.url,
-    pdfDocument: null,
-    scale: 1,
-    rotate: 0
-  };
+  private RENDER_OPTIONS;
 
   ngOnInit() {
+    this.RENDER_OPTIONS = {
+      documentId: this.originalUrl,
+      pdfDocument: null,
+      scale: 1,
+      rotate: 0
+    };
   }
 
   pdfLoadComplete(loadedPdf: PDFDocumentProxy) {

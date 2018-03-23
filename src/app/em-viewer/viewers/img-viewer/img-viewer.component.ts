@@ -11,6 +11,7 @@ export class ImgViewerComponent implements OnInit, Viewer {
   numPages = 1;
 
   @Input() url: string;
+  @Input() originalUrl: string;
 
   constructor() { }
 
