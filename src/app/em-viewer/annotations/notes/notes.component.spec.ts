@@ -5,8 +5,6 @@ import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
 import {AnnotationService, Note} from '../annotation.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {CookieModule} from 'ngx-cookie';
-import {AppConfig} from '../../../app.config';
 import {UrlFixerService} from '../../../utils/url-fixer.service';
 
 const jwt = '12345';
@@ -21,7 +19,7 @@ describe('NotesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
-      imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
+      imports: [FormsModule, HttpClientTestingModule],
       providers: [AnnotationService, UrlFixerService]
     })
       .compileComponents();
