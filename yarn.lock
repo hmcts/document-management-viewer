@@ -158,9 +158,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@louisblack/pdf-annotate.js@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@louisblack/pdf-annotate.js/-/pdf-annotate.js-0.0.2.tgz#ce368dcb212911ea494bd270cd741ebb6551517d"
+"@louisblack/pdf-annotate.js@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@louisblack/pdf-annotate.js/-/pdf-annotate.js-0.0.3.tgz#cbf85cc6e238ccd7d944843fdd33d957f6139b86"
   dependencies:
     create-stylesheet "^0.3.0"
     object-assign "^4.0.1"
