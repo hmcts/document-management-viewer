@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 import { PDFJSStatic as PDFJS } from 'pdfjs-dist';
+import {EmStorageAdapterService} from './em-storage-adapter.service';
 import * as PDFJSAnnotate from '@louisblack/pdf-annotate.js';
 
-const { UI, LocalStoreAdapter } = PDFJSAnnotate;
+const { UI } = PDFJSAnnotate;
 
 @Component({
   selector: 'app-annotated-pdf-viewer',
@@ -23,6 +24,10 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
 
   private RENDER_OPTIONS;
 
+  constructor(private storageAdapter: EmStorageAdapterService) {
+
+  }
+
   ngOnInit() {
     this.RENDER_OPTIONS = {
       documentId: this.originalUrl,
@@ -36,8 +41,7 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
     this.pdf = loadedPdf;
     this.numPages = loadedPdf.numPages;
     this.RENDER_OPTIONS.pdfDocument = loadedPdf;
-    const localStoreAdapter = new LocalStoreAdapter();
-    (<any> PDFJSAnnotate).setStoreAdapter(localStoreAdapter);
+    (<any> PDFJSAnnotate).setStoreAdapter(this.storageAdapter);
     PDFJS.getDocument(this.url).then(pdf => {
       UI.initEventListeners();
       (<any> PDFJSAnnotate).initToolbarEvents(this.RENDER_OPTIONS);

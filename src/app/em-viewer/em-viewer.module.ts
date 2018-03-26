@@ -15,6 +15,7 @@ import {ImgViewerComponent} from './viewers/img-viewer/img-viewer.component';
 import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {UrlFixerService} from '../utils/url-fixer.service';
 import {AnnotatedPdfViewerComponent} from './viewers/annotated-pdf-viewer/annotated-pdf-viewer.component';
+import {EmStorageAdapterService} from './viewers/annotated-pdf-viewer/em-storage-adapter.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {AnnotatedPdfViewerComponent} from './viewers/annotated-pdf-viewer/annota
   providers: [
     ViewerFactoryService,
     AnnotationService,
-    UrlFixerService
+    UrlFixerService,
+    EmStorageAdapterService
   ],
 })
 export class EmViewerModule {
