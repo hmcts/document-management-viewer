@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {AnnotationService, Note} from '../annotation.service';
+import {NotesService, Note} from '../notes.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../../../app.config';
@@ -22,7 +22,7 @@ describe('NotesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
       imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
-      providers: [AnnotationService, UrlFixerService]
+      providers: [NotesService, UrlFixerService]
     })
       .compileComponents();
   }));

@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../app.config';
 import {EmAnnotationSummaryComponent} from '../em-annotation-summary/em-annotation-summary.component';
-import {AnnotationService} from '../em-viewer/annotations/annotation.service';
+import {NotesService} from '../em-viewer/annotations/notes.service';
 import {UrlFixerService} from '../utils/url-fixer.service';
 
 @NgModule({
@@ -18,7 +18,7 @@ import {UrlFixerService} from '../utils/url-fixer.service';
     CookieModule.forRoot()
   ],
   providers: [
-    AnnotationService,
+    NotesService,
     UrlFixerService
   ],
 })

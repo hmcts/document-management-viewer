@@ -29,7 +29,7 @@ export class Note {
 }
 
 @Injectable()
-export class AnnotationService {
+export class NotesService {
 
   private annotationSet: any;
 

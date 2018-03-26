@@ -7,7 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {CookieModule} from 'ngx-cookie';
 import {AppConfig} from '../app.config';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
-import {AnnotationService} from './annotations/annotation.service';
+import {NotesService} from './annotations/notes.service';
 import {PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
 import {UnsupportedViewerComponent} from './viewers/unsupported-viewer/unsupported-viewer.component';
 import {NotesComponent} from './annotations/notes/notes.component';
@@ -43,7 +43,7 @@ import {EmStorageAdapterService} from './viewers/annotated-pdf-viewer/em-storage
   ],
   providers: [
     ViewerFactoryService,
-    AnnotationService,
+    NotesService,
     UrlFixerService,
     EmStorageAdapterService
   ],

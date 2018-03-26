@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AnnotationService, Note} from '../annotation.service';
+import {NotesService, Note} from '../notes.service';
 
 @Component({
   selector: 'app-notes',
@@ -16,7 +16,7 @@ export class NotesComponent implements OnInit {
   notes: Note[] = [];
   private _currentNote: Note = new Note();
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private annotationService: NotesService) { }
 
   ngOnInit() {
     this.annotationService.getNotes(this.url).then(notes => {
