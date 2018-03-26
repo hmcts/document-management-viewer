@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {UrlFixerService} from '../../utils/url-fixer.service';
-import {Note, pageNoteType} from "./note";
+import {Note, pageNoteType} from './note';
 
 @Injectable()
 export class NotesService {

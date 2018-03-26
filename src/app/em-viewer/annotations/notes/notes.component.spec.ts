@@ -3,11 +3,11 @@ import {FormsModule} from '@angular/forms';
 
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {NotesService, Note} from '../notes.service';
+import {NotesService} from '../notes.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {CookieModule} from 'ngx-cookie';
-import {AppConfig} from '../../../app.config';
 import {UrlFixerService} from '../../../utils/url-fixer.service';
+import {Note} from '../note';
 
 const jwt = '12345';
 
