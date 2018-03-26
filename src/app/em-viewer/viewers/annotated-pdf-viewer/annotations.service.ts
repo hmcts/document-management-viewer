@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Note} from '../../annotations/note';
 import {Observable} from 'rxjs/Observable';
 import {UrlFixerService} from '../../../utils/url-fixer.service';
 
@@ -73,10 +72,6 @@ export class AnnotationsService {
       anno.type = (<string>annotation.type).toLowerCase();
       return anno;
     });
-  }
-
-  private newNoteFromAnnotation(annotation) {
-    return new Note(this.urlFixer.fixAnno(annotation._links.self.href), annotation.comments[0].content, annotation.page);
   }
 
   private getHttpOptions() {
