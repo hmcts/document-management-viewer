@@ -5,7 +5,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FormsModule} from '@angular/forms';
 import {CookieModule} from 'ngx-cookie';
-import {AppConfig} from '../app.config';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {NotesService} from './annotations/notes.service';
 import {PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
@@ -16,6 +15,7 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {UrlFixerService} from '../utils/url-fixer.service';
 import {AnnotatedPdfViewerComponent} from './viewers/annotated-pdf-viewer/annotated-pdf-viewer.component';
 import {EmStorageAdapterService} from './viewers/annotated-pdf-viewer/em-storage-adapter.service';
+import {AnnotationsService} from "./viewers/annotated-pdf-viewer/annotations.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import {EmStorageAdapterService} from './viewers/annotated-pdf-viewer/em-storage
     ViewerFactoryService,
     NotesService,
     UrlFixerService,
-    EmStorageAdapterService
+    EmStorageAdapterService,
+    AnnotationsService
   ],
 })
 export class EmViewerModule {

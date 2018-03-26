@@ -1,32 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AppConfig} from '../../app.config';
 import {Observable} from 'rxjs/Observable';
 import {UrlFixerService} from '../../utils/url-fixer.service';
-
-const pageNoteType = 'PAGENOTE';
-
-export class Note {
-  url: string;
-  content: string;
-  page: number;
-
-  constructor(url = '', content: string = '', page: number = 1) {
-    this.url = url;
-    this.content = content;
-    this.page = page;
-  }
-
-  toObject() {
-    return {
-      page: this.page,
-      comments: [{
-        content: this.content
-      }],
-      type: pageNoteType
-    };
-  }
-}
+import {Note, pageNoteType} from "./note";
 
 @Injectable()
 export class NotesService {
