@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
-import {PDFJSStatic as PDFJS} from "pdfjs-dist";
+import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
 
 @Component({
   selector: 'app-pdf-viewer',

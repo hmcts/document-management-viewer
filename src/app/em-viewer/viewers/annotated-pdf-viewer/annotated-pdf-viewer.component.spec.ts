@@ -1,13 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PdfViewerModule} from 'ng2-pdf-viewer';
-import {AnnotatedPdfViewerComponent} from "./annotated-pdf-viewer.component";
-import {AnnotationsService} from "./annotations.service";
-import {EmStorageAdapterService} from "./em-storage-adapter.service";
-import {PdfViewerComponent} from "../pdf-viewer/pdf-viewer.component";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {UrlFixerService} from "../../../utils/url-fixer.service";
-import {DebugElement} from "@angular/core";
+import {AnnotatedPdfViewerComponent} from './annotated-pdf-viewer.component';
+import {AnnotationsService} from './annotations.service';
+import {EmStorageAdapterService} from './em-storage-adapter.service';
+import {PdfViewerComponent} from '../pdf-viewer/pdf-viewer.component';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {UrlFixerService} from '../../../utils/url-fixer.service';
+import {DebugElement} from '@angular/core';
 
 // import * as testServer from '../../../../../bin/test/test-app.js';
 
@@ -50,7 +50,7 @@ describe('AnnotatedPdfViewerComponent', () => {
   });
 
   describe('when pdf is loaded', () => {
-    let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    const originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(() => {
       jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -76,63 +76,64 @@ describe('AnnotatedPdfViewerComponent', () => {
       beforeEach(async(() => {
         const req = httpMock.expectOne(`/demproxy/an/annotation-sets/filter?url=http://test.com/documents/uuid`);
         req.flush({
-          "_embedded" : {
-            "annotationSets" : [ {
-              "uuid" : "d53ae407-aec9-45ba-9d67-96b755fd85c9",
-              "createdBy" : "12",
-              "lastModifiedBy" : "12",
-              "modifiedOn" : "2018-03-26T08:44:00.161+0000",
-              "createdOn" : "2018-03-26T08:44:00.161+0000",
-              "documentUri" : "http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01",
-              "annotations" : [ {
-                "createdBy" : "12",
-                "lastModifiedBy" : "12",
-                "modifiedOn" : "2018-03-27T10:24:07.102+0000",
-                "createdOn" : "2018-03-27T10:24:07.102+0000",
-                "type" : "highlight",
-                "page" : 1,
-                "comments" : [ ],
-                "colour" : "FFFF00",
-                "lines" : [ ],
-                "rectangles" : [ {
-                  "height" : 46,
-                  "width" : 58,
-                  "pointX" : 283,
-                  "pointY" : 570,
-                  "y" : 570,
-                  "x" : 283
+          '_embedded' : {
+            'annotationSets' : [ {
+              'uuid' : 'd53ae407-aec9-45ba-9d67-96b755fd85c9',
+              'createdBy' : '12',
+              'lastModifiedBy' : '12',
+              'modifiedOn' : '2018-03-26T08:44:00.161+0000',
+              'createdOn' : '2018-03-26T08:44:00.161+0000',
+              'documentUri' : 'http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01',
+              'annotations' : [ {
+                'createdBy' : '12',
+                'lastModifiedBy' : '12',
+                'modifiedOn' : '2018-03-27T10:24:07.102+0000',
+                'createdOn' : '2018-03-27T10:24:07.102+0000',
+                'type' : 'highlight',
+                'page' : 1,
+                'comments' : [ ],
+                'colour' : 'FFFF00',
+                'lines' : [ ],
+                'rectangles' : [ {
+                  'height' : 46,
+                  'width' : 58,
+                  'pointX' : 283,
+                  'pointY' : 570,
+                  'y' : 570,
+                  'x' : 283
                 } ],
-                "_links" : {
-                  "self" : {
-                    "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/1badb8e3-4888-4477-8543-9f390ad30ea7"
+                '_links' : {
+                  'self' : {
+                    'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/' +
+                      '1badb8e3-4888-4477-8543-9f390ad30ea7'
                   },
-                  "annotation-set" : {
-                    "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9"
+                  'annotation-set' : {
+                    'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9'
                   }
                 }
               }],
-              "_links" : {
-                "self" : {
-                  "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9"
+              '_links' : {
+                'self' : {
+                  'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9'
                 },
-                "add-annotation" : {
-                  "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/"
+                'add-annotation' : {
+                  'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/'
                 }
               }
             } ]
           },
-          "_links" : {
-            "self" : {
-              "href" : "http://localhost:3621/annotation-sets/filter?page=0&size=5&sort=createdOn,desc"
+          '_links' : {
+            'self' : {
+              'href' : 'http://localhost:3621/annotation-sets/filter?page=0&size=5&sort=createdOn,desc'
             }
           },
-          "page" : {
-            "size" : 5,
-            "totalElements" : 1,
-            "totalPages" : 1,
-            "number" : 0
+          'page' : {
+            'size' : 5,
+            'totalElements' : 1,
+            'totalPages' : 1,
+            'number' : 0
           }
-        })
+        });
       }));
 
       it('should have annotations', () => {
@@ -145,11 +146,11 @@ describe('AnnotatedPdfViewerComponent', () => {
       beforeEach(async(() => {
         const getReq = httpMock.expectOne(`/demproxy/an/annotation-sets/filter?url=http://test.com/documents/uuid`);
         getReq.flush({
-          "page" : {
-            "size" : 5,
-            "totalElements" : 0,
-            "totalPages" : 1,
-            "number" : 0
+          'page' : {
+            'size' : 5,
+            'totalElements' : 0,
+            'totalPages' : 1,
+            'number' : 0
           }
         });
       }));
@@ -157,19 +158,19 @@ describe('AnnotatedPdfViewerComponent', () => {
       beforeEach(async(() => {
         const postReq = httpMock.expectOne(`/demproxy/an/annotation-sets`);
         postReq.flush({
-          "uuid" : "d53ae407-aec9-45ba-9d67-96b755fd85c9",
-          "createdBy" : "12",
-          "lastModifiedBy" : "12",
-          "modifiedOn" : "2018-03-26T08:44:00.161+0000",
-          "createdOn" : "2018-03-26T08:44:00.161+0000",
-          "documentUri" : "http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01",
-          "annotations" : [],
-          "_links" : {
-            "self" : {
-              "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9"
+          'uuid' : 'd53ae407-aec9-45ba-9d67-96b755fd85c9',
+          'createdBy' : '12',
+          'lastModifiedBy' : '12',
+          'modifiedOn' : '2018-03-26T08:44:00.161+0000',
+          'createdOn' : '2018-03-26T08:44:00.161+0000',
+          'documentUri' : 'http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01',
+          'annotations' : [],
+          '_links' : {
+            'self' : {
+              'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9'
             },
-            "add-annotation" : {
-              "href" : "http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/"
+            'add-annotation' : {
+              'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/'
             }
           }
         });
