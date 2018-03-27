@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ex
 
 # Kill & Run app
 pkill -f "node test-app"
