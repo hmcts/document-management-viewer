@@ -4,7 +4,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FormsModule} from '@angular/forms';
-import {CookieModule} from 'ngx-cookie';
 import {ViewerFactoryService} from './viewers/viewer-factory.service';
 import {NotesService} from './annotations/notes.service';
 import {PdfViewerComponent} from './viewers/pdf-viewer/pdf-viewer.component';
@@ -38,9 +37,7 @@ import {AnnotationsService} from './viewers/annotated-pdf-viewer/annotations.ser
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    PdfViewerModule,
-    CookieModule.forRoot()
-  ],
+    PdfViewerModule],
   providers: [
     ViewerFactoryService,
     NotesService,

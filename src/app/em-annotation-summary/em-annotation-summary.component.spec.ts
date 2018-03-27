@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {EmAnnotationSummaryComponent} from './em-annotation-summary.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {CookieModule} from 'ngx-cookie';
 import {DebugElement} from '@angular/core';
 import {EmAnnotationSummaryModule} from './em-annotation-summary.module';
 import {UrlFixerService} from '../utils/url-fixer.service';
@@ -206,7 +205,7 @@ describe('EmAnnotationSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [EmAnnotationSummaryModule, HttpClientTestingModule, CookieModule.forRoot()],
+      imports: [EmAnnotationSummaryModule, HttpClientTestingModule],
       declarations: [],
       providers: []
     })

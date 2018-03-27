@@ -5,7 +5,7 @@ import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
 import {NotesService} from '../notes.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {CookieModule} from 'ngx-cookie';
+
 import {UrlFixerService} from '../../../utils/url-fixer.service';
 import {Note} from '../note';
 
@@ -21,8 +21,8 @@ describe('NotesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
-      imports: [FormsModule, HttpClientTestingModule, CookieModule.forRoot()],
-      providers: [NotesService, UrlFixerService]
+      imports: [FormsModule, HttpClientTestingModule],
+      providers: [AnnotationService, UrlFixerService]
     })
       .compileComponents();
   }));

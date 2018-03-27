@@ -1,6 +1,6 @@
 {
   "name": "em-viewer-web",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "author": "HMCTS",
   "license": "MIT",
   "main": "./public_api.ts",
@@ -50,7 +50,6 @@
     "http": "^0.0.0",
     "jwt-decode": "^2.2.0",
     "ng2-pdf-viewer": "^4.1.2",
-    "ngx-cookie": "2.0.1",
     "pdfjs-dist": "1.9.661",
     "rxjs": "^5.5.2",
     "snyk": "^1.59.1",
