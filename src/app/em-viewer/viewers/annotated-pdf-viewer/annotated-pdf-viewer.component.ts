@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
-import { PDFJSStatic as PDFJS } from 'pdfjs-dist';
+import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
 import {EmStorageAdapterService} from './em-storage-adapter.service';
 import * as PDFJSAnnotate from '@louisblack/pdf-annotate.js';
 
@@ -21,6 +21,7 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
 
   @Input() url: string;
   @Input() originalUrl: string;
+  @Output() rendered = new EventEmitter<CustomEvent>();
 
   private RENDER_OPTIONS;
 
@@ -58,6 +59,7 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
         PAGE.insertBefore(annotationLayer, textLayer);
 
         UI.renderPage(this.page, this.RENDER_OPTIONS);
+        this.rendered.emit(e);
     }
   }
 

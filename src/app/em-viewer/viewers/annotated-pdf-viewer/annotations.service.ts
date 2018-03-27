@@ -14,12 +14,13 @@ export class AnnotationsService {
 
   getAnnotations(documentId, pageNumber): Promise<any> {
     return this.lookForAnnotationSets(documentId).then(possibleSet => {
-      const annotations = this.getOrCreateAnnotations(possibleSet, documentId, pageNumber);
-      return {
-        documentId,
-        pageNumber,
-        annotations
-      };
+      return this.getOrCreateAnnotations(possibleSet, documentId, pageNumber).then(annotations => {
+        return {
+          documentId,
+          pageNumber,
+          annotations
+        };
+      });
     });
   }
 
@@ -46,8 +47,10 @@ export class AnnotationsService {
   }
 
   private extractNotes(set, page) {
-    return set.annotations
-      .filter(a => a.type !== 'PAGENOTE' && a.page === page);
+    return new Promise(resolve => {
+      resolve(set.annotations
+        .filter(a => a.type !== 'PAGENOTE' && a.page === page));
+      });
   }
 
   private initiateNewSet(url: string) {
