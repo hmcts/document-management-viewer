@@ -25,6 +25,8 @@ script:
 after_success:
 - yarn test:codacy-upload
 - yarn test:codecov-upload
+after_script:
+- cat ./bin/test/nohup.out
 before_deploy:
 - cd dist
 deploy:
