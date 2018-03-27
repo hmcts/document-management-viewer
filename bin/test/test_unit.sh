@@ -2,7 +2,7 @@
 set -ex
 
 #Run app
-nohup node test-app &
+nohup DEBUG=express:* node test-app &
 
 yarn run-tests
 
