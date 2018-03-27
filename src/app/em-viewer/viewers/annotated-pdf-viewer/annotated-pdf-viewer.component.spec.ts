@@ -39,7 +39,7 @@ describe('AnnotatedPdfViewerComponent', () => {
     fixture = TestBed.createComponent(AnnotatedPdfViewerComponent);
     element = fixture.debugElement;
     component = fixture.componentInstance;
-    component.url = 'http://localhost:7654/demproxy/dm/documents/1234-1234-1234/binary';
+    component.url = 'http://instructure.github.io/pdf-annotate.js/example.pdf';
     component.originalUrl = 'http://test.com/documents/uuid';
 
     fixture.detectChanges();
@@ -65,7 +65,7 @@ describe('AnnotatedPdfViewerComponent', () => {
     });
 
     it('should have 4 pages', () => {
-      expect(component.numPages).toBe(4);
+      expect(component.numPages).toBe(14);
     });
 
     it('should set page to 1', () => {
