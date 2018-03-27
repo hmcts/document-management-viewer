@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
+import {PDFJSStatic as PDFJS} from "pdfjs-dist";
 
 @Component({
   selector: 'app-pdf-viewer',
@@ -20,7 +21,9 @@ export class PdfViewerComponent implements OnInit, Viewer {
 
   src: any;
 
-  constructor() { }
+  constructor() {
+    PDFJS.workerSrc = '/pdfjs/pdf.worker.js';
+  }
 
   ngOnInit() {
     this.src = {

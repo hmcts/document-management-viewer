@@ -11,7 +11,8 @@
         "assets",
         "favicon.ico",
         "assets",
-        { "glob": "**/*", "input": "../node_modules/govuk_template_jinja/assets/", "output": "./assets/" }
+        { "glob": "**/*", "input": "../node_modules/govuk_template_jinja/assets/", "output": "./assets/" },
+        { "glob": "**/*", "input": "../node_modules/pdfjs-dist/lib", "output": "./pdfjs/" }
       ],
       "index": "index.html",
       "main": "main.ts",
