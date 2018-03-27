@@ -53,7 +53,7 @@ describe('AnnotatedPdfViewerComponent', () => {
     const originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(() => {
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 200000;
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     });
 
     afterAll(() => {
