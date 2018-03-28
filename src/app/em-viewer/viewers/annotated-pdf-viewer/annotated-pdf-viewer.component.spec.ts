@@ -8,6 +8,7 @@ import {PdfViewerComponent} from '../pdf-viewer/pdf-viewer.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {UrlFixerService} from '../../../utils/url-fixer.service';
 import {DebugElement} from '@angular/core';
+import {By} from '@angular/platform-browser';
 
 // import * as testServer from '../../../../../bin/test/test-app.js';
 
@@ -180,13 +181,65 @@ describe('AnnotatedPdfViewerComponent', () => {
         expect(element.nativeElement.querySelectorAll('g[data-pdf-annotate-type="highlight"]').length)
           .toBe(0);
       });
-    });
 
-    xdescribe('when I click highlight', () => {
-      beforeEach(() => {
-        element.nativeElement.querySelector('button[data-tooltype="highlight"]').click();
+      describe('when I add an annotation', () => {
+        let storageAdapter;
+        let success = false;
+        beforeEach(async(() => {
+          storageAdapter = TestBed.get(EmStorageAdapterService);
+          storageAdapter.addAnnotation('http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01',
+            1, {
+              'type' : 'highlight',
+              'page' : 1,
+              'colour' : 'FFFF00',
+              'rectangles' : [ {
+                'height' : 46,
+                'width' : 89,
+                'pointX' : 184,
+                'pointY' : 570,
+                'y' : 570,
+                'x' : 184
+              } ]
+            }).then(() => {
+              success = true;
+          });
+          const postReq = httpMock.expectOne(`/demproxy/an/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/`);
+          postReq.flush({
+            'createdBy' : '12',
+            'lastModifiedBy' : '12',
+            'modifiedOn' : '2018-03-27T10:56:44.795+0000',
+            'createdOn' : '2018-03-27T10:56:44.795+0000',
+            'type' : 'highlight',
+            'page' : 1,
+            'comments' : [ ],
+            'colour' : 'FFFF00',
+            'rectangles' : [ {
+              'height' : 46,
+              'width' : 89,
+              'pointX' : 184,
+              'pointY' : 570,
+              'y' : 570,
+              'x' : 184
+            } ],
+            '_links' : {
+              'self' : {
+                'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/' +
+                    'dd230284-9883-4650-916a-f06487551f76'
+              },
+              'annotation-set' : {
+                'href' : 'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9'
+              }
+            }
+          });
+        }));
+
+        it('should have saved successfully', () => {
+          expect(success).toBe(true);
+        });
+
       });
     });
+
 
   });
 });
