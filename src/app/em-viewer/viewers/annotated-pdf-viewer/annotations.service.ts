@@ -49,7 +49,11 @@ export class AnnotationsService {
   private extractNotes(set, page) {
     return new Promise(resolve => {
       resolve(set.annotations
-        .filter(a => a.type !== 'PAGENOTE' && a.page === page));
+        .filter(a => a.type !== 'PAGENOTE' && a.page === page)
+        .map(anno => {
+          anno.uuid = anno._links.self.href;
+          return anno;
+        }));
       });
   }
 
@@ -85,4 +89,7 @@ export class AnnotationsService {
     };
   }
 
+  deleteAnnotation(annotationUrl: string) {
+    return this.httpClient.delete(this.urlFixer.fixAnno(annotationUrl), this.getHttpOptions());
+  }
 }
