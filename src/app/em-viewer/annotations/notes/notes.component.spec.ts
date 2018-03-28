@@ -22,7 +22,7 @@ describe('NotesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
       imports: [FormsModule, HttpClientTestingModule],
-      providers: [AnnotationService, UrlFixerService]
+      providers: [NotesService, UrlFixerService]
     })
       .compileComponents();
   }));
