@@ -3,7 +3,6 @@ const config = require("./config/default");
 let proxy = require("http-proxy-middleware");
 let http = require("http");
 let app = express();
-console.log(config);
 
 app.use((req, res, next) => {
   req.headers["user-id"] = "12";
