@@ -1,27 +1,27 @@
 const express = require("express");
 const config = require("./config/default");
-let proxy = require('http-proxy-middleware');
+let proxy = require("http-proxy-middleware");
 let http = require("http");
 let app = express();
 console.log(config);
 
 app.use((req, res, next) => {
-  req.headers['user-id'] = "12";
-  req.headers['ServiceAuthorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2NzIiwiZXhwIjoxNTIyMDY2NjY1fQ.zR0__7B6dLnk7DIc57cg4ttGO55zVwz7m8VVfo3jxmcS1-yRN28HkamPOjNXcQDDxg8hgCZq8RFJ7Vb-Ea6M4w";
-  req.headers['user-roles'] = "caseworker-cmc";
+  req.headers["user-id"] = "12";
+  req.headers["ServiceAuthorization"] = config.serviceToken;
+  req.headers["user-roles"] = "caseworker-cmc";
   next();
 });
 
-app.use('/demproxy', proxy({
+app.use("/demproxy", proxy({
     target: config.dmStore,
-    logLevel: 'debug',
+    logLevel: "debug",
     router: {
-      '/demproxy/dm': config.dmStore,
-      '/demproxy/an': config.emAnno
+      "/demproxy/dm": config.dmStore,
+      "/demproxy/an": config.emAnno
     },
     pathRewrite: {
-      '^/demproxy/dm': '/',
-      '^/demproxy/an': '/',
+      "^/demproxy/dm": "/",
+      "^/demproxy/an": "/",
     }
   }
 ));
