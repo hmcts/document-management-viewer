@@ -93,6 +93,46 @@ describe('DmViewerComponent', () => {
     });
   });
 
+  describe('when annotate is true and the mime type is pdf', () => {
+    beforeEach(() => {
+      component = fixture.componentInstance;
+      component.url = originalUrl;
+      element = fixture.debugElement;
+      fixture.detectChanges();
+      component.annotate = true;
+      fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+      const req = httpMock.expectOne(url);
+      req.flush({
+        mimeType: 'application/pdf',
+        originalDocumentName: 'cert.pdf',
+        _links: {
+          binary: {
+            href: `${originalUrl}/binary`
+          },
+          self: {
+            href: `${originalUrl}`
+          }
+        }
+      });
+      fixture.detectChanges();
+    });
+
+    it('should display document name', () => {
+      expect(element.nativeElement.querySelector('h1').textContent).toEqual('cert.pdf');
+    });
+
+    it('img element should not be visible', () => {
+      expect(element.nativeElement.querySelector('app-img-viewer')).not.toBeTruthy();
+    });
+
+    it('annotated pdf element should be visible', () => {
+      expect(element.nativeElement.querySelector('app-annotated-pdf-viewer')).toBeTruthy();
+    });
+  });
+
   describe('when the mime type is unsupported', () => {
     beforeEach(() => {
       const req = httpMock.expectOne(url);
