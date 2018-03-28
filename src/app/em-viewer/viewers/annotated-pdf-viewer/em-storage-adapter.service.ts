@@ -31,7 +31,7 @@ export class EmStorageAdapterService extends (StoreAdapter as { new(def: any): a
       deleteAnnotation(documentId, annotationId) {
         return new Promise((resolve, reject) => {
           annotationsService.deleteAnnotation(annotationId).subscribe(resolve, reject);
-        })
+        });
       },
 
       getComments(documentId, annotationId) {
