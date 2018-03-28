@@ -3,7 +3,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppConfig} from '../app.config';
 import {EmAnnotationSummaryComponent} from '../em-annotation-summary/em-annotation-summary.component';
-import {AnnotationService} from '../em-viewer/annotations/annotation.service';
+import {NotesService} from '../em-viewer/annotations/notes.service';
 import {UrlFixerService} from '../utils/url-fixer.service';
 
 @NgModule({
@@ -15,7 +15,7 @@ import {UrlFixerService} from '../utils/url-fixer.service';
     BrowserModule,
     HttpClientModule],
   providers: [
-    AnnotationService,
+    NotesService,
     UrlFixerService
   ],
 })

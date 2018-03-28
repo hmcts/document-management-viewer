@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AnnotationService, Note} from '../annotation.service';
+import {NotesService} from '../notes.service';
+import {Note} from '../note';
 
 @Component({
   selector: 'app-notes',
@@ -16,10 +17,10 @@ export class NotesComponent implements OnInit {
   notes: Note[] = [];
   private _currentNote: Note = new Note();
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private notesService: NotesService) { }
 
   ngOnInit() {
-    this.annotationService.getNotes(this.url).then(notes => {
+    this.notesService.getNotes(this.url).then(notes => {
       this.notes = notes;
       this.page = this._page;
     }).catch(console.log);
@@ -47,7 +48,7 @@ export class NotesComponent implements OnInit {
   }
 
   save() {
-    this.annotationService.saveNote(this.currentNote).subscribe((note) => {
+    this.notesService.saveNote(this.currentNote).subscribe((note) => {
       this._currentNote.url = note.url;
       this.notesForm.form.markAsPristine();
     }, error => {
@@ -56,7 +57,7 @@ export class NotesComponent implements OnInit {
   }
 
   clear() {
-    this.annotationService.getNote(this.currentNote).subscribe(note => {
+    this.notesService.getNote(this.currentNote).subscribe(note => {
       this.currentNote = note;
       this.notesForm.form.markAsPristine();
     });

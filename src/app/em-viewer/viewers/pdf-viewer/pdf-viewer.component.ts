@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
+import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
 
 @Component({
   selector: 'app-pdf-viewer',
@@ -9,14 +10,20 @@ import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 })
 export class PdfViewerComponent implements OnInit, Viewer {
 
-  numPages: number;
-  page = 1;
+  @Input() numPages: number;
+  @Input() page = 1;
   private pdf: PDFDocumentProxy;
 
   @Input() url: string;
+  @Input() originalUrl: string;
+  @Output() afterLoadComplete = new EventEmitter<PDFDocumentProxy>();
+  @Output() pageRendered = new EventEmitter<CustomEvent>();
+
   src: any;
 
-  constructor() { }
+  constructor() {
+    PDFJS.workerSrc = '/pdfjs/pdf.worker.js';
+  }
 
   ngOnInit() {
     this.src = {
@@ -24,9 +31,15 @@ export class PdfViewerComponent implements OnInit, Viewer {
     };
   }
 
-  pdfLoadComplete(pdf: PDFDocumentProxy) {
+  afterPdfLoadComplete(pdf: PDFDocumentProxy) {
+    console.log('(pdfLoadComplete)');
     this.pdf = pdf;
     this.numPages = pdf.numPages;
+    this.afterLoadComplete.emit(pdf);
+  }
+
+  afterPageRendered(e: CustomEvent) {
+    this.pageRendered.emit(e);
   }
 
   prevPage() {

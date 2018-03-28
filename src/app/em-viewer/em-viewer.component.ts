@@ -35,7 +35,7 @@ export class EmViewerComponent implements OnInit {
           if (resp && resp._links) {
             this.docName = resp.originalDocumentName;
             this.viewerComponent =
-              this.viewerFactoryService.buildViewer(resp, this.viewerAnchor.viewContainerRef);
+              this.viewerFactoryService.buildViewer(resp, this.annotate, this.viewerAnchor.viewContainerRef);
           }
         },
         err => {

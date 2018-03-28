@@ -1,0 +1,51 @@
+<div>
+  <div class="toolbar">
+    <button class="cursor" type="button" title="Cursor" data-tooltype="cursor">➚</button>
+
+    <div class="spacer"></div>
+
+    <button class="rectangle" style="visibility: hidden" type="button" title="Rectangle" data-tooltype="area">&nbsp;</button>
+    <button class="highlight" type="button" title="Highlight" data-tooltype="highlight">&nbsp;</button>
+    <button class="strikeout" style="visibility: hidden" type="button" title="Strikeout" data-tooltype="strikeout">&nbsp;</button>
+
+    <div class="spacer"></div>
+
+    <button class="text"  style="visibility: hidden"type="button" title="Text Tool" data-tooltype="text"></button>
+    <select class="text-size" style="visibility: hidden"></select>
+    <div class="text-color" style="visibility: hidden"></div>
+
+    <div class="spacer"></div>
+
+    <button class="pen"  style="visibility: hidden"type="button" title="Pen Tool" data-tooltype="draw">✎</button>
+    <select class="pen-size" style="visibility: hidden"></select>
+    <div class="pen-color" style="visibility: hidden"></div>
+
+    <div class="spacer"></div>
+
+    <button class="comment"  style="visibility: hidden"type="button" title="Comment" data-tooltype="point">🗨</button>
+
+    <div class="spacer"></div>
+
+    <select class="scale" style="visibility: hidden">
+      <option value=".5">50%</option>
+      <option value="1">100%</option>
+      <option value="1.33">133%</option>
+      <option value="1.5">150%</option>
+      <option value="2">200%</option>
+    </select>
+
+    <a href="javascript://" style="visibility: hidden" class="rotate-ccw" title="Rotate Counter Clockwise">⟲</a>
+    <a href="javascript://" style="visibility: hidden" class="rotate-cw" title="Rotate Clockwise">⟳</a>
+
+    <div class="spacer"></div>
+
+    <a href="javascript://"  style="visibility: hidden" class="clear" title="Clear">×</a>
+  </div>
+  <app-pdf-viewer *ngIf="url"
+              [url]="url"
+              [page]="page"
+              [numPages]="numPages"
+              (afterLoadComplete)="pdfLoadComplete($event)"
+              (pageRendered)="pageRendered($event)">
+  </app-pdf-viewer>
+</div>

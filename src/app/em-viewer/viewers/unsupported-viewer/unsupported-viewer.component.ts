@@ -12,6 +12,7 @@ export class UnsupportedViewerComponent implements OnInit, Viewer {
 
 
   @Input() url: string;
+  @Input() originalUrl: string;
 
   constructor() { }
 

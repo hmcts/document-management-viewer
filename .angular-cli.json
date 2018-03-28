@@ -11,7 +11,8 @@
         "assets",
         "favicon.ico",
         "assets",
-        { "glob": "**/*", "input": "../node_modules/govuk_template_jinja/assets/", "output": "./assets/" }
+        { "glob": "**/*", "input": "../node_modules/govuk_template_jinja/assets/", "output": "./assets/" },
+        { "glob": "**/*", "input": "../node_modules/pdfjs-dist/lib", "output": "./pdfjs/" }
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -26,7 +27,8 @@
       "stylePreprocessorOptions": {
         "includePaths": [
           "../node_modules/govuk_frontend_toolkit/stylesheets",
-          "../node_modules/govuk-elements-sass/public/sass"
+          "../node_modules/govuk-elements-sass/public/sass",
+          "../node_modules/@louisblack/pdf-annotate.js/docs/shared"
         ]
       },
       "scripts": [],

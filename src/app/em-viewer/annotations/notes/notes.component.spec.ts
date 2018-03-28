@@ -3,9 +3,11 @@ import {FormsModule} from '@angular/forms';
 
 import {NotesComponent} from './notes.component';
 import {DebugElement} from '@angular/core';
-import {AnnotationService, Note} from '../annotation.service';
+import {NotesService} from '../notes.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+
 import {UrlFixerService} from '../../../utils/url-fixer.service';
+import {Note} from '../note';
 
 const jwt = '12345';
 
@@ -20,7 +22,7 @@ describe('NotesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NotesComponent],
       imports: [FormsModule, HttpClientTestingModule],
-      providers: [AnnotationService, UrlFixerService]
+      providers: [NotesService, UrlFixerService]
     })
       .compileComponents();
   }));

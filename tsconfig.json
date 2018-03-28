@@ -2,14 +2,20 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "allowJs": true,
     "sourceMap": true,
     "declaration": false,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
+    ],
+    "types": [
+      "pdfjs-dist",
+      "jasmine"
     ],
     "lib": [
       "es2017",
