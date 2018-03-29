@@ -238,6 +238,27 @@ describe('AnnotatedPdfViewerComponent', () => {
         });
 
       });
+
+      describe('when I delete an annotation', () => {
+        let storageAdapter;
+        let success = false;
+        beforeEach(async(() => {
+          storageAdapter = TestBed.get(EmStorageAdapterService);
+
+          storageAdapter.deleteAnnotation('http://localhost:3621/documents/c14b9d0d-f9d2-4aef-b260-d54c156fcf01',
+            'http://localhost:3621/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/annotations/' +
+          'dd230284-9883-4650-916a-f06487551f76/').then(() => {
+            success = true;
+          });
+          const deleteReq = httpMock.expectOne(`/demproxy/an/annotation-sets/d53ae407-aec9-45ba-9d67-96b755fd85c9/`
+            + `annotations/dd230284-9883-4650-916a-f06487551f76/`);
+          deleteReq.flush({});
+        }));
+
+        it('should have deleted successfully', () => {
+          expect(success).toBe(true);
+        });
+      });
     });
 
 
