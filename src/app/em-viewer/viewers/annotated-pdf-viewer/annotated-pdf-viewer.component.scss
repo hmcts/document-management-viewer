@@ -1,5 +1,319 @@
-@import '../../../../../node_modules/@louisblack/pdf-annotate.js/docs/shared/pdf_viewer.css';
-@import '../../../../../node_modules/@louisblack/pdf-annotate.js/docs/shared/toolbar.css';
+.textLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0.2;
+  line-height: 1.0;
+}
+
+.textLayer > div {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  -webkit-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -o-transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+}
+
+.textLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+
+  background-color: rgb(180, 0, 170);
+  border-radius: 4px;
+}
+
+.textLayer .highlight.begin {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.textLayer .highlight.end {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.textLayer .highlight.middle {
+  border-radius: 0px;
+}
+
+.textLayer .highlight.selected {
+  background-color: rgb(0, 100, 0);
+}
+
+.textLayer ::selection { background: rgb(0,0,255); }
+.textLayer ::-moz-selection { background: rgb(0,0,255); }
+
+.textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  cursor: default;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+
+.textLayer .endOfContent.active {
+  top: 0px;
+}
+
+
+.annotationLayer section {
+  position: absolute;
+}
+
+.annotationLayer .linkAnnotation > a {
+  position: absolute;
+  font-size: 1em;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.annotationLayer .linkAnnotation > a /* -ms-a */  {
+  background: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7") 0 0 repeat;
+}
+
+.annotationLayer .linkAnnotation > a:hover {
+  opacity: 0.2;
+  background: #ff0;
+  box-shadow: 0px 2px 10px #ff0;
+}
+
+.annotationLayer .textAnnotation img {
+  position: absolute;
+  cursor: pointer;
+}
+
+.annotationLayer .popupWrapper {
+  position: absolute;
+  width: 20em;
+}
+
+.annotationLayer .popup {
+  position: absolute;
+  z-index: 200;
+  max-width: 20em;
+  background-color: #FFFF99;
+  box-shadow: 0px 2px 5px #333;
+  border-radius: 2px;
+  padding: 0.6em;
+  margin-left: 5px;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+.annotationLayer .popup h1 {
+  font-size: 1em;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 0.2em;
+}
+
+.annotationLayer .popup p {
+  padding-top: 0.2em;
+}
+
+.annotationLayer .highlightAnnotation,
+.annotationLayer .underlineAnnotation,
+.annotationLayer .squigglyAnnotation,
+.annotationLayer .strikeoutAnnotation,
+.annotationLayer .fileAttachmentAnnotation {
+  cursor: pointer;
+}
+
+.pdfViewer .canvasWrapper {
+  overflow: hidden;
+}
+
+.pdfViewer .page {
+  direction: ltr;
+  width: 816px;
+  height: 1056px;
+  margin: 1px auto -8px auto;
+  position: relative;
+  overflow: visible;
+  border: 9px solid transparent;
+  background-clip: content-box;
+  border-image: url(images/shadow.png) 9 9 repeat;
+  background-color: white;
+}
+
+.pdfViewer.removePageBorders .page {
+  margin: 0px auto 10px auto;
+  border: none;
+}
+
+.pdfViewer .page canvas {
+  margin: 0;
+  display: block;
+}
+
+.pdfViewer .page .loadingIcon {
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: url('images/loading-icon.gif') center no-repeat;
+}
+
+.pdfPresentationMode:-webkit-full-screen .pdfViewer .page {
+  margin-bottom: 100%;
+  border: 0;
+}
+
+.pdfPresentationMode:-moz-full-screen .pdfViewer .page {
+  margin-bottom: 100%;
+  border: 0;
+}
+
+.pdfPresentationMode:-ms-fullscreen .pdfViewer .page {
+  margin-bottom: 100% !important;
+  border: 0;
+}
+
+.pdfPresentationMode:fullscreen .pdfViewer .page {
+  margin-bottom: 100%;
+  border: 0;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 40px 0;
+}
+
+.toolbar {
+  background-color: #eaeaea;
+  border-bottom: 1px solid #d0d0d0;
+  height: 35px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 5px;
+  text-shadow: 1px 1px 0 #fff;
+  z-index: 100;
+  -webkit-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,1);
+  -moz-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,1);
+  box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,1);
+}
+.toolbar .spacer {
+  display: inline-block;
+  border-left: 1px solid #c1c1c1;
+  height: 34px;
+  margin: 0 5px -11px;
+}
+
+.toolbar a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.toolbar button {
+  background-color: #eaeaea;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 3px;
+  margin: 0;
+  text-align: center;
+  text-shadow: 1px 1px 0 #fff;
+  position: relative;
+  min-width: 27px;
+  min-height: 27px;
+}
+.toolbar button:after {
+  content: ' ';
+  display: block;
+}
+.toolbar button.active {
+  border-color: #bababa;
+  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
+  -moz-box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
+  box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
+}
+.toolbar button:hover,
+.toolbar button:focus {
+  border-color: #bababa;
+}
+
+.toolbar button.pen {
+  font-size: 16px;
+}
+
+.toolbar button.comment {
+  font-size: 10px;
+  color: #ffffff;
+  text-shadow: 0 0 0 #000000;
+}
+
+.toolbar button.rectangle:after {
+  width: 15px;
+  height: 15px;
+  border: 1px solid red;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.toolbar button.highlight:after {
+  width: 17px;
+  height: 17px;
+  background: yellow;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.toolbar button.strikeout:after {
+  width: 15px;
+  height: 1px;
+  background: red;
+  position: absolute;
+  top: 12px;
+  left: 4px;
+}
+
+.toolbar button.text:after {
+  content: 'T';
+  font-family: 'Times New Roman';
+}
+
+.color {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  vertical-align: middle;
+}
+.color-selected {
+  border: 3px solid #666;
+  width: 30px;
+  height: 30px;
+  margin-top: -1px;
+  margin-left: -2px;
+  margin-right: -2px;
+}
+.text-color, .pen-color {
+  display: inline-block;
+}
+
 
 .toolbar {
   position: inherit !important;
