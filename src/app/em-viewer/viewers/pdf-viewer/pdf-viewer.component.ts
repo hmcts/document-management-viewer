@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Viewer} from '../viewer';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
@@ -8,7 +8,7 @@ import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss']
 })
-export class PdfViewerComponent implements OnInit, Viewer {
+export class PdfViewerComponent implements OnInit, OnChanges, Viewer {
 
   @Input() numPages: number;
   @Input() page = 1;
@@ -18,6 +18,7 @@ export class PdfViewerComponent implements OnInit, Viewer {
   @Input() originalUrl: string;
   @Output() afterLoadComplete = new EventEmitter<PDFDocumentProxy>();
   @Output() pageRendered = new EventEmitter<CustomEvent>();
+  @Output() pageChanged = new EventEmitter<number>();
 
   src: any;
 
@@ -29,6 +30,10 @@ export class PdfViewerComponent implements OnInit, Viewer {
     this.src = {
       url: this.url,
     };
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   afterPdfLoadComplete(pdf: PDFDocumentProxy) {
@@ -45,12 +50,14 @@ export class PdfViewerComponent implements OnInit, Viewer {
   prevPage() {
     if (this.page > 1) {
       this.page--;
+      this.pageChanged.emit(this.page);
     }
   }
 
   nextPage() {
     if (this.page < this.numPages) {
       this.page++;
+      this.pageChanged.emit(this.page);
     }
   }
 }

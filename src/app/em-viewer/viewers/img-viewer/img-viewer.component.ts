@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Viewer} from '../viewer';
 
 @Component({
@@ -12,6 +12,7 @@ export class ImgViewerComponent implements OnInit, Viewer {
 
   @Input() url: string;
   @Input() originalUrl: string;
+  @Output() pageChanged = new EventEmitter<number>();
 
   constructor() { }
 
@@ -21,5 +22,7 @@ export class ImgViewerComponent implements OnInit, Viewer {
   prevPage() {}
 
   nextPage() {}
+
+
 
 }
