@@ -101,6 +101,19 @@ describe('EmViewerComponent', () => {
         expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
       });
     });
+
+    describe('when the page is changed', () => {
+
+      beforeEach(() => {
+        component.page = 2;
+        component.ngOnChanges({page: new SimpleChange(1, component.page, false)});
+        fixture.detectChanges();
+      });
+
+      it('should update the page', () => {
+        expect(component.viewerComponent.page).toEqual(2);
+      });
+    });
   });
 
   describe('when the mime type is pdf', () => {
