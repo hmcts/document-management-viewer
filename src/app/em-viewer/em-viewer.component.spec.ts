@@ -2,13 +2,13 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {EmViewerComponent} from './em-viewer.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {DebugElement} from '@angular/core';
+import {DebugElement, SimpleChange} from '@angular/core';
 import {EmViewerModule} from './em-viewer.module';
 
 const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const url = '/demproxy/dm/documents/1234-1234-1234';
 
-describe('DmViewerComponent', () => {
+describe('EmViewerComponent', () => {
   let component: EmViewerComponent;
   let httpMock: HttpTestingController;
   let fixture: ComponentFixture<EmViewerComponent>;
@@ -59,6 +59,60 @@ describe('DmViewerComponent', () => {
 
     it('and pdf element should not be visible', () => {
       expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
+    });
+
+    describe('when the url is changed', () => {
+
+      const newUrl = 'http://api-gateway.dm.com/documents/5678-5678-5678';
+      const fixedNewUrl = '/demproxy/dm/documents/5678-5678-5678';
+
+      beforeEach(() => {
+        component.url = newUrl;
+        component.ngOnChanges({url: new SimpleChange(originalUrl, newUrl, false)});
+        fixture.detectChanges();
+      });
+
+      beforeEach(() => {
+        const req = httpMock.expectOne(fixedNewUrl);
+        req.flush({
+          mimeType: 'image/jpeg',
+          originalDocumentName: 'new-image.jpeg',
+          _links: {
+            binary: {
+              href: `${newUrl}/binary`
+            },
+            self: {
+              href: `${newUrl}`
+            }
+          }
+        });
+        fixture.detectChanges();
+      });
+
+      it('should display the new document name', () => {
+        expect(element.nativeElement.querySelector('h1').textContent).toEqual('new-image.jpeg');
+      });
+
+      it('img element should still be visible', () => {
+        expect(element.nativeElement.querySelector('app-img-viewer')).toBeTruthy();
+      });
+
+      it('and pdf element should still not be visible', () => {
+        expect(element.nativeElement.querySelector('app-pdf-viewer')).not.toBeTruthy();
+      });
+    });
+
+    describe('when the page is changed', () => {
+
+      beforeEach(() => {
+        component.page = 2;
+        component.ngOnChanges({page: new SimpleChange(1, component.page, false)});
+        fixture.detectChanges();
+      });
+
+      it('should update the page', () => {
+        expect(component.viewerComponent.page).toEqual(2);
+      });
     });
   });
 

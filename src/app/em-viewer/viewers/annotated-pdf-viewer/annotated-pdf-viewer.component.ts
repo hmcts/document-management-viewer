@@ -22,6 +22,7 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
   @Input() url: string;
   @Input() originalUrl: string;
   @Output() rendered = new EventEmitter<CustomEvent>();
+  @Output() pageChanged = new EventEmitter<number>();
 
   private RENDER_OPTIONS;
 
@@ -73,5 +74,9 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
     if (this.page < this.numPages) {
       this.page++;
     }
+  }
+
+  pageChange(value: number) {
+    this.pageChanged.emit(value);
   }
 }

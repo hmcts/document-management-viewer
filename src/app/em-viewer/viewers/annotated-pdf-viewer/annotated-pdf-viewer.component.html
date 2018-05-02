@@ -46,6 +46,7 @@
               [page]="page"
               [numPages]="numPages"
               (afterLoadComplete)="pdfLoadComplete($event)"
-              (pageRendered)="pageRendered($event)">
+              (pageRendered)="pageRendered($event)"
+              (pageChanged)="pageChange">
   </app-pdf-viewer>
 </div>

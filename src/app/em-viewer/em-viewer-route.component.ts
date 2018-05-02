@@ -4,7 +4,11 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-dm-viewer-route',
   template: `
-    <app-em-viewer *ngIf="url;else no_url" [url]="url" [annotate]="annotate"></app-em-viewer>
+    <input #docUrlInput type="text" [value]="url" (keyup.enter)="onDocEnter(docUrlInput.value)"/>
+    <input #docPageInput type="text" [value]="page" (keyup.enter)="onEnter(docPageInput.value)"/>
+    <app-em-viewer *ngIf="url;else no_url" [url]="url" [page]="page" [annotate]="annotate"
+                   (pageChanged)="pageChanged($event)">
+    </app-em-viewer>
     <ng-template class="grid-row" #no_url >
         <div class="column-full">
           <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -24,6 +28,7 @@ import {ActivatedRoute} from '@angular/router';
 export class EmViewerRouteComponent implements OnInit {
   url: string;
   annotate: boolean;
+  page = 1;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -33,5 +38,18 @@ export class EmViewerRouteComponent implements OnInit {
         this.url = params.url;
         this.annotate = params.annotate === 'true';
       });
+  }
+
+  onEnter(value: string) {
+      console.log(value);
+      this.page = parseInt(value, 10);
+  }
+
+  onDocEnter(value: string) {
+    this.url = value;
+  }
+
+  pageChanged(value: number) {
+    this.page = value;
   }
 }
