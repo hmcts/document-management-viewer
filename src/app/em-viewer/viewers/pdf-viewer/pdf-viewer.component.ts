@@ -22,10 +22,6 @@ export class PdfViewerComponent implements OnInit, OnChanges, Viewer {
 
   src: any;
 
-  constructor() {
-    PDFJS.workerSrc = '/pdfjs/pdf.worker.js';
-  }
-
   ngOnInit() {
     this.src = {
       url: this.url,

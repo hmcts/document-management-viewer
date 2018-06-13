@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {AnnotatedPdfViewerComponent} from './annotated-pdf-viewer.component';
-import {AnnotationsService} from './annotations.service';
+import {DefaultAnnotationsService} from './annotations.service';
 import {EmStorageAdapterService} from './em-storage-adapter.service';
 import {PdfViewerComponent} from '../pdf-viewer/pdf-viewer.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -30,7 +30,7 @@ describe('AnnotatedPdfViewerComponent', () => {
     TestBed.configureTestingModule({
       imports: [PdfViewerModule, HttpClientTestingModule],
       declarations: [ AnnotatedPdfViewerComponent, PdfViewerComponent ],
-      providers: [AnnotationsService, EmStorageAdapterService, UrlFixerService]
+      providers: [DefaultAnnotationsService, EmStorageAdapterService, UrlFixerService]
     })
       .compileComponents();
   }));

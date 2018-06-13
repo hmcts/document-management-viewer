@@ -23,13 +23,14 @@ export class EmViewerComponent implements OnChanges, OnInit  {
   @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
   @Input() url: string;
   @Input() annotate: boolean;
+  @Input() showNotes = true;
   @Input() page: number;
   @Output() pageChanged = new EventEmitter<number>();
 
   // todo make a class
   mimeType: string;
   docName: string;
-  viewerComponent: Viewer;
+  public viewerComponent: Viewer;
   error: string;
 
   constructor(private http: HttpClient,

@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {UrlFixerService} from '../../../utils/url-fixer.service';
+import {AnnotationsService} from "./annotations-service";
 
 @Injectable()
-export class AnnotationsService {
+export class DefaultAnnotationsService implements AnnotationsService {
 
   private annotationSet: any;
 

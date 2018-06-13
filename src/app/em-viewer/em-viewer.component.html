@@ -10,12 +10,12 @@
 </div>
 
 <div class="grid-row">
-  <div [ngClass]="{'column-full': !annotate,
-                 'column-two-thirds': annotate && viewerComponent && viewerComponent.numPages > 0}">
+  <div [ngClass]="{'column-full': !annotate || !showNotes,
+                 'column-two-thirds': showNotes && annotate && viewerComponent && viewerComponent.numPages > 0}">
     <ng-template appViewerAnchor></ng-template>
   </div>
 
-  <app-notes *ngIf="annotate && viewerComponent && viewerComponent.numPages > 0"
+  <app-notes *ngIf="showNotes && annotate && viewerComponent && viewerComponent.numPages > 0"
              class="column-one-third"
              [url]="url"
              [page]="viewerComponent.page"

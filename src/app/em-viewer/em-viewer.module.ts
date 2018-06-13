@@ -14,7 +14,7 @@ import {ViewerAnchorDirective} from './viewers/viewer-anchor.directive';
 import {UrlFixerService} from '../utils/url-fixer.service';
 import {AnnotatedPdfViewerComponent} from './viewers/annotated-pdf-viewer/annotated-pdf-viewer.component';
 import {EmStorageAdapterService} from './viewers/annotated-pdf-viewer/em-storage-adapter.service';
-import {AnnotationsService} from './viewers/annotated-pdf-viewer/annotations.service';
+import {DefaultAnnotationsService} from './viewers/annotated-pdf-viewer/default-annotations.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import {AnnotationsService} from './viewers/annotated-pdf-viewer/annotations.ser
     NotesService,
     UrlFixerService,
     EmStorageAdapterService,
-    AnnotationsService
+    DefaultAnnotationsService
   ],
 })
 export class EmViewerModule {

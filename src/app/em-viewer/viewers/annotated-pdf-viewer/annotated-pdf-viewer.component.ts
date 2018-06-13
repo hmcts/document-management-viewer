@@ -5,6 +5,7 @@ import {PDFJSStatic as PDFJS} from 'pdfjs-dist';
 import {EmStorageAdapterService} from './em-storage-adapter.service';
 import * as PDFJSAnnotate from '@louisblack/pdf-annotate.js';
 
+const PDFAnnotate = PDFJSAnnotate;
 const { UI } = PDFJSAnnotate;
 
 @Component({
@@ -43,10 +44,10 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
     this.pdf = loadedPdf;
     this.numPages = loadedPdf.numPages;
     this.RENDER_OPTIONS.pdfDocument = loadedPdf;
-    (<any> PDFJSAnnotate).setStoreAdapter(this.storageAdapter);
+    PDFAnnotate.setStoreAdapter(this.storageAdapter);
     PDFJS.getDocument(this.url).then(pdf => {
       UI.initEventListeners();
-      (<any> PDFJSAnnotate).initToolbarEvents(this.RENDER_OPTIONS);
+      PDFAnnotate.initToolbarEvents(this.RENDER_OPTIONS);
     });
   }
 
@@ -59,20 +60,26 @@ export class AnnotatedPdfViewerComponent implements Viewer, OnInit {
         const textLayer = document.getElementsByClassName('textLayer').item(0);
         PAGE.insertBefore(annotationLayer, textLayer);
 
-        UI.renderPage(this.page, this.RENDER_OPTIONS);
+        this.renderAnnotations();
         this.rendered.emit(e);
     }
+  }
+
+  public renderAnnotations() {
+    UI.renderPage(this.page, this.RENDER_OPTIONS);
   }
 
   prevPage() {
     if (this.page > 1) {
       this.page--;
+      this.pageChange(this.page);
     }
   }
 
   nextPage() {
     if (this.page < this.numPages) {
       this.page++;
+      this.pageChange(this.page);
     }
   }
 
